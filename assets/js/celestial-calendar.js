@@ -20,10 +20,10 @@ const SAMPLE_EVENTS = [
     type: "meteor_shower"
   },
   {
-    id: "falcon9-2025-01-20",
-    name: "Falcon 9 Launch — Starlink",
+    id: "nasa-esa-next-2025-01-20",
+    name: "NASA and Europe Next Space Mission",
     date: "2025-01-20",
-    visibility: "Launch region and downrange viewers",
+    visibility: "Visible in launch region and downrange viewers",
     type: "launch"
   }
 ];
