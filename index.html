@@ -15,7 +15,7 @@
       nav a{margin-right:1rem;color:#0366d6;text-decoration:none}
       .card{background:#f8f9fb;padding:1rem;border-radius:8px}
       /* iframe container: responsive with corridor-aware width */
-      .iframe-wrapper{position:relative;width:100%;padding:0;border-radius:8px;overflow:hidden;background:linear-gradient(180deg,#ffffff, #f7f9fb);}
+      .iframe-wrapper{position:relative;width:100%;padding:0;border-radius:8px;overflow:hidden;background:linear-gradient(180deg,#ffffff, #f7f9fb);} 
       .iframe-wrapper iframe{width:100%;height:480px;border:0;display:block}
       @media (max-width:640px){
         .iframe-wrapper iframe{height:380px}
@@ -25,19 +25,19 @@
   <body>
     <main>
       <header>
-        <img class="avatar" src="/avatar.png" alt="Avatar" onerror="this.style.display='none'" />
+        <img class="avatar" src="avatar.png" alt="Avatar" onerror="this.style.display='none'" />
         <div>
           <h1>Anup Dharangutti <span style="font-weight:normal;">(dharangutti)</span></h1>
 <p class="lead">
   Test Automation Specialist • Modular Systems Thinker
 </p>
           <nav>
-            <a href="/cv.html">Curriculum vitae</a>
-            <a href="/contact.html">Contact</a>
+            <a href="cv.html">Curriculum vitae</a>
+            <a href="contact.html">Contact</a>
             <a href="https://github.com/dharangutti">GitHub</a>
             <a href="https://www.linkedin.com/in/anup-dharangutti-852a94129/">LinkedIn</a>
             <!-- added Celestial Events link -->
-            <a href="/celestial-calendar.html">Celestial Events</a>
+            <a href="celestial-calendar.html">Celestial Events</a>
           </nav>
         </div>
       </header>
@@ -46,7 +46,7 @@
         <div class="card">
   <h2>About me</h2>
   <p>
-    I build web, desktop, and mobile test automation solutions across enterprise-grade stacks, blending precision engineering with scalable frameworks. With over 14 years in QA and system design, [...]
+    I build web, desktop, and mobile test automation solutions across enterprise-grade stacks, blending precision engineering with scalable frameworks. With over 14 years in QA and system design, [...[...]]
   </p>
 </div>
 
@@ -54,8 +54,8 @@
         <div class="card" style="margin-top:1rem">
           <h2>Quick links</h2>
           <ul>
-            <li><a href="/cv.html">View my CV</a></li>
-            <li><a href="/contact.html">Get in touch</a></li>
+            <li><a href="cv.html">View my CV</a></li>
+            <li><a href="contact.html">Get in touch</a></li>
             <li><a href="https://github.com/dharangutti?tab=repositories">My repositories</a></li>
           </ul>
         </div>
@@ -66,14 +66,25 @@
           <p style="margin-top:0.25rem;color:#333">A compact view of upcoming lunar eclipses, meteor showers, and space missions. Click any card to open an AI-generated explanation.</p>
 
           <div class="iframe-wrapper" role="group" aria-label="Celestial Events preview">
-            <!-- Standalone page is /celestial-calendar.html; the iframe shows the same page embedded -->
-            <iframe src="/celestial-calendar.html" title="Celestial Events Calendar" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            <!-- Standalone page is celestial-calendar.html; the iframe shows the same page embedded -->
+            <iframe src="celestial-calendar.html" title="Celestial Events Calendar" loading="lazy" referrerpolicy="no-referrer"></iframe>
           </div>
 
-          <p style="margin-top:0.6rem"><a href="/celestial-calendar.html">Open calendar in its standalone page</a></p>
+          <p style="margin-top:0.6rem"><a href="celestial-calendar.html">Open calendar in its standalone page</a></p>
         </div>
 
       </section>
     </main>
+
+    <script>
+      // Append a cache-busting query parameter to the iframe so updates show immediately
+      document.addEventListener('DOMContentLoaded', function(){
+        var iframe = document.querySelector('.iframe-wrapper iframe');
+        if(!iframe) return;
+        var src = iframe.getAttribute('src') || 'celestial-calendar.html';
+        var sep = src.indexOf('?') === -1 ? '?' : '&';
+        iframe.src = src + sep + 'v=' + Date.now();
+      });
+    </script>
   </body>
 </html>
