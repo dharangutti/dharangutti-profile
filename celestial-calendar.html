@@ -1,4 +1,22 @@
-<section id="calendar-root" class="calendar-root" aria-live="polite"></section>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Celestial Events — Calendar</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    .event-list { display: grid; gap: 1rem; }
+    .event-card { border: 1px solid #ccc; padding: 1rem; border-radius: 6px; }
+    .event-title { margin: 0.5rem 0; font-size: 1.2rem; }
+    .event-when, .event-location { margin: 0.25rem 0; }
+    .btn { display: inline-block; margin-top: 0.5rem; padding: 0.3rem 0.6rem; background: #0078d4; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Upcoming Celestial Events</h1>
+  <p>Lunar eclipses, meteor showers, and planetary conjunctions — updated live from public feeds.</p>
+  <section id="calendar-root" class="calendar-root" aria-live="polite"></section>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,7 +166,7 @@ function renderEvents(events) {
     loc.textContent = ev.location;
 
     const more = document.createElement('a');
-    more.className = 'btn small secondary';
+    more.className = 'btn';
     more.href = ev.link;
     more.target = '_blank';
     more.textContent = 'More info';
@@ -163,3 +181,5 @@ function renderEvents(events) {
   root.appendChild(list);
 }
 </script>
+</body>
+</html>
