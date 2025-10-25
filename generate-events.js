@@ -9,7 +9,8 @@ const events = [];
 (async () => {
   await Promise.all([
     fetchLunarEclipses(),
-    fetchConjunctions()
+    fetchConjunctions(),
+    fetchSpaceMissions()
   ]);
 
   const deduped = deduplicate(events);
@@ -35,14 +36,12 @@ async function fetchLunarEclipses() {
     const type = cells[2].textContent.trim();
     const region = cells[5]?.textContent.trim();
 
-    if (!dateText.includes('2025')) return;
+    if (!dateText.includes('2025') && !dateText.includes('2026')) return;
     const date = new Date(`${dateText} 00:00 UTC`);
     if (isNaN(date)) return;
 
-    const id = `2025-lunar-${type.toLowerCase().replace(/\s+/g, '-')}-${dateText.replace(/\s+/g, '').toLowerCase()}`;
+    const id = `lunar-${type.toLowerCase().replace(/\s+/g, '-')}-${dateText.replace(/\s+/g, '').toLowerCase()}`;
     const location = region && !region.match(/\d{2}h\d{2}m/) ? region : 'See source';
-
-    const explanation = `During a ${type.toLowerCase()} lunar eclipse, the Moon passes through Earth's shadow, causing a dramatic darkening.`;
 
     events.push({
       id,
@@ -50,7 +49,7 @@ async function fetchLunarEclipses() {
       start: date.toISOString(),
       end: new Date(date.getTime() + 3 * 60 * 60 * 1000).toISOString(),
       location,
-      explanation,
+      explanation: `During a ${type.toLowerCase()} lunar eclipse, the Moon passes through Earth's shadow.`,
       link: url
     });
   });
@@ -77,9 +76,8 @@ async function fetchConjunctions() {
     const day = parseInt(dayStr);
     const date = new Date(Date.UTC(2025, month, day, 0, 0));
 
-    const id = `2025-conjunction-${body.toLowerCase()}-${monthStr.toLowerCase()}${dayStr}`;
+    const id = `conjunction-${body.toLowerCase()}-${monthStr.toLowerCase()}${dayStr}`;
     const title = `${body} Conjunction`;
-    const explanation = `A conjunction occurs when ${body} appears close to another celestial body in the sky, often near the Sun or Moon.`;
 
     events.push({
       id,
@@ -87,10 +85,45 @@ async function fetchConjunctions() {
       start: date.toISOString(),
       end: new Date(date.getTime() + 2 * 60 * 60 * 1000).toISOString(),
       location: "Visible globally",
-      explanation,
+      explanation: `A conjunction occurs when ${body} appears close to another celestial body in the sky.`,
       link: url
     });
   });
+}
+
+// 🚀 Space Missions from curated feed
+async function fetchSpaceMissions() {
+  const missions = [
+    {
+      id: 'mission-escapade-dec2025',
+      title: 'NASA ESCAPADE Mars Mission',
+      start: '2025-12-01T00:00:00Z',
+      end: '2025-12-01T06:00:00Z',
+      location: 'Mars orbit',
+      explanation: 'ESCAPADE will study Mars’ magnetic field and plasma environment using twin spacecraft.',
+      link: 'https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/'
+    },
+    {
+      id: 'mission-nisar-2025',
+      title: 'NASA-ISRO NISAR Earth Observation Launch',
+      start: '2025-11-15T00:00:00Z',
+      end: '2025-11-15T03:00:00Z',
+      location: 'Low Earth Orbit',
+      explanation: 'NISAR will monitor Earth’s surface changes using dual-frequency radar.',
+      link: 'https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/'
+    },
+    {
+      id: 'mission-gaganyaan-test-2025',
+      title: 'ISRO Gaganyaan Uncrewed Test Flight',
+      start: '2025-10-30T00:00:00Z',
+      end: '2025-10-30T02:00:00Z',
+      location: 'Low Earth Orbit',
+      explanation: 'ISRO will test life support and safety systems for India’s first human spaceflight.',
+      link: 'https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/'
+    }
+  ];
+
+  events.push(...missions);
 }
 
 // 🧹 Deduplicate by ID
