@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "mission-escapade-dec2025",
+    "title": "NASA ESCAPADE Mars Mission",
+    "start": "2025-12-01T00:00:00Z",
+    "end": "2025-12-01T06:00:00Z",
+    "location": "Mars orbit",
+    "explanation": "ESCAPADE will study Mars’ magnetic field and plasma environment using twin spacecraft.",
+    "link": "https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/"
+  },
+  {
+    "id": "mission-nisar-2025",
+    "title": "NASA-ISRO NISAR Earth Observation Launch",
+    "start": "2025-11-15T00:00:00Z",
+    "end": "2025-11-15T03:00:00Z",
+    "location": "Low Earth Orbit",
+    "explanation": "NISAR will monitor Earth’s surface changes using dual-frequency radar.",
+    "link": "https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/"
+  },
+  {
+    "id": "mission-gaganyaan-test-2025",
+    "title": "ISRO Gaganyaan Uncrewed Test Flight",
+    "start": "2025-10-30T00:00:00Z",
+    "end": "2025-10-30T02:00:00Z",
+    "location": "Low Earth Orbit",
+    "explanation": "ISRO will test life support and safety systems for India’s first human spaceflight.",
+    "link": "https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/"
+  },
+  {
+    "id": "lunar-total-2026mar03",
+    "title": "Total Lunar Eclipse",
+    "start": "2026-03-03T00:00:00.000Z",
+    "end": "2026-03-03T03:00:00.000Z",
+    "location": "See source",
+    "explanation": "During a total lunar eclipse, the Moon passes through Earth's shadow.",
+    "link": "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html"
+  },
+  {
+    "id": "lunar-partial-2026aug28",
+    "title": "Partial Lunar Eclipse",
+    "start": "2026-08-28T00:00:00.000Z",
+    "end": "2026-08-28T03:00:00.000Z",
+    "location": "See source",
+    "explanation": "During a partial lunar eclipse, the Moon passes through Earth's shadow.",
+    "link": "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html"
+  }
+]
