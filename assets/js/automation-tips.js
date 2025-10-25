@@ -2,21 +2,17 @@ fetch('data/tips.json')
   .then(res => res.json())
   .then(tips => {
     const container = document.getElementById('tips-root');
-    const today = new Date();
-    const oneYearAgo = new Date(today);
-    oneYearAgo.setFullYear(today.getFullYear() - 1);
 
-    const filtered = tips
+    const sorted = tips
       .map(t => ({ ...t, date: new Date(t.date) }))
-      .filter(t => t.date >= oneYearAgo && t.date <= today)
-      .sort((a, b) => b.date - a.date);
+      .sort((a, b) => b.date - a.date); // newest first
 
-    if (filtered.length === 0) {
+    if (sorted.length === 0) {
       container.innerHTML = '<p>No tips available yet. Check back next Monday!</p>';
       return;
     }
 
-    filtered.forEach(tip => {
+    sorted.forEach(tip => {
       const card = document.createElement('div');
       card.className = 'card';
       card.setAttribute('tabindex', '0');
