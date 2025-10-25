@@ -165,7 +165,15 @@ function wireModal() {
   });
 }
 
-// Live Feed Parsers
+function stripTags(str) {
+  return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function parseDate(year, text) {
+  const [monthName, day] = text.split(' ');
+  return new Date(`${monthName} ${day}, ${year} 22:00 UTC`);
+}
+
 async function fetchMeteorShowers() {
   const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
   const html = await res.text();
@@ -230,11 +238,4 @@ async function fetchLunarEclipses() {
 }
 
 async function fetchConjunctions() {
-  const res = await fetch('https://www.astropixels.com/ephemeris/sky2025/sky2025events.html');
-  const html = await res.text();
-  const rows = html.split('<tr>');
-  const events = [];
-
-  for (const row of rows) {
-    if (!row.includes('Conjunction')) continue;
-    const dateMatch = row.match(/([A-Za-z]+)\s+(\d{1
+  const res = await fetch('https://www.astropixels.com/ephemeris/sky2025/sky2025events.html
