@@ -44,7 +44,7 @@ function normalizeEvent(raw) {
     end: raw.end ? new Date(raw.end) : null,
     location: raw.location || '',
     explanation: raw.explanation || '',
-    link: raw.link || ''
+    link: raw.link || `/data/details/${(raw.id || raw.title || 'event').replace(/\s+/g, '-').toLowerCase()}.html`
   };
 }
 
