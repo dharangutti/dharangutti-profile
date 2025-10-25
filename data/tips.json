@@ -6,5 +6,37 @@
     "category": "Stability",
     "explanation": "Replace arbitrary timeouts with explicit waits tied to UI state. This reduces flakiness and improves test resilience.",
     "link": "https://testing.googleblog.com/2010/12/test-flakiness.html"
+  },
+  {
+    "id": "tip-2025-11-03",
+    "title": "Mock External APIs for Isolation",
+    "date": "2025-11-03",
+    "category": "Resilience",
+    "explanation": "Mocking third-party services ensures your tests run reliably even when external systems are down or slow.",
+    "link": "https://martinfowler.com/articles/mocksArentStubs.html"
+  },
+  {
+    "id": "tip-2025-11-10",
+    "title": "Name Tests by Intent, Not Implementation",
+    "date": "2025-11-10",
+    "category": "Clarity",
+    "explanation": "Use descriptive names like 'shouldShowErrorOnInvalidLogin' instead of 'testLoginFail'. This improves readability and debugging.",
+    "link": "https://docs.cypress.io/guides/references/best-practices"
+  },
+  {
+    "id": "tip-2025-11-17",
+    "title": "Validate Accessibility in UI Tests",
+    "date": "2025-11-17",
+    "category": "Accessibility",
+    "explanation": "Include checks for ARIA roles, keyboard navigation, and contrast ratios to ensure inclusive design is testable.",
+    "link": "https://www.deque.com/blog/automated-accessibility-testing/"
+  },
+  {
+    "id": "tip-2025-11-24",
+    "title": "Run Smoke Tests on Every Pull Request",
+    "date": "2025-11-24",
+    "category": "CI/CD",
+    "explanation": "Automate a fast, high-level test suite to catch regressions early in the development cycle.",
+    "link": "https://www.browserstack.com/guide/smoke-testing"
   }
 ]
