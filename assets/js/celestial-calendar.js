@@ -1,7 +1,3 @@
-// Simple client-side loader for upcoming celestial events.
-// Expects a JSON feed at /data/events.json with items like:
-// { "id":"1","title":"Perseid Meteor Shower","start":"2025-08-12T22:00:00Z","end":"2025-08-13T06:00:00Z","location":"Worldwide","explanation":"...optional prewritten explanation..." }
-
 const root = document.getElementById('calendar-root');
 const modal = document.getElementById('explain-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -17,7 +13,7 @@ async function init() {
   let events = null;
 
   try {
-    const resp = await fetch('/data/events.json', {cache: 'no-cache'});
+    const resp = await fetch('/data/events.json', { cache: 'no-cache' });
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.status}`);
     events = await resp.json();
   } catch (err) {
@@ -28,15 +24,14 @@ async function init() {
   const upcoming = events
     .map(normalizeEvent)
     .filter(e => e.start >= startOfDay(today))
-    .sort((a,b) => a.start - b.start)
-    .slice(0, 20); // limit to first 20 upcoming
+    .sort((a, b) => a.start - b.start)
+    .slice(0, 20);
 
   renderEvents(upcoming);
   wireModal();
 }
 
 function normalizeEvent(raw) {
-  // Ensure dates are Date objects, keep fallback strings
   return {
     id: raw.id || `${raw.title}-${raw.start}`,
     title: raw.title || 'Untitled Event',
@@ -44,7 +39,10 @@ function normalizeEvent(raw) {
     end: raw.end ? new Date(raw.end) : null,
     location: raw.location || '',
     explanation: raw.explanation || '',
-    link: raw.link || `/data/details/${(raw.id || raw.title || 'event').replace(/\s+/g, '-').toLowerCase()}.html`
+    link: raw.link || `/data/details/${(raw.id || raw.title || 'event')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.html`
   };
 }
 
@@ -77,7 +75,7 @@ function renderEvents(events) {
 
     const loc = document.createElement('p');
     loc.className = 'event-location';
-    loc.textContent = ev.location || '';
+    loc.textContent = ev.location;
 
     const controls = document.createElement('div');
     controls.className = 'event-controls';
@@ -85,7 +83,7 @@ function renderEvents(events) {
     const explainBtn = document.createElement('button');
     explainBtn.className = 'btn small';
     explainBtn.textContent = 'Why does this happen?';
-    explainBtn.disabled = !ev.explanation && !ev.link; // disabled if no explanation/link
+    explainBtn.disabled = !ev.explanation && !ev.link;
     explainBtn.addEventListener('click', () => openExplanation(ev));
 
     if (ev.link && (ev.link.startsWith('/') || /^https?:\/\/.+/.test(ev.link))) {
@@ -96,14 +94,13 @@ function renderEvents(events) {
       more.rel = 'noopener noreferrer';
       more.textContent = 'More info';
       controls.appendChild(more);
-}
+    }
 
     controls.appendChild(explainBtn);
     card.appendChild(when);
     card.appendChild(title);
     if (loc.textContent) card.appendChild(loc);
     card.appendChild(controls);
-
     list.appendChild(card);
   }
 
@@ -116,13 +113,13 @@ function formatEventDate(start, end) {
   const startDate = start.toLocaleDateString(undefined, optsDate);
   const startTime = start.toLocaleTimeString(undefined, optsTime);
   if (!end) return `${startDate} • ${startTime}`;
-  // If same day, show times
   if (start.toDateString() === end.toDateString()) {
     const endTime = end.toLocaleTimeString(undefined, optsTime);
     return `${startDate} • ${startTime}–${endTime}`;
   }
-  const endDate = end.toLocaleString(undefined, optsDate);
-  return `${startDate} ${startTime} – ${endDate} ${end.toLocaleTimeString(undefined, optsTime)}`;
+  const endDate = end.toLocaleDateString(undefined, optsDate);
+  const endTime = end.toLocaleTimeString(undefined, optsTime);
+  return `${startDate} ${startTime} – ${endDate} ${endTime}`;
 }
 
 function openExplanation(ev) {
@@ -149,31 +146,28 @@ function wireModal() {
   modalCancel.addEventListener('click', closeModal);
   modalCopy.addEventListener('click', () => {
     const text = modalBody.innerText || modalBody.textContent;
-    navigator.clipboard?.writeText(text).then(()=> {
+    navigator.clipboard?.writeText(text).then(() => {
       modalCopy.textContent = 'Copied ✓';
-      setTimeout(()=> modalCopy.textContent = 'Copy Explanation', 1500);
-    }).catch(()=> {
+      setTimeout(() => (modalCopy.textContent = 'Copy Explanation'), 1500);
+    }).catch(() => {
       modalCopy.textContent = 'Copy failed';
-      setTimeout(()=> modalCopy.textContent = 'Copy Explanation', 1500);
+      setTimeout(() => (modalCopy.textContent = 'Copy Explanation'), 1500);
     });
   });
-  // close on outside click
   modal.addEventListener('click', (ev) => {
     if (ev.target === modal) closeModal();
   });
-  // close on ESC
   document.addEventListener('keydown', (ev) => {
     if (ev.key === 'Escape') closeModal();
   });
 }
 
-// Demo fallback data
 function demoEvents() {
   return [
     {
       id: 'demo-perseid',
       title: 'Perseid Meteor Shower Peak',
-      start: new Date(new Date().getFullYear(), 7, 12, 22).toISOString(), // Aug 12 22:00 local year
+      start: new Date(new Date().getFullYear(), 7, 12, 22).toISOString(),
       end: new Date(new Date().getFullYear(), 7, 13, 6).toISOString(),
       location: 'Worldwide',
       explanation: 'The Perseids occur each year as Earth passes through the debris left by comet Swift–Tuttle.'
