@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Celestial Events — Calendar</title>
+  <title>Celestial Events Calendar</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -13,12 +13,9 @@
       <p class="subtitle">Lunar eclipses, meteor showers, and planetary conjunctions — updated live from public feeds.</p>
     </header>
 
-    <section id="calendar-root" class="calendar-root" aria-live="polite">
-      <!-- Event cards will be injected here -->
-    </section>
+    <section id="calendar-root" class="calendar-root" aria-live="polite"></section>
   </main>
 
-  <!-- Modal for explanations -->
   <div id="explain-modal" class="modal" aria-hidden="true">
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
       <button id="modal-close" class="modal-close" aria-label="Close">×</button>
