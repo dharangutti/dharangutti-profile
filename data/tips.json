@@ -1,0 +1,10 @@
+[
+  {
+    "id": "tip-2025-10-27",
+    "title": "Avoid Flaky Tests with Explicit Waits",
+    "date": "2025-10-27",
+    "category": "Stability",
+    "explanation": "Replace arbitrary timeouts with explicit waits tied to UI state. This reduces flakiness and improves test resilience.",
+    "link": "https://testing.googleblog.com/2010/12/test-flakiness.html"
+  }
+]
