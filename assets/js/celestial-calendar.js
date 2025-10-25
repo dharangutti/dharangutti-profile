@@ -1,4 +1,3 @@
-<script>
 const root = document.getElementById('calendar-root');
 const modal = document.getElementById('explain-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -165,36 +164,29 @@ function wireModal() {
   });
 }
 
-function stripTags(str) {
-  return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-}
-
-function parseDate(year, text) {
-  const [monthName, day] = text.split(' ');
-  return new Date(`${monthName} ${day}, ${year} 22:00 UTC`);
-}
+// Feed Parsers Using DOMParser
 
 async function fetchMeteorShowers() {
   const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
   const html = await res.text();
-  const rows = html.split('<tr>').slice(1);
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const rows = doc.querySelectorAll('table tbody tr');
   const year = new Date().getFullYear();
   const events = [];
 
-  for (const row of rows) {
-    const cols = row.split('<td>');
-    if (cols.length < 6) continue;
+  rows.forEach(row => {
+    const cols = row.querySelectorAll('td');
+    if (cols.length < 6) return;
 
-    const name = stripTags(cols[1]);
-    const dateRange = stripTags(cols[2]);
-    const visibility = stripTags(cols[5]);
-
+    const name = cols[1].textContent.trim();
+    const dateRange = cols[2].textContent.trim();
+    const visibility = cols[5].textContent.trim();
     const [startStr, endStr] = dateRange.split('–').map(s => s.trim());
-    if (!startStr || !endStr) continue;
+    if (!startStr || !endStr) return;
 
-    const start = parseDate(year, startStr);
-    const end = parseDate(year, endStr);
-    if (!start || start < new Date()) continue;
+    const start = new Date(`${startStr} ${year} 22:00 UTC`);
+    const end = new Date(`${endStr} ${year} 06:00 UTC`);
+    if (start < new Date()) return;
 
     events.push({
       title: `${name} Meteor Shower`,
@@ -204,38 +196,45 @@ async function fetchMeteorShowers() {
       explanation: '',
       link: 'https://www.timeanddate.com/astronomy/meteor-shower/list.html'
     });
-  }
+  });
 
   return events;
 }
 
 async function fetchLunarEclipses() {
-  const res = await fetch('https://eclipse.gsfc.nasa.gov/SKYCAL/SKYCAL2025.html');
+  const res = await fetch('https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html');
   const html = await res.text();
-  const rows = html.split('<tr>');
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const rows = doc.querySelectorAll('table tr');
   const events = [];
 
-  for (const row of rows) {
-    if (!row.includes('Lunar Eclipse')) continue;
-    const dateMatch = row.match(/(\d{4})\s+([A-Za-z]+)\s+(\d{1,2})/);
-    if (!dateMatch) continue;
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 5) return;
 
-    const [_, year, month, day] = dateMatch;
-    const date = new Date(`${month} ${day}, ${year} 00:00 UTC`);
-    if (date < new Date()) continue;
+    const dateText = cells[0].textContent.trim();
+    const type = cells[2].textContent.trim();
+    const region = cells[5]?.textContent.trim() || 'Global';
+
+    if (!dateText.includes('2025') || !type.toLowerCase().includes('total')) return;
+
+    const date = new Date(`${dateText} 00:00 UTC`);
+    if (date < new Date()) return;
 
     events.push({
-      title: 'Lunar Eclipse',
+      title: `${type} Lunar Eclipse`,
       start: date,
       end: new Date(date.getTime() + 3 * 60 * 60 * 1000),
-      location: 'Global',
+      location: region,
       explanation: '',
-      link: 'https://eclipse.gsfc.nasa.gov/SKYCAL/SKYCAL2025.html'
+      link: 'https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html'
     });
-  }
+  });
 
   return events;
 }
 
 async function fetchConjunctions() {
-  const res = await fetch('https://www.astropixels.com/ephemeris/sky2025/sky2025events.html
+  const res = await fetch('https://www.astropixels.com/almanac/almanac21/almanac2025ist.html');
+  const html = await res.text();
+ 
