@@ -1,0 +1,20 @@
+[
+  {
+    "id": "2025-perseid",
+    "title": "Perseid Meteor Shower Peak",
+    "start": "2025-08-12T22:00:00Z",
+    "end": "2025-08-13T06:00:00Z",
+    "location": "Worldwide",
+    "explanation": "The Perseids occur each year as Earth passes through the debris of comet Swift–Tuttle.",
+    "link": "https://en.wikipedia.org/wiki/Perseids"
+  },
+  {
+    "id": "2025-lunar-eclipse-1",
+    "title": "Partial Lunar Eclipse",
+    "start": "2025-10-29T02:00:00Z",
+    "end": "2025-10-29T05:00:00Z",
+    "location": "Visible across Europe, Africa, Asia",
+    "explanation": "A partial lunar eclipse occurs when only a portion of the Moon enters Earth's umbra.",
+    "link": "https://example.com/eclipse-details"
+  }
+]
