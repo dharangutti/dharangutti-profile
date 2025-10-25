@@ -13,8 +13,10 @@ const events = [];
   ]);
 
   const deduped = deduplicate(events);
-  fs.writeFileSync(outputPath, JSON.stringify(deduped, null, 2), 'utf-8');
-  console.log(`✅ Generated ${deduped.length} events to data/events.json`);
+  const filtered = deduped.filter(e => isWithinNextYear(new Date(e.start)));
+
+  fs.writeFileSync(outputPath, JSON.stringify(filtered, null, 2), 'utf-8');
+  console.log(`✅ Generated ${filtered.length} upcoming events to data/events.json`);
 })();
 
 // 🌕 Lunar Eclipses from NASA
@@ -99,4 +101,12 @@ function deduplicate(arr) {
     seen.add(ev.id);
     return true;
   });
+}
+
+// 📅 Filter events within next year
+function isWithinNextYear(startDate) {
+  const now = new Date();
+  const oneYearLater = new Date();
+  oneYearLater.setFullYear(now.getFullYear() + 1);
+  return startDate >= now && startDate <= oneYearLater;
 }
