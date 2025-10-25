@@ -14,7 +14,7 @@ fetch('data/tips.json')
 
     sorted.forEach(tip => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.className = 'event-card';
       card.setAttribute('tabindex', '0');
       card.setAttribute('role', 'button');
       card.setAttribute('aria-label', `Tip: ${tip.title}`);
