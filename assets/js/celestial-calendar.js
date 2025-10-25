@@ -14,54 +14,33 @@ async function init() {
   oneYearFromNow.setFullYear(today.getFullYear() + 1);
 
   try {
-    const events = await fetchRSSFeed("https://skyandtelescope.org/feed/");
+    const res = await fetch('/data/events.json');
+    const events = await res.json();
+
     const filtered = events
-      .filter(e => e.date >= today && e.date <= oneYearFromNow)
-      .sort((a, b) => a.date - b.date)
-      .slice(0, 20);
+      .map(normalizeEvent)
+      .filter(e => e.start >= today && e.start <= oneYearFromNow)
+      .sort((a, b) => a.start - b.start);
 
     renderEvents(filtered);
   } catch (err) {
-    console.warn("RSS fetch failed, using demo data:", err);
-    renderEvents(demoEvents());
+    console.error('Failed to load events:', err);
+    root.innerHTML = '<p>Could not load events.</p>';
   }
 
   wireModal();
 }
 
-async function fetchRSSFeed(url) {
-  const res = await fetch(url);
-  const xml = await res.text();
-  const doc = new DOMParser().parseFromString(xml, "application/xml");
-  const items = [...doc.querySelectorAll("item")];
-
-  return items.map(item => ({
-    title: item.querySelector("title")?.textContent || "Untitled",
-    date: new Date(item.querySelector("pubDate")?.textContent),
-    location: "See source",
-    explanation: item.querySelector("description")?.textContent || "",
-    link: item.querySelector("link")?.textContent || ""
-  }));
-}
-
-function demoEvents() {
-  const now = new Date();
-  return [
-    {
-      title: "Perseid Meteor Shower",
-      date: new Date(now.getFullYear(), 7, 12, 22),
-      location: "Worldwide",
-      explanation: "Occurs as Earth passes through debris from comet Swift–Tuttle.",
-      link: "https://www.timeanddate.com/astronomy/meteor-shower/list.html"
-    },
-    {
-      title: "Total Lunar Eclipse",
-      date: new Date(now.getFullYear(), 9, 29, 2),
-      location: "Africa, Europe, Asia",
-      explanation: "Earth blocks sunlight from reaching the Moon.",
-      link: "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html"
-    }
-  ];
+function normalizeEvent(raw) {
+  return {
+    id: raw.id,
+    title: raw.title,
+    start: new Date(raw.start),
+    end: raw.end ? new Date(raw.end) : null,
+    location: raw.location || '',
+    explanation: raw.explanation || '',
+    link: raw.link || ''
+  };
 }
 
 function renderEvents(events) {
@@ -82,7 +61,7 @@ function renderEvents(events) {
 
     const meta = document.createElement('div');
     meta.className = 'event-meta';
-    meta.textContent = ev.date.toLocaleString();
+    meta.textContent = formatEventDate(ev.start, ev.end);
 
     const loc = document.createElement('div');
     loc.className = 'event-meta';
@@ -94,7 +73,7 @@ function renderEvents(events) {
     const explainBtn = document.createElement('button');
     explainBtn.className = 'btn small';
     explainBtn.textContent = 'Why does this happen?';
-    explainBtn.disabled = !ev.explanation && !ev.link;
+    explainBtn.disabled = !ev.explanation && !ev.id;
     explainBtn.addEventListener('click', () => openExplanation(ev));
 
     if (ev.link) {
@@ -116,16 +95,49 @@ function renderEvents(events) {
   }
 }
 
+function formatEventDate(start, end) {
+  const optsDate = { year: 'numeric', month: 'short', day: 'numeric' };
+  const optsTime = { hour: '2-digit', minute: '2-digit' };
+  const startDate = start.toLocaleDateString(undefined, optsDate);
+  const startTime = start.toLocaleTimeString(undefined, optsTime);
+  if (!end) return `${startDate} • ${startTime}`;
+  if (start.toDateString() === end.toDateString()) {
+    const endTime = end.toLocaleTimeString(undefined, optsTime);
+    return `${startDate} • ${startTime}–${endTime}`;
+  }
+  const endDate = end.toLocaleDateString(undefined, optsDate);
+  const endTime = end.toLocaleTimeString(undefined, optsTime);
+  return `${startDate} ${startTime} – ${endDate} ${endTime}`;
+}
+
 function openExplanation(ev) {
   modalTitle.textContent = ev.title;
-  modalBody.textContent = ev.explanation || 'No explanation available.';
-  modal.setAttribute('aria-hidden', 'false');
-  modal.style.display = 'flex';
+  modalBody.innerHTML = '<p>Loading explanation…</p>';
+
+  const detailsPath = `/data/details/${ev.id}.html`;
+
+  fetch(detailsPath)
+    .then(res => {
+      if (!res.ok) throw new Error("Details not found");
+      return res.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const main = doc.querySelector("main");
+      modalBody.innerHTML = main ? main.innerHTML : "<p>No explanation available.</p>";
+    })
+    .catch(() => {
+      modalBody.textContent = ev.explanation || "No explanation available.";
+    });
+
+  modal.setAttribute("aria-hidden", "false");
+  modal.style.display = "flex";
 }
 
 function closeModal() {
-  modal.setAttribute('aria-hidden', 'true');
-  modal.style.display = 'none';
+  modal.setAttribute("aria-hidden", "true");
+  modal.style.display = "none";
 }
 
 function wireModal() {
