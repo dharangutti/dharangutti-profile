@@ -24,10 +24,11 @@ fetch('data/tips.json')
   <p><strong>Category:</strong> ${tip.category}</p>
   <small>${tip.date.toDateString()}</small>
   <div class="card-footer">
-    <button class="btn small" onclick="showModal(${JSON.stringify(tip).replace(/"/g, '&quot;')})">View Explanation</button>
+    <button class="btn small explain-btn">View Explanation</button>
     ${tip.link ? `<a href="${tip.link}" target="_blank" class="btn small secondary">Learn more</a>` : ''}
   </div>
 `;
+      card.querySelector('.explain-btn').addEventListener('click', () => showModal(tip));
       container.appendChild(card);
     });
   });
