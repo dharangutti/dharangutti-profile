@@ -1,14 +1,36 @@
-<section id="calendar-root" class="calendar-root" aria-live="polite"></section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Celestial Events — Calendar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Upcoming Celestial Events</h1>
+      <p class="subtitle">Lunar eclipses, meteor showers, and planetary conjunctions — updated live from public feeds.</p>
+    </header>
 
-<!-- Modal for explanations -->
-<div id="explain-modal" class="modal" aria-hidden="true">
-  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
-    <button id="modal-close" class="modal-close" aria-label="Close">×</button>
-    <h2 id="modal-title">Event Title</h2>
-    <div id="modal-body" class="modal-body">Explanation goes here.</div>
-    <div class="modal-footer">
-      <button id="modal-copy" class="btn small">Copy Explanation</button>
-      <button id="modal-cancel" class="btn small secondary">Close</button>
+    <section id="calendar-root" class="calendar-root" aria-live="polite">
+      <!-- Event cards will be injected here -->
+    </section>
+  </main>
+
+  <!-- Modal for explanations -->
+  <div id="explain-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
+      <button id="modal-close" class="modal-close" aria-label="Close">×</button>
+      <h2 id="modal-title">Event Title</h2>
+      <div id="modal-body" class="modal-body">Explanation goes here.</div>
+      <div class="modal-footer">
+        <button id="modal-copy" class="btn small">Copy Explanation</button>
+        <button id="modal-cancel" class="btn small secondary">Close</button>
+      </div>
     </div>
   </div>
-</div>
+
+  <script src="calendar.js"></script>
+</body>
+</html>
