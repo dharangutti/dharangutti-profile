@@ -36,7 +36,109 @@
       </div>
     </div>
   </div>
+  <section id="calendar-root" class="calendar-root" aria-live="polite"></section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchMeteorEvents();
+  });
+
+  async function fetchMeteorEvents() {
+    try {
+      const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
+      const html = await res.text();
+      const events = extractEvents(html);
+      renderEvents(events);
+    } catch (err) {
+      console.warn('Failed to fetch meteor events:', err);
+      document.getElementById('calendar-root').innerHTML = '<p>Could not load events.</p>';
+    }
+  }
+
+  function extractEvents(html) {
+    const rows = html.split('<tr>').slice(1);
+    const year = new Date().getFullYear();
+    const events = [];
+
+    for (const row of rows) {
+      const cols = row.split('<td>');
+      if (cols.length < 6) continue;
+
+      const name = stripTags(cols[1]);
+      const dateRange = stripTags(cols[2]);
+      const visibility = stripTags(cols[5]);
+
+      const [startStr, endStr] = dateRange.split('–').map(s => s.trim());
+      if (!startStr || !endStr) continue;
+
+      const start = parseDate(year, startStr);
+      const end = parseDate(year, endStr);
+
+      events.push({
+        title: `${name} Meteor Shower`,
+        start,
+        end,
+        location: visibility,
+        link: 'https://www.timeanddate.com/astronomy/meteor-shower/list.html'
+      });
+    }
+
+    return events;
+  }
+
+  function stripTags(str) {
+    return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  function parseDate(year, text) {
+    const [monthName, day] = text.split(' ');
+    return new Date(`${monthName} ${day}, ${year} 22:00 UTC`);
+  }
+
+  function renderEvents(events) {
+    const root = document.getElementById('calendar-root');
+    root.innerHTML = '';
+
+    if (!events.length) {
+      root.innerHTML = '<p>No upcoming events found.</p>';
+      return;
+    }
+
+    const list = document.createElement('div');
+    list.className = 'event-list';
+
+    for (const ev of events) {
+      const card = document.createElement('article');
+      card.className = 'event-card';
+
+      const when = document.createElement('div');
+      when.className = 'event-when';
+      when.textContent = ev.start.toDateString();
+
+      const title = document.createElement('h3');
+      title.className = 'event-title';
+      title.textContent = ev.title;
+
+      const loc = document.createElement('p');
+      loc.className = 'event-location';
+      loc.textContent = ev.location;
+
+      const more = document.createElement('a');
+      more.className = 'btn small secondary';
+      more.href = ev.link;
+      more.target = '_blank';
+      more.textContent = 'More info';
+
+      card.appendChild(when);
+      card.appendChild(title);
+      card.appendChild(loc);
+      card.appendChild(more);
+      list.appendChild(card);
+    }
+
+    root.appendChild(list);
+  }
+</script>
   <script src="assets/js/celestial-calendar.js" type="module"></script>
 </body>
 </html>
