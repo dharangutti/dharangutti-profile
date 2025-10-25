@@ -1,283 +1,190 @@
-// celestial-calendar.js — Module-based, audit-grade clarity, no backend required.
-//
-// Usage: Include <script type="module" src="assets/js/celestial-calendar.js"></script>
-// This file exposes no global symbols. All DOM wiring is done on DOMContentLoaded.
+// Simple client-side loader for upcoming celestial events.
+// Expects a JSON feed at /data/events.json with items like:
+// { "id":"1","title":"Perseid Meteor Shower","start":"2025-08-12T22:00:00Z","end":"2025-08-13T06:00:00Z","location":"Worldwide","explanation":"...optional prewritten explanation..." }
 
-const DEFAULT_MODEL = "gpt-4o-mini"; // change if you prefer another model
-const SAMPLE_EVENTS = [
-  {
-    id: "le-2025-03-14",
-    name: "Total Lunar Eclipse",
-    date: "2025-03-14",
-    visibility: "Visible across Europe, Africa, Asia",
-    type: "lunar_eclipse"
-  },
-  {
-    id: "perseids-2025-08",
-    name: "Perseid Meteor Shower (Peak)",
-    date: "2025-08-13",
-    visibility: "Best in Northern Hemisphere",
-    type: "meteor_shower"
-  },
-  {
-    id: "nasa-esa-next-2025-01-20",
-    name: "NASA and Europe Next Space Mission",
-    date: "2025-01-20",
-    visibility: "Visible in launch region and downrange viewers",
-    type: "launch"
-  }
-];
+const root = document.getElementById('calendar-root');
+const modal = document.getElementById('explain-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
+const modalClose = document.getElementById('modal-close');
+const modalCancel = document.getElementById('modal-cancel');
+const modalCopy = document.getElementById('modal-copy');
 
-// -------------------------- Utility helpers --------------------------
-function el(tag, attrs = {}, children = []) {
-  const node = document.createElement(tag);
-  Object.entries(attrs).forEach(([k, v]) => {
-    if (k === "class") node.className = v;
-    else if (k.startsWith("aria-")) node.setAttribute(k, v);
-    else if (k === "html") node.innerHTML = v;
-    else node[k] = v;
-  });
-  (Array.isArray(children) ? children : [children]).forEach(c => {
-    if (!c) return;
-    if (typeof c === "string") node.appendChild(document.createTextNode(c));
-    else node.appendChild(c);
-  });
-  return node;
-}
+document.addEventListener('DOMContentLoaded', init);
 
-function formatDateISO(d) {
+async function init() {
+  const today = new Date();
+  let events = null;
+
   try {
-    const dt = new Date(d + "T00:00:00Z");
-    return dt.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-  } catch {
-    return d;
+    const resp = await fetch('/data/events.json', {cache: 'no-cache'});
+    if (!resp.ok) throw new Error(`Fetch failed: ${resp.status}`);
+    events = await resp.json();
+  } catch (err) {
+    console.warn('Could not fetch events feed, using demo data.', err);
+    events = demoEvents();
   }
+
+  const upcoming = events
+    .map(normalizeEvent)
+    .filter(e => e.start >= startOfDay(today))
+    .sort((a,b) => a.start - b.start)
+    .slice(0, 20); // limit to first 20 upcoming
+
+  renderEvents(upcoming);
+  wireModal();
 }
 
-// -------------------------- Rendering functions --------------------------
-function renderEventCard(event, onExplainClick) {
-  const title = el("div", { class: "event-title" }, event.name);
-  const date = el("div", { class: "event-meta" }, `Date: ${formatDateISO(event.date)}`);
-  const visibility = el("div", { class: "event-meta" }, `Visibility: ${event.visibility || "Varies"}`);
-  const badge = el("span", { class: "badge" }, (event.type || "event").replace("_", " ").toUpperCase());
-
-  const explainBtn = el("button", { class: "btn", type: "button", onclick: () => onExplainClick(event) }, "Why does this happen?");
-  const card = el("article", { class: "event-card", role: "article", "aria-labelledby": `title-${event.id}` }, [
-    el("div", {}, [
-      el("h3", { id: `title-${event.id}`, class: "event-title" }, event.name),
-      date,
-      visibility
-    ]),
-    el("div", { class: "event-actions" }, [badge, explainBtn])
-  ]);
-  return card;
+function normalizeEvent(raw) {
+  // Ensure dates are Date objects, keep fallback strings
+  return {
+    id: raw.id || `${raw.title}-${raw.start}`,
+    title: raw.title || 'Untitled Event',
+    start: raw.start ? new Date(raw.start) : new Date(),
+    end: raw.end ? new Date(raw.end) : null,
+    location: raw.location || '',
+    explanation: raw.explanation || '',
+    link: raw.link || ''
+  };
 }
 
-function renderEventsGrid(container, events, onExplainClick) {
-  container.innerHTML = "";
+function startOfDay(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function renderEvents(events) {
+  root.innerHTML = '';
   if (!events.length) {
-    container.appendChild(el("div", { class: "event-card" }, "No upcoming events."));
+    root.innerHTML = `<p>No upcoming events found.</p>`;
     return;
   }
-  events.forEach(ev => container.appendChild(renderEventCard(ev, onExplainClick)));
+
+  const list = document.createElement('div');
+  list.className = 'event-list';
+
+  for (const ev of events) {
+    const card = document.createElement('article');
+    card.className = 'event-card';
+    card.setAttribute('tabindex', '0');
+
+    const when = document.createElement('div');
+    when.className = 'event-when';
+    when.textContent = formatEventDate(ev.start, ev.end);
+
+    const title = document.createElement('h3');
+    title.className = 'event-title';
+    title.textContent = ev.title;
+
+    const loc = document.createElement('p');
+    loc.className = 'event-location';
+    loc.textContent = ev.location || '';
+
+    const controls = document.createElement('div');
+    controls.className = 'event-controls';
+
+    const explainBtn = document.createElement('button');
+    explainBtn.className = 'btn small';
+    explainBtn.textContent = 'Why does this happen?';
+    explainBtn.disabled = !ev.explanation && !ev.link; // disabled if no explanation/link
+    explainBtn.addEventListener('click', () => openExplanation(ev));
+
+    if (ev.link) {
+      const more = document.createElement('a');
+      more.className = 'btn small secondary';
+      more.href = ev.link;
+      more.target = '_blank';
+      more.rel = 'noopener noreferrer';
+      more.textContent = 'More info';
+      controls.appendChild(more);
+    }
+
+    controls.appendChild(explainBtn);
+    card.appendChild(when);
+    card.appendChild(title);
+    if (loc.textContent) card.appendChild(loc);
+    card.appendChild(controls);
+
+    list.appendChild(card);
+  }
+
+  root.appendChild(list);
 }
 
-// -------------------------- Modal logic --------------------------
-const modal = {
-  root: null,
-  title: null,
-  body: null,
-  closeBtn: null,
-  copyBtn: null,
-  cancelBtn: null,
-
-  open() {
-    this.root.setAttribute("aria-hidden", "false");
-    this.root.style.display = "flex";
-    // trap focus:
-    this.closeBtn.focus();
-    document.body.style.overflow = "hidden";
-  },
-
-  close() {
-    this.root.setAttribute("aria-hidden", "true");
-    this.root.style.display = "none";
-    document.body.style.overflow = "";
-  },
-
-  setContent(title, htmlContent) {
-    this.title.textContent = title;
-    this.body.innerHTML = "";
-    if (typeof htmlContent === "string") this.body.textContent = htmlContent;
-    else this.body.appendChild(htmlContent);
-  },
-
-  showLoading() {
-    this.body.innerHTML = "";
-    const spinner = el("div", { class: "badge" }, "Fetching explanation…");
-    this.body.appendChild(spinner);
+function formatEventDate(start, end) {
+  const optsDate = { year: 'numeric', month: 'short', day: 'numeric' };
+  const optsTime = { hour: '2-digit', minute: '2-digit' };
+  const startDate = start.toLocaleDateString(undefined, optsDate);
+  const startTime = start.toLocaleTimeString(undefined, optsTime);
+  if (!end) return `${startDate} • ${startTime}`;
+  // If same day, show times
+  if (start.toDateString() === end.toDateString()) {
+    const endTime = end.toLocaleTimeString(undefined, optsTime);
+    return `${startDate} • ${startTime}–${endTime}`;
   }
-};
+  const endDate = end.toLocaleString(undefined, optsDate);
+  return `${startDate} ${startTime} – ${endDate} ${end.toLocaleTimeString(undefined, optsTime)}`;
+}
 
-// -------------------------- OpenAI API call (client-side) --------------------------
-// WARNING: embedding a long-lived API key in client code is insecure. This page uses a user-entered key
-// stored in sessionStorage for convenience. For public sites you should use a short-lived token or a
-// server-side proxy.
-async function fetchAIExplanationOpenAI(apiKey, event, model = DEFAULT_MODEL) {
-  // Minimal, audit-grade request using chat completions endpoint
-  const prompt = [
-    { role: "system", content: "You are a concise astronomy explainer for general audiences." },
-    { role: "user", content:
-      `Explain, in plain language (2-6 short paragraphs), why the following celestial event happens and what an observer should expect.\n\nEvent name: ${event.name}\nDate: ${event.date}\nVisibility: ${event.visibility}\n\nKeep the explanation focused and cite no external URLs.` }
-  ];
-
-  const payload = {
-    model,
-    messages: prompt,
-    max_tokens: 450,
-    temperature: 0.2
-  };
-
-  const resp = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`
-    },
-    body: JSON.stringify(payload)
-  });
-
-  if (!resp.ok) {
-    const txt = await resp.text();
-    throw new Error(`OpenAI API error: ${resp.status} ${resp.statusText} - ${txt}`);
-  }
-
-  const data = await resp.json();
-  // safety: defend against unexpected shapes
-  if (data.choices && data.choices.length && data.choices[0].message) {
-    return data.choices[0].message.content.trim();
-  } else if (data.choices && data.choices.length && data.choices[0].text) {
-    return data.choices[0].text.trim();
+function openExplanation(ev) {
+  modalTitle.textContent = ev.title;
+  if (ev.explanation) {
+    modalBody.textContent = ev.explanation;
+  } else if (ev.link) {
+    modalBody.innerHTML = `See more: <a href="${ev.link}" target="_blank" rel="noopener noreferrer">${ev.link}</a>`;
   } else {
-    throw new Error("Unexpected response structure from OpenAI API.");
+    modalBody.textContent = 'No explanation available.';
   }
+  modal.setAttribute('aria-hidden', 'false');
+  modal.style.display = 'block';
 }
 
-// -------------------------- Demo fallback (no API) --------------------------
-function generateDemoExplanation(event) {
-  // Short, generic demos per type
-  if (event.type === "lunar_eclipse") {
-    return `A lunar eclipse happens when the Earth passes between the Sun and the Moon, casting Earth's shadow onto the Moon. Observers in the eclipse visibility zone will see the Moon darken and often take on a reddish tint as sunlight refracts through Earth's atmosphere. Totality can last from minutes to a few hours depending on geometry.`;
-  }
-  if (event.type === "meteor_shower") {
-    return `Meteor showers occur when Earth crosses a trail of debris left by a comet or asteroid. Small particles burn up in the upper atmosphere, creating streaks of light. The “peak” night is when the Earth intersects the densest part of the debris stream, and you can see dozens to hundreds of meteors per hour under dark skies.`;
-  }
-  if (event.type === "launch") {
-    return `A rocket launch is the result of a spacecraft being propelled from Earth by rocket engines. Depending on the trajectory and staging, launches may be visible as a bright moving light in the sky from some regions. Visibility windows depend on the launch azimuth and viewer location.`;
-  }
-  return `This is a celestial event. Observers nearby may see changes in brightness, motion, or shading depending on event type and geography.`;
+function closeModal() {
+  modal.setAttribute('aria-hidden', 'true');
+  modal.style.display = 'none';
 }
 
-// -------------------------- App wiring and init --------------------------
-function readSessionApiKey() {
-  return sessionStorage.getItem("openai_api_key") || "";
-}
-
-function saveSessionApiKey(key) {
-  if (key) sessionStorage.setItem("openai_api_key", key);
-  else sessionStorage.removeItem("openai_api_key");
-}
-
-function promptForApiKey() {
-  const current = readSessionApiKey();
-  const key = window.prompt("Paste your OpenAI API key (it will be stored in session only):", current || "");
-  if (key !== null) {
-    const trimmed = key.trim();
-    if (trimmed) saveSessionApiKey(trimmed);
-    else saveSessionApiKey("");
-    updateKeyIndicator();
-  }
-}
-
-function updateKeyIndicator() {
-  const indicator = document.getElementById("key-indicator");
-  const k = readSessionApiKey();
-  indicator.textContent = k ? "API key set (session)" : "Demo mode (no API key)";
-}
-
-async function onExplainRequest(event) {
-  modal.showLoading();
-  modal.setContent(`Why does "${event.name}" happen?`, document.createTextNode(""));
-  modal.open();
-
-  const apiKey = readSessionApiKey();
-  try {
-    let explanation;
-    if (!apiKey) {
-      // demo fallback
-      await new Promise(r => setTimeout(r, 400)); // small delay for UX
-      explanation = generateDemoExplanation(event);
-    } else {
-      explanation = await fetchAIExplanationOpenAI(apiKey, event);
-    }
-    modal.setContent(`Why does "${event.name}" happen?`, explanation);
-  } catch (err) {
-    modal.setContent("Error collecting explanation", `Failed to fetch explanation: ${err.message}\n\nYou can enable demo mode (no API) or enter a valid API key.`);
-  }
-}
-
-function attachModalEvents() {
-  modal.root = document.getElementById("explain-modal");
-  modal.title = document.getElementById("modal-title");
-  modal.body = document.getElementById("modal-body");
-  modal.closeBtn = document.getElementById("modal-close");
-  modal.copyBtn = document.getElementById("modal-copy");
-  modal.cancelBtn = document.getElementById("modal-cancel");
-
-  modal.closeBtn.addEventListener("click", () => modal.close());
-  modal.cancelBtn.addEventListener("click", () => modal.close());
-  modal.copyBtn.addEventListener("click", () => {
-    const txt = modal.body.innerText || modal.body.textContent;
-    if (navigator.clipboard) navigator.clipboard.writeText(txt);
+function wireModal() {
+  if (!modal) return;
+  modalClose.addEventListener('click', closeModal);
+  modalCancel.addEventListener('click', closeModal);
+  modalCopy.addEventListener('click', () => {
+    const text = modalBody.innerText || modalBody.textContent;
+    navigator.clipboard?.writeText(text).then(()=> {
+      modalCopy.textContent = 'Copied ✓';
+      setTimeout(()=> modalCopy.textContent = 'Copy Explanation', 1500);
+    }).catch(()=> {
+      modalCopy.textContent = 'Copy failed';
+      setTimeout(()=> modalCopy.textContent = 'Copy Explanation', 1500);
+    });
   });
-
+  // close on outside click
+  modal.addEventListener('click', (ev) => {
+    if (ev.target === modal) closeModal();
+  });
   // close on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.root.getAttribute("aria-hidden") === "false") {
-      modal.close();
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') closeModal();
+  });
+}
+
+// Demo fallback data
+function demoEvents() {
+  return [
+    {
+      id: 'demo-perseid',
+      title: 'Perseid Meteor Shower Peak',
+      start: new Date(new Date().getFullYear(), 7, 12, 22).toISOString(), // Aug 12 22:00 local year
+      end: new Date(new Date().getFullYear(), 7, 13, 6).toISOString(),
+      location: 'Worldwide',
+      explanation: 'The Perseids occur each year as Earth passes through the debris left by comet Swift–Tuttle.'
+    },
+    {
+      id: 'demo-lunar-eclipse',
+      title: 'Partial Lunar Eclipse',
+      start: new Date(new Date().getFullYear(), 9, 29, 2).toISOString(),
+      end: new Date(new Date().getFullYear(), 9, 29, 5).toISOString(),
+      location: 'Visible over Africa, Europe, Asia',
+      explanation: 'A partial lunar eclipse occurs when Earth partially blocks sunlight from reaching the Moon.'
     }
-  });
-
-  // click outside to close
-  modal.root.addEventListener("click", (ev) => {
-    if (ev.target === modal.root) modal.close();
-  });
+  ];
 }
-
-function initControls(events, container) {
-  document.getElementById("set-key").addEventListener("click", () => promptForApiKey());
-  document.getElementById("toggle-demo").addEventListener("click", () => {
-    const k = readSessionApiKey();
-    if (k) { saveSessionApiKey(""); } else { /* ask user to paste to enable real mode */ }
-    updateKeyIndicator();
-  });
-  updateKeyIndicator();
-}
-
-function initCalendar({ events = SAMPLE_EVENTS } = {}) {
-  const container = document.getElementById("calendar-root");
-  attachModalEvents();
-
-  function onExplainClick(event) {
-    onExplainRequest(event);
-  }
-
-  renderEventsGrid(container, events, onExplainClick);
-  initControls(events, container);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Here you could fetch a simple events JSON file if you prefer not to hardcode:
-  // fetch('events.json').then(r=>r.json()).then(list=>initCalendar({events:list}));
-  initCalendar({ events: SAMPLE_EVENTS });
-});
