@@ -21,11 +21,15 @@ async function init() {
     events = demoEvents();
   }
 
-  const upcoming = events
-    .map(normalizeEvent)
-    .filter(e => e.start >= startOfDay(today))
-    .sort((a, b) => a.start - b.start)
-    .slice(0, 20);
+const oneYearFromNow = new Date(today);
+oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+
+const upcoming = events
+  .map(normalizeEvent)
+  .filter(e => e.start >= startOfDay(today) && e.start <= oneYearFromNow)
+  .sort((a, b) => a.start - b.start)
+  .slice(0, 20);
+
 
   renderEvents(upcoming);
   wireModal();
