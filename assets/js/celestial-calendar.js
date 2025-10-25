@@ -88,7 +88,7 @@ function renderEvents(events) {
     explainBtn.disabled = !ev.explanation && !ev.link; // disabled if no explanation/link
     explainBtn.addEventListener('click', () => openExplanation(ev));
 
-    if (ev.link) {
+    if (ev.link && (ev.link.startsWith('/') || /^https?:\/\/.+/.test(ev.link))) {
       const more = document.createElement('a');
       more.className = 'btn small secondary';
       more.href = ev.link;
@@ -96,7 +96,7 @@ function renderEvents(events) {
       more.rel = 'noopener noreferrer';
       more.textContent = 'More info';
       controls.appendChild(more);
-    }
+}
 
     controls.appendChild(explainBtn);
     card.appendChild(when);
