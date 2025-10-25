@@ -1,144 +1,165 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Celestial Events — Calendar</title>
-  <link rel="stylesheet" href="assets/css/celestial-calendar.css">
-</head>
-<body>
-  <main class="container" id="main">
-    <header class="header">
-      <h1>Upcoming Celestial Events</h1>
-      <p class="subtitle">Lunar eclipses, meteor showers, and space launches — explained on demand.</p>
-      <div class="controls">
-        <button id="set-key" class="btn">Enter OpenAI API Key</button>
-        <button id="toggle-demo" class="btn secondary">Toggle Demo Mode</button>
-        <span id="key-indicator" class="key-indicator" aria-live="polite"></span>
-      </div>
-    </header>
-
-    <section id="calendar-root" class="calendar-root" aria-live="polite"></section>
-    <footer class="footer">
-      <p class="footnote">Built for audit-grade clarity — no server required. Press the "Why does this happen?" button on any card to get an AI explanation.</p>
-    </footer>
-  </main>
-
-  <!-- Modal -->
-  <div id="explain-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
-    <div class="modal-panel" role="document">
-      <button id="modal-close" class="modal-close" aria-label="Close explanation">&times;</button>
-      <h2 id="modal-title"></h2>
-      <div id="modal-body" class="modal-body"></div>
-      <div id="modal-footer" class="modal-footer">
-        <button id="modal-copy" class="btn small">Copy Explanation</button>
-        <button id="modal-cancel" class="btn small secondary">Close</button>
-      </div>
-    </div>
-  </div>
-  <section id="calendar-root" class="calendar-root" aria-live="polite"></section>
+<section id="calendar-root" class="calendar-root" aria-live="polite"></section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    fetchMeteorEvents();
+document.addEventListener('DOMContentLoaded', () => {
+  Promise.all([
+    fetchMeteorShowers(),
+    fetchLunarEclipses(),
+    fetchConjunctions()
+  ]).then(results => {
+    const allEvents = results.flat().filter(e => e.start >= new Date());
+    allEvents.sort((a, b) => a.start - b.start);
+    renderEvents(allEvents);
+  }).catch(err => {
+    console.warn('Failed to load celestial events:', err);
+    document.getElementById('calendar-root').innerHTML = '<p>Could not load events.</p>';
   });
+});
 
-  async function fetchMeteorEvents() {
-    try {
-      const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
-      const html = await res.text();
-      const events = extractEvents(html);
-      renderEvents(events);
-    } catch (err) {
-      console.warn('Failed to fetch meteor events:', err);
-      document.getElementById('calendar-root').innerHTML = '<p>Could not load events.</p>';
-    }
+async function fetchMeteorShowers() {
+  const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
+  const html = await res.text();
+  const rows = html.split('<tr>').slice(1);
+  const year = new Date().getFullYear();
+  const events = [];
+
+  for (const row of rows) {
+    const cols = row.split('<td>');
+    if (cols.length < 6) continue;
+
+    const name = stripTags(cols[1]);
+    const dateRange = stripTags(cols[2]);
+    const visibility = stripTags(cols[5]);
+
+    const [startStr, endStr] = dateRange.split('–').map(s => s.trim());
+    if (!startStr || !endStr) continue;
+
+    const start = parseDate(year, startStr);
+    const end = parseDate(year, endStr);
+    if (start < new Date()) continue;
+
+    events.push({
+      title: `${name} Meteor Shower`,
+      start,
+      end,
+      location: visibility,
+      link: 'https://www.timeanddate.com/astronomy/meteor-shower/list.html'
+    });
   }
 
-  function extractEvents(html) {
-    const rows = html.split('<tr>').slice(1);
+  return events;
+}
+
+async function fetchLunarEclipses() {
+  const res = await fetch('https://eclipse.gsfc.nasa.gov/SKYCAL/SKYCAL2025.html');
+  const html = await res.text();
+  const rows = html.split('<tr>');
+  const events = [];
+
+  for (const row of rows) {
+    if (!row.includes('Lunar Eclipse')) continue;
+    const dateMatch = row.match(/(\d{4})\s+([A-Za-z]+)\s+(\d{1,2})/);
+    if (!dateMatch) continue;
+
+    const [_, year, month, day] = dateMatch;
+    const date = new Date(`${month} ${day}, ${year} 00:00 UTC`);
+    if (date < new Date()) continue;
+
+    events.push({
+      title: 'Lunar Eclipse',
+      start: date,
+      end: new Date(date.getTime() + 3 * 60 * 60 * 1000),
+      location: 'Global',
+      link: 'https://eclipse.gsfc.nasa.gov/SKYCAL/SKYCAL2025.html'
+    });
+  }
+
+  return events;
+}
+
+async function fetchConjunctions() {
+  const res = await fetch('https://www.astropixels.com/ephemeris/sky2025/sky2025events.html');
+  const html = await res.text();
+  const rows = html.split('<tr>');
+  const events = [];
+
+  for (const row of rows) {
+    if (!row.includes('Conjunction')) continue;
+    const dateMatch = row.match(/([A-Za-z]+)\s+(\d{1,2})/);
+    const bodyMatch = row.match(/([A-Za-z]+)\s+Conjunction/);
+    if (!dateMatch || !bodyMatch) continue;
+
+    const [_, month, day] = dateMatch;
+    const body = bodyMatch[1];
     const year = new Date().getFullYear();
-    const events = [];
+    const date = new Date(`${month} ${day}, ${year} 00:00 UTC`);
+    if (date < new Date()) continue;
 
-    for (const row of rows) {
-      const cols = row.split('<td>');
-      if (cols.length < 6) continue;
-
-      const name = stripTags(cols[1]);
-      const dateRange = stripTags(cols[2]);
-      const visibility = stripTags(cols[5]);
-
-      const [startStr, endStr] = dateRange.split('–').map(s => s.trim());
-      if (!startStr || !endStr) continue;
-
-      const start = parseDate(year, startStr);
-      const end = parseDate(year, endStr);
-
-      events.push({
-        title: `${name} Meteor Shower`,
-        start,
-        end,
-        location: visibility,
-        link: 'https://www.timeanddate.com/astronomy/meteor-shower/list.html'
-      });
-    }
-
-    return events;
+    events.push({
+      title: `${body} Conjunction`,
+      start: date,
+      end: new Date(date.getTime() + 2 * 60 * 60 * 1000),
+      location: 'Visible region varies',
+      link: 'https://www.astropixels.com/ephemeris/sky2025/sky2025events.html'
+    });
   }
 
-  function stripTags(str) {
-    return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  return events;
+}
+
+function stripTags(str) {
+  return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function parseDate(year, text) {
+  const [monthName, day] = text.split(' ');
+  return new Date(`${monthName} ${day}, ${year} 22:00 UTC`);
+}
+
+function renderEvents(events) {
+  const root = document.getElementById('calendar-root');
+  root.innerHTML = '';
+
+  if (!events.length) {
+    root.innerHTML = '<p>No upcoming events found.</p>';
+    return;
   }
 
-  function parseDate(year, text) {
-    const [monthName, day] = text.split(' ');
-    return new Date(`${monthName} ${day}, ${year} 22:00 UTC`);
+  const list = document.createElement('div');
+  list.className = 'event-list';
+
+  for (const ev of events) {
+    const card = document.createElement('article');
+    card.className = 'event-card';
+
+    const when = document.createElement('div');
+    when.className = 'event-when';
+    when.textContent = ev.start.toLocaleString(undefined, {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+    const title = document.createElement('h3');
+    title.className = 'event-title';
+    title.textContent = ev.title;
+
+    const loc = document.createElement('p');
+    loc.className = 'event-location';
+    loc.textContent = ev.location;
+
+    const more = document.createElement('a');
+    more.className = 'btn small secondary';
+    more.href = ev.link;
+    more.target = '_blank';
+    more.textContent = 'More info';
+
+    card.appendChild(when);
+    card.appendChild(title);
+    card.appendChild(loc);
+    card.appendChild(more);
+    list.appendChild(card);
   }
 
-  function renderEvents(events) {
-    const root = document.getElementById('calendar-root');
-    root.innerHTML = '';
-
-    if (!events.length) {
-      root.innerHTML = '<p>No upcoming events found.</p>';
-      return;
-    }
-
-    const list = document.createElement('div');
-    list.className = 'event-list';
-
-    for (const ev of events) {
-      const card = document.createElement('article');
-      card.className = 'event-card';
-
-      const when = document.createElement('div');
-      when.className = 'event-when';
-      when.textContent = ev.start.toDateString();
-
-      const title = document.createElement('h3');
-      title.className = 'event-title';
-      title.textContent = ev.title;
-
-      const loc = document.createElement('p');
-      loc.className = 'event-location';
-      loc.textContent = ev.location;
-
-      const more = document.createElement('a');
-      more.className = 'btn small secondary';
-      more.href = ev.link;
-      more.target = '_blank';
-      more.textContent = 'More info';
-
-      card.appendChild(when);
-      card.appendChild(title);
-      card.appendChild(loc);
-      card.appendChild(more);
-      list.appendChild(card);
-    }
-
-    root.appendChild(list);
-  }
+  root.appendChild(list);
+}
 </script>
-  <script src="assets/js/celestial-calendar.js" type="module"></script>
-</body>
-</html>
