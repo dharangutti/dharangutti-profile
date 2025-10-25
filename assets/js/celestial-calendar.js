@@ -9,48 +9,59 @@ const modalCopy = document.getElementById('modal-copy');
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
-  const today = startOfDay(new Date());
+  const today = new Date();
   const oneYearFromNow = new Date(today);
-  oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+  oneYearFromNow.setFullYear(today.getFullYear() + 1);
 
   try {
-    const [meteors, eclipses, conjunctions] = await Promise.allSettled([
-      fetchMeteorShowers(),
-      fetchLunarEclipses(),
-      fetchConjunctions()
-    ]);
-
-    const all = [meteors, eclipses, conjunctions]
-      .filter(r => r.status === 'fulfilled')
-      .flatMap(r => r.value)
-      .map(normalizeEvent)
-      .filter(e => e.start >= today && e.start <= oneYearFromNow)
-      .sort((a, b) => a.start - b.start)
+    const events = await fetchRSSFeed("https://skyandtelescope.org/feed/");
+    const filtered = events
+      .filter(e => e.date >= today && e.date <= oneYearFromNow)
+      .sort((a, b) => a.date - b.date)
       .slice(0, 20);
 
-    renderEvents(all);
+    renderEvents(filtered);
   } catch (err) {
-    console.warn('Failed to load celestial events:', err);
-    root.innerHTML = '<p>Could not load events.</p>';
+    console.warn("RSS fetch failed, using demo data:", err);
+    renderEvents(demoEvents());
   }
 
   wireModal();
 }
 
-function normalizeEvent(raw) {
-  return {
-    id: raw.id || `${raw.title}-${new Date(raw.start).toISOString()}`,
-    title: raw.title || 'Untitled Event',
-    start: new Date(raw.start),
-    end: raw.end ? new Date(raw.end) : null,
-    location: raw.location || '',
-    explanation: raw.explanation || '',
-    link: raw.link || ''
-  };
+async function fetchRSSFeed(url) {
+  const res = await fetch(url);
+  const xml = await res.text();
+  const doc = new DOMParser().parseFromString(xml, "application/xml");
+  const items = [...doc.querySelectorAll("item")];
+
+  return items.map(item => ({
+    title: item.querySelector("title")?.textContent || "Untitled",
+    date: new Date(item.querySelector("pubDate")?.textContent),
+    location: "See source",
+    explanation: item.querySelector("description")?.textContent || "",
+    link: item.querySelector("link")?.textContent || ""
+  }));
 }
 
-function startOfDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+function demoEvents() {
+  const now = new Date();
+  return [
+    {
+      title: "Perseid Meteor Shower",
+      date: new Date(now.getFullYear(), 7, 12, 22),
+      location: "Worldwide",
+      explanation: "Occurs as Earth passes through debris from comet Swift–Tuttle.",
+      link: "https://www.timeanddate.com/astronomy/meteor-shower/list.html"
+    },
+    {
+      title: "Total Lunar Eclipse",
+      date: new Date(now.getFullYear(), 9, 29, 2),
+      location: "Africa, Europe, Asia",
+      explanation: "Earth blocks sunlight from reaching the Moon.",
+      link: "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html"
+    }
+  ];
 }
 
 function renderEvents(events) {
@@ -71,7 +82,7 @@ function renderEvents(events) {
 
     const meta = document.createElement('div');
     meta.className = 'event-meta';
-    meta.textContent = formatEventDate(ev.start, ev.end);
+    meta.textContent = ev.date.toLocaleString();
 
     const loc = document.createElement('div');
     loc.className = 'event-meta';
@@ -103,21 +114,6 @@ function renderEvents(events) {
     card.appendChild(actions);
     root.appendChild(card);
   }
-}
-
-function formatEventDate(start, end) {
-  const optsDate = { year: 'numeric', month: 'short', day: 'numeric' };
-  const optsTime = { hour: '2-digit', minute: '2-digit' };
-  const startDate = start.toLocaleDateString(undefined, optsDate);
-  const startTime = start.toLocaleTimeString(undefined, optsTime);
-  if (!end) return `${startDate} • ${startTime}`;
-  if (start.toDateString() === end.toDateString()) {
-    const endTime = end.toLocaleTimeString(undefined, optsTime);
-    return `${startDate} • ${startTime}–${endTime}`;
-  }
-  const endDate = end.toLocaleDateString(undefined, optsDate);
-  const endTime = end.toLocaleTimeString(undefined, optsTime);
-  return `${startDate} ${startTime} – ${endDate} ${endTime}`;
 }
 
 function openExplanation(ev) {
@@ -152,88 +148,3 @@ function wireModal() {
     if (ev.key === 'Escape') closeModal();
   });
 }
-
-// Feed Parsers Using DOMParser
-
-async function fetchMeteorShowers() {
-  const res = await fetch('https://www.timeanddate.com/astronomy/meteor-shower/list.html');
-  const html = await res.text();
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const rows = doc.querySelectorAll('table tbody tr');
-  const year = new Date().getFullYear();
-  const events = [];
-
-  rows.forEach(row => {
-    const cols = row.querySelectorAll('td');
-    if (cols.length < 6) return;
-
-    const name = cols[1].textContent.trim();
-    const dateRange = cols[2].textContent.trim();
-    const visibility = cols[5].textContent.trim();
-    const [startStr, endStr] = dateRange.split('–').map(s => s.trim());
-    if (!startStr || !endStr) return;
-
-    const start = new Date(`${startStr} ${year} 22:00 UTC`);
-    const end = new Date(`${endStr} ${year} 06:00 UTC`);
-    if (start < new Date()) return;
-
-    events.push({
-      title: `${name} Meteor Shower`,
-      start,
-      end,
-      location: visibility,
-      explanation: '',
-      link: 'https://www.timeanddate.com/astronomy/meteor-shower/list.html'
-    });
-  });
-
-  return events;
-}
-
-async function fetchLunarEclipses() {
-  const res = await fetch('https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html');
-  const html = await res.text();
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const rows = doc.querySelectorAll('table tr');
-  const events = [];
-
-  rows.forEach(row => {
-    const cells = row.querySelectorAll('td');
-    if (cells.length < 5) return;
-
-    const dateText = cells[0].textContent.trim();
-    const type = cells[2].textContent.trim();
-    const region = cells[5]?.textContent.trim() || 'Global';
-
-    if (!dateText.includes('2025') || !type.toLowerCase().includes('total')) return;
-
-    const date = new Date(`${dateText} 00:00 UTC`);
-    if (date < new Date()) return;
-
-    events.push({
-      title: `${type} Lunar Eclipse`,
-      start: date,
-      end: new Date(date.getTime() + 3 * 60 * 60 * 1000),
-      location: region,
-      explanation: '',
-      link: 'https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html'
-    });
-  });
-
-  return events;
-}
-
-async function fetchConjunctions() {
-  const res = await fetch('https://www.astropixels.com/almanac/almanac21/almanac2025ist.html');
-  const html = await res.text();
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const text = doc.body.textContent;
-  const lines = text.split('\n');
-  const events = [];
-
-  lines.forEach(line => {
-    if (!line.includes('Conjunction')) return;
-    const match = line.match(/([A-Za-z]+)\s+(\d{1,2})\s+.*?([A-Za-z]+)\s+Conjunction/);
-    if (!match) return;
-
-    const [_, month, day, body] = match;
