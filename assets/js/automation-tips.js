@@ -23,7 +23,7 @@ fetch('data/tips.json')
   <h3>${tip.title}</h3>
   <p><strong>Category:</strong> ${tip.category}</p>
   <small>${tip.date.toDateString()}</small>
-  <div class="card-footer">
+  <div class="event-actions">
     <button class="btn small explain-btn">View Explanation</button>
     ${tip.link ? `<a href="${tip.link}" target="_blank" class="btn small secondary">Learn more</a>` : ''}
   </div>
