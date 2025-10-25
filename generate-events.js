@@ -31,21 +31,24 @@ async function fetchLunarEclipses() {
 
     const dateText = cells[0].textContent.trim();
     const type = cells[2].textContent.trim();
-    const region = cells[5]?.textContent.trim() || 'See source';
+    const region = cells[5]?.textContent.trim();
 
     if (!dateText.includes('2025')) return;
     const date = new Date(`${dateText} 00:00 UTC`);
     if (isNaN(date)) return;
 
     const id = `2025-lunar-${type.toLowerCase().replace(/\s+/g, '-')}-${dateText.replace(/\s+/g, '').toLowerCase()}`;
+    const location = region && !region.match(/\d{2}h\d{2}m/) ? region : 'See source';
+
+    const explanation = `During a ${type.toLowerCase()} lunar eclipse, the Moon passes through Earth's shadow, causing a dramatic darkening.`;
 
     events.push({
       id,
       title: `${type} Lunar Eclipse`,
       start: date.toISOString(),
       end: new Date(date.getTime() + 3 * 60 * 60 * 1000).toISOString(),
-      location: region,
-      explanation: `${type} lunar eclipse occurs when the Moon passes through Earth's shadow.`,
+      location,
+      explanation,
       link: url
     });
   });
@@ -73,14 +76,16 @@ async function fetchConjunctions() {
     const date = new Date(Date.UTC(2025, month, day, 0, 0));
 
     const id = `2025-conjunction-${body.toLowerCase()}-${monthStr.toLowerCase()}${dayStr}`;
+    const title = `${body} Conjunction`;
+    const explanation = `A conjunction occurs when ${body} appears close to another celestial body in the sky, often near the Sun or Moon.`;
 
     events.push({
       id,
-      title: `${body} Conjunction`,
+      title,
       start: date.toISOString(),
       end: new Date(date.getTime() + 2 * 60 * 60 * 1000).toISOString(),
       location: "Visible globally",
-      explanation: `A conjunction occurs when ${body} appears close to another celestial body in the sky.`,
+      explanation,
       link: url
     });
   });
