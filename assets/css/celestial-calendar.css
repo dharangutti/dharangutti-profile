@@ -130,3 +130,8 @@ body {
   justify-content: flex-end;
   margin-top: 12px;
 }
+.event-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
