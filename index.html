@@ -6,19 +6,66 @@
     <title>Anup Dharangutti — Profile</title>
     <meta name="description" content="Profile page for anup dharangutti" />
     <style>
-      :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial}
-      body{margin:0;padding:2rem;display:flex;align-items:flex-start;gap:2rem;max-width:900px;margin-left:auto;margin-right:auto}
-      header{display:flex;gap:1rem;align-items:center}
-      img.avatar{width:96px;height:96px;border-radius:12px;object-fit:cover}
-      h1{margin:0;font-size:1.6rem}
-      p.lead{margin:0;color:#333}
-      nav a{margin-right:1rem;color:#0366d6;text-decoration:none}
-      .card{background:#f8f9fb;padding:1rem;border-radius:8px}
-      /* iframe container: responsive with corridor-aware width */
-      .iframe-wrapper{position:relative;width:100%;padding:0;border-radius:8px;overflow:hidden;background:linear-gradient(180deg,#ffffff, #f7f9fb);} 
-      .iframe-wrapper iframe{width:100%;height:480px;border:0;display:block}
-      @media (max-width:640px){
-        .iframe-wrapper iframe{height:380px}
+      :root {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial;
+      }
+      body {
+        margin: 0;
+        padding: 2rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      header {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      img.avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.6rem;
+      }
+      p.lead {
+        margin: 0;
+        color: #333;
+      }
+      nav a {
+        margin-right: 1rem;
+        color: #0366d6;
+        text-decoration: none;
+      }
+      .card {
+        background: #f8f9fb;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      .iframe-wrapper {
+        position: relative;
+        width: 100%;
+        padding: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #ffffff, #f7f9fb);
+      }
+      .iframe-wrapper iframe {
+        width: 100%;
+        height: 480px;
+        border: 0;
+        display: block;
+      }
+      @media (max-width: 640px) {
+        .iframe-wrapper iframe {
+          height: 380px;
+        }
       }
     </style>
   </head>
@@ -28,28 +75,27 @@
         <img class="avatar" src="avatar.png" alt="Avatar" onerror="this.style.display='none'" />
         <div>
           <h1>Anup Dharangutti <span style="font-weight:normal;">(dharangutti)</span></h1>
-<p class="lead">
-  Test Automation Specialist • Modular Systems Thinker
-</p>
+          <p class="lead">
+            Test Automation Specialist • Modular Systems Thinker
+          </p>
           <nav>
             <a href="cv.html">Curriculum vitae</a>
             <a href="contact.html">Contact</a>
             <a href="https://github.com/dharangutti">GitHub</a>
             <a href="https://www.linkedin.com/in/anup-dharangutti-852a94129/">LinkedIn</a>
-            <!-- added Celestial Events link -->
             <a href="celestial-calendar.html">Celestial Events</a>
+            <a href="automation-tips.html">Automation Tips</a>
           </nav>
         </div>
       </header>
 
       <section style="margin-top:1.25rem">
         <div class="card">
-  <h2>About me</h2>
-  <p>
-    I build web, desktop, and mobile test automation solutions across enterprise-grade stacks, blending precision engineering with scalable frameworks. With over 14 years in QA and system design, [...[...]]
-  </p>
-</div>
-
+          <h2>About me</h2>
+          <p>
+            I build web, desktop, and mobile test automation solutions across enterprise-grade stacks, blending precision engineering with scalable frameworks. With over 14 years in QA and system design, [...[...]]
+          </p>
+        </div>
 
         <div class="card" style="margin-top:1rem">
           <h2>Quick links</h2>
@@ -60,30 +106,39 @@
           </ul>
         </div>
 
-        <!-- Embedded Celestial Events card (responsive iframe) -->
+        <!-- 🧪 Embedded Automation Tips card -->
+        <div class="card" style="margin-top:1rem">
+          <h2>Test Automation Tips</h2>
+          <p style="margin-top:0.25rem;color:#333">One actionable insight per week — curated for clarity, resilience, and civic-grade engineering. Click any card to open an AI-generated explanation.</p>
+
+          <div class="iframe-wrapper" role="group" aria-label="Automation Tips preview">
+            <iframe src="automation-tips.html" title="Test Automation Tips" loading="lazy" referrerpolicy="no-referrer"></iframe>
+          </div>
+
+          <p style="margin-top:0.6rem"><a href="automation-tips.html">Open tips in their standalone page</a></p>
+        </div>
+
+        <!-- 🌌 Embedded Celestial Events card -->
         <div class="card" style="margin-top:1rem">
           <h2>Celestial Events</h2>
           <p style="margin-top:0.25rem;color:#333">A compact view of upcoming lunar eclipses, meteor showers, and space missions. Click any card to open an AI-generated explanation.</p>
 
           <div class="iframe-wrapper" role="group" aria-label="Celestial Events preview">
-            <!-- Standalone page is celestial-calendar.html; the iframe shows the same page embedded -->
             <iframe src="celestial-calendar.html" title="Celestial Events Calendar" loading="lazy" referrerpolicy="no-referrer"></iframe>
           </div>
 
           <p style="margin-top:0.6rem"><a href="celestial-calendar.html">Open calendar in its standalone page</a></p>
         </div>
-
       </section>
     </main>
 
     <script>
-      // Append a cache-busting query parameter to the iframe so updates show immediately
       document.addEventListener('DOMContentLoaded', function(){
-        var iframe = document.querySelector('.iframe-wrapper iframe');
-        if(!iframe) return;
-        var src = iframe.getAttribute('src') || 'celestial-calendar.html';
-        var sep = src.indexOf('?') === -1 ? '?' : '&';
-        iframe.src = src + sep + 'v=' + Date.now();
+        document.querySelectorAll('.iframe-wrapper iframe').forEach(function(iframe){
+          var src = iframe.getAttribute('src');
+          var sep = src.indexOf('?') === -1 ? '?' : '&';
+          iframe.src = src + sep + 'v=' + Date.now();
+        });
       });
     </script>
   </body>
