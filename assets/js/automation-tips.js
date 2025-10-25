@@ -20,11 +20,14 @@ fetch('data/tips.json')
       card.setAttribute('aria-label', `Tip: ${tip.title}`);
       card.addEventListener('click', () => showModal(tip));
       card.innerHTML = `
-        <h3>${tip.title}</h3>
-        <p>${tip.explanation}</p>
-        <small><strong>${tip.category}</strong> • ${tip.date.toDateString()}</small>
-        ${tip.link ? `<p><a href="${tip.link}" target="_blank">Learn more</a></p>` : ''}
-      `;
+  <h3>${tip.title}</h3>
+  <p><strong>Category:</strong> ${tip.category}</p>
+  <small>${tip.date.toDateString()}</small>
+  <div class="card-footer">
+    <button class="btn small" onclick="showModal(${JSON.stringify(tip).replace(/"/g, '&quot;')})">View Explanation</button>
+    ${tip.link ? `<a href="${tip.link}" target="_blank" class="btn small secondary">Learn more</a>` : ''}
+  </div>
+`;
       container.appendChild(card);
     });
   });
