@@ -1,9 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const fetch = require('node-fetch');
-const { JSDOM } = require('jsdom');
+import fs from 'fs';
+import path from 'path';
+import fetch from 'node-fetch';
+import { JSDOM } from 'jsdom';
 
-const outputPath = path.join(__dirname, 'data/events.json');
+const outputPath = new URL('./data/events.json', import.meta.url);
+
 const events = [];
 
 (async () => {
