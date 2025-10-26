@@ -1,23 +1,68 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Contact — Anup Dharangutti</title>
-    <style>
-      body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:0;padding:2rem;max-width:700px;margin-left:auto;margin-right:auto}
-      .card{background:#f8f9fb;padding:1rem;border-radius:8px}
-      a{color:#0366d6}
-    </style>
-  </head>
-  <body>
-    <main class="card">
-      <h1>Contact</h1>
-      <p>You can reach me at: <a href="mailto:dharangutti.a@gmail.com">dharangutti.a@gmail.com</a></p>
-      <p>Or find me on GitHub: <a href="https://github.com/dharangutti">github.com/dharangutti</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/anup-dharangutti-852a94129/">https://www.linkedin.com/in/anup-dharangutti-852a94129/</a></p>
-      <hr />
-     
-    </main>
-  </body>
-</html>
+<section class="contact-section">
+  <h1>Let’s Connect</h1>
+  <p>I’m always open to thoughtful conversations, collaborations, or feedback.</p>
+
+  <div class="contact-grid">
+    <div class="contact-item">
+      <h2>Email</h2>
+      <a href="mailto:dharangutti.a@gmail.com">dharangutti.a@gmail.com</a>
+    </div>
+
+    <div class="contact-item">
+      <h2>GitHub</h2>
+      <a href="https://github.com/dharangutti" target="_blank">github.com/dharangutti</a>
+    </div>
+
+    <div class="contact-item">
+      <h2>LinkedIn</h2>
+      <a href="https://www.linkedin.com/in/anup-dharangutti-852a94129/" target="_blank">Anup Dharangutti</a>
+    </div>
+
+    <div class="contact-item">
+      <h2>Location</h2>
+      <p>Bangalore, India</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: system-ui, sans-serif;
+    text-align: center;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .contact-item h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .contact-item a,
+  .contact-item p {
+    color: #0077cc;
+    text-decoration: none;
+    word-break: break-word;
+    margin: 0;
+  }
+
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
+</style>
