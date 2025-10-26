@@ -22,7 +22,7 @@ jobs:
         run: npm install
         
       - name: Generate Engineering Notebook index
-        run: node generate-index.js
+        run: node notebook-index.json
         
       - name: Run generator script
         run: node generate-events.js
