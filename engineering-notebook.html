@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anup’s Engineering Notebook</title>
+  <link rel="stylesheet" href="assets/css/celestial-calendar.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>🧠 Anup’s Engineering Notebook</h1>
+      <p class="subtitle">Modular insights from real-world testing, audits, and ensemble-grade strategies. Updated weekly or as inspired.</p>
+    </header>
+
+    <section class="calendar-root">
+      <div class="event-card">
+        <h3 class="event-title">Latest Entry</h3>
+        <div id="notebook-latest">Loading latest insight…</div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:1rem">
+      <h2>📚 Archive</h2>
+      <details>
+        <summary>View past entries</summary>
+        <ul id="notebook-archive">Loading archive…</ul>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    fetch('notebook/notebook-index.json')
+      .then(res => res.json())
+      .then(index => {
+        fetch(`notebook/${index.latest}`)
+          .then(res => res.text())
+          .then(md => {
+            document.getElementById('notebook-latest').innerHTML = marked.parse(md);
+          });
+
+        const archiveList = index.archive.map(file => {
+          const date = file.replace('.md', '');
+          return `<li><a href="notebook/${file}" target="_blank">${date}</a></li>`;
+        }).join('');
+        document.getElementById('notebook-archive').innerHTML = archiveList;
+      })
+      .catch(err => {
+        document.getElementById('notebook-latest').textContent = '⚠️ Failed to load latest entry.';
+        document.getElementById('notebook-archive').textContent = '⚠️ Archive unavailable.';
+      });
+  </script>
+</body>
+</html>
