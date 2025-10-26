@@ -29,9 +29,8 @@ const curated = [
 
 // Get next Monday
 const today = new Date();
-const nextMonday = new Date(today);
-nextMonday.setDate(today.getDate() + ((8 - today.getDay()) % 7));
-const isoDate = nextMonday.toISOString().split('T')[0];
+
+const isoDate = today.toISOString().split('T')[0];
 
 // Pick next tip
 const nextTip = curated[tips.length % curated.length];
