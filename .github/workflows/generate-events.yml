@@ -22,13 +22,13 @@ jobs:
         run: npm install
         
       - name: Generate Engineering Notebook index
-        run: node scripts/generate-index.js
+        run: node generate-index.js
         
       - name: Run generator script
         run: node generate-events.js
 
       - name: Generate weekly automation tip
-        run: node scripts/generate-tips.js
+        run: node generate-tips.js
 
       - name: Commit and push updated events.json
         run: |
