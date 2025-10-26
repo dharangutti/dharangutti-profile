@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const tipsPath = path.join(__dirname, '../data/tips.json');
+const tipsPath = path.join(__dirname, './data/tips.json');
 const tips = JSON.parse(fs.readFileSync(tipsPath, 'utf8'));
 
 // Define your curated weekly tips
