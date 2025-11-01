@@ -31,7 +31,11 @@
         list.innerHTML = '';
         papers.forEach(paper => {
           const li = document.createElement('li');
-          li.innerHTML = `<a href="papers/${paper.filename}" target="_blank">${paper.title}</a>`;
+          const link = document.createElement('a');
+          link.href = `papers/${paper.filename}`;
+          link.textContent = paper.title;
+          link.target = '_blank';
+          li.appendChild(link);
           list.appendChild(li);
         });
       })
