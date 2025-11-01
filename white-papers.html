@@ -24,24 +24,40 @@
   </main>
 
   <script>
+    const fallbackPapers = [
+      {
+        title: "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
+        filename: "battery innovations paper.pdf"
+      },
+      {
+        title: "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
+        filename: "logic design paper.pdf"
+      }
+    ];
+
+    function renderPapers(papers) {
+      const list = document.getElementById('paper-list');
+      list.innerHTML = '';
+      papers.forEach(paper => {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `papers/${paper.filename}`;
+        link.textContent = paper.title;
+        link.target = '_blank';
+        li.appendChild(link);
+        list.appendChild(li);
+      });
+    }
+
     fetch('papers-index.json')
-      .then(response => response.json())
-      .then(papers => {
-        const list = document.getElementById('paper-list');
-        list.innerHTML = '';
-        papers.forEach(paper => {
-          const li = document.createElement('li');
-          const link = document.createElement('a');
-          link.href = `papers/${paper.filename}`;
-          link.textContent = paper.title;
-          link.target = '_blank';
-          li.appendChild(link);
-          list.appendChild(li);
-        });
+      .then(response => {
+        if (!response.ok) throw new Error('Fetch failed');
+        return response.json();
       })
+      .then(renderPapers)
       .catch(error => {
-        console.error('Error loading papers:', error);
-        document.getElementById('paper-list').innerHTML = '<li>Unable to load papers.</li>';
+        console.warn('⚠️ Falling back to embedded links:', error);
+        renderPapers(fallbackPapers);
       });
   </script>
 </body>
