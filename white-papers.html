@@ -32,7 +32,7 @@
         papers.forEach(paper => {
           const li = document.createElement('li');
           const link = document.createElement('a');
-          link.href = `papers/${paper.filename}`;
+          link.href = `./papers/${paper.filename}`;
           link.textContent = paper.title;
           link.target = '_blank';
           li.appendChild(link);
