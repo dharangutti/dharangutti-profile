@@ -1,0 +1,26 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  color: #444;
+}
+.card ul {
+  list-style: none;
+  padding-left: 0;
+}
+.card li {
+  margin-bottom: 0.75rem;
+}
+.card a {
+  color: #0366d6;
+  text-decoration: none;
+}
