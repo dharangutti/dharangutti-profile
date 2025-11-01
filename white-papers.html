@@ -6,7 +6,6 @@
   <title>White Papers — Anup Dharangutti</title>
   <meta name="description" content="Independently authored research papers by Anup Dharangutti on modular clarity, fallback resilience, and civic-grade engineering." />
   <link rel="stylesheet" href="assets/css/white-papers.css" />
-  <script type="application/ld+json" src="papers-metadata.json"></script>
 </head>
 <body>
   <main class="container">
@@ -18,11 +17,32 @@
     </header>
 
     <section class="card">
-      <ul>
-        <li><a href="papers/modal-accessibility-audit.pdf" target="_blank">Modal Accessibility Audit</a></li>
-        <li><a href="papers/fallback-ip-inference.pdf" target="_blank">Fallback IP Inference Models</a></li>
+      <ul id="paper-list">
+        <li>Loading papers…</li>
       </ul>
     </section>
   </main>
+
+  <script>
+    fetch('papers-index.json')
+      .then(response => response.json())
+      .then(papers => {
+        const list = document.getElementById('paper-list');
+        list.innerHTML = '';
+        papers.forEach(paper => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `papers/${paper.filename}`;
+          link.textContent = paper.title;
+          link.target = '_blank';
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading papers:', error);
+        document.getElementById('paper-list').innerHTML = '<li>Unable to load papers.</li>';
+      });
+  </script>
 </body>
 </html>
