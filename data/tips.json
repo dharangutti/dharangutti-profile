@@ -38,5 +38,13 @@
     "category": "CI/CD",
     "explanation": "Automate a fast, high-level test suite to catch regressions early in the development cycle.",
     "link": "https://www.browserstack.com/guide/smoke-testing"
+  },
+  {
+  "id": "tip-2025-11-08",
+  "title": "Use Test Tags for Modular Execution",
+  "date": "2025-11-08",
+  "category": "Modularity",
+  "explanation": "Tag your tests by purpose—like @critical, @regression, @accessibility—to enable selective execution. This modular tagging allows faster feedback loops, targeted debugging, and dynamic suite composition in CI pipelines.",
+  "link": "https://docs.qameta.io/allure/#_test_tagging"
   }
 ]
