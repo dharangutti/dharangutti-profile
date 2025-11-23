@@ -46,5 +46,13 @@
   "category": "Modularity",
   "explanation": "Tag your tests by purpose—like @critical, @regression, @accessibility—to enable selective execution. This modular tagging allows faster feedback loops, targeted debugging, and dynamic suite composition in CI pipelines.",
   "link": "https://docs.qameta.io/allure/#_test_tagging"
-  }
+  },
+  {
+  "id": "tip-2025-11-23",
+  "title": "Keep Tests Independent and Self-Contained",
+  "date": "2025-11-23",
+  "category": "Maintainability",
+  "explanation": "Design each test so it can run in isolation without relying on the state left behind by other tests. Independent tests reduce hidden coupling, simplify debugging, and make parallel execution safer. Reset environments or use setup/teardown hooks to ensure clean state management.",
+  "link": "https://xunit.net/docs/shared-context"
+}
 ]
