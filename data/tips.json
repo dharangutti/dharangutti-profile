@@ -54,5 +54,13 @@
   "category": "Maintainability",
   "explanation": "Design each test so it can run in isolation without relying on the state left behind by other tests. Independent tests reduce hidden coupling, simplify debugging, and make parallel execution safer. Reset environments or use setup/teardown hooks to ensure clean state management.",
   "link": "https://xunit.net/docs/shared-context"
-}
+},
+ {
+  "id": "tip-2025-11-29",
+  "title": "Prioritize Critical Paths in Regression Suites",
+  "date": "2025-11-29",
+  "category": "Risk Management",
+  "explanation": "Focus regression testing on business-critical workflows like checkout or login. This ensures that the most valuable user journeys are always validated first, reducing risk of high-impact failures.",
+  "link": "https://www.browserstack.com/guide/regression-testing"
+} 
 ]
