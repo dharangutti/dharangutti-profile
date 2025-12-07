@@ -62,5 +62,13 @@
   "category": "Risk Management",
   "explanation": "Focus regression testing on business-critical workflows like checkout or login. This ensures that the most valuable user journeys are always validated first, reducing risk of high-impact failures.",
   "link": "https://www.browserstack.com/guide/regression-testing"
-} 
+},
+  {
+  "id": "tip-2025-12-07",
+  "title": "Stabilize Your Suite with Consistent Setup/Teardown",
+  "date": "2025-12-07",
+  "category": "Maintainability & Stability",
+  "explanation": "A stable test framework depends on predictable environments. Flaky tests often arise when leftover state from previous runs contaminates the next. Use setup/teardown hooks to reset databases, caches, or UI state before and after each test. Keep test data deterministic, mock external dependencies, and ensure tests run in isolation so parallel execution doesn’t introduce hidden coupling. This disciplined reset strategy makes your suite easier to maintain, reduces debugging overhead, and ensures stability across CI/CD pipelines.",
+  "link": "https://xunit.net/docs/shared-context"
+}
 ]
