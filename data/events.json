@@ -1,14 +1,5 @@
 [
   {
-    "id": "mission-escapade-dec2025",
-    "title": "NASA ESCAPADE Mars Mission",
-    "start": "2025-12-01T00:00:00Z",
-    "end": "2025-12-01T06:00:00Z",
-    "location": "Mars orbit",
-    "explanation": "ESCAPADE will study Mars’ magnetic field and plasma environment using twin spacecraft.",
-    "link": "https://indianexpress.com/article/trending/top-10-listing/top-10-upcoming-space-missions-10096397/"
-  },
-  {
     "id": "lunar-total-2026mar03",
     "title": "Total Lunar Eclipse",
     "start": "2026-03-03T00:00:00.000Z",
