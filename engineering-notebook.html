@@ -32,12 +32,12 @@
   </main>
 
   <script>
-    // Helper: validate filename is YYYY-MM-DD.md
+    // Validate permitted filenames (YYYY-MM-DD.md)
     function isSafeNotebookFilename(name) {
       return /^\d{4}-\d{2}-\d{2}\.md$/.test(name);
     }
 
-    // Read file param, but only trust it after verifying against notebook-index.json
+    // Read any ?file= param if present
     const params = new URLSearchParams(window.location.search);
     const requestedFile = params.get('file');
 
@@ -47,16 +47,18 @@
         return res.json();
       })
       .then(index => {
-        // Render archive list: link to this page with a file query param so archives open with the same UI
+        // Always build archive links to the notebook UI (root-absolute),
+        // so they behave the same whether opened from home or standalone.
         const archiveList = index.archive.map(file => {
           const date = file.replace('.md', '');
-          // link points to engineering-notebook.html?file=<filename>, opens in a new tab
-          return `<li><a href="engineering-notebook.html?file=${encodeURIComponent(file)}" target="_blank" rel="noopener">${date}</a></li>`;
+          // Root-absolute link to ensure consistent resolution from any page
+          return `<li><a href="/engineering-notebook.html?file=${encodeURIComponent(file)}" target="_blank" rel="noopener">${date}</a></li>`;
         }).join('');
         document.getElementById('notebook-archive').innerHTML = archiveList || '<li>No archived entries.</li>';
 
-        // Decide which file to fetch: requestedFile if valid and present in index, otherwise latest
-        const safeRequested = requestedFile && isSafeNotebookFilename(requestedFile) &&
+        // Only allow requestedFile if it's safe and present in index
+        const safeRequested = requestedFile &&
+          isSafeNotebookFilename(requestedFile) &&
           (requestedFile === index.latest || index.archive.includes(requestedFile));
 
         const fileToLoad = safeRequested ? requestedFile : index.latest;
@@ -68,7 +70,6 @@
           })
           .then(md => {
             document.getElementById('notebook-latest').innerHTML = marked.parse(md);
-            // If showing an archived file, update the title to help identify it
             if (safeRequested) {
               const displayDate = fileToLoad.replace('.md', '');
               document.title = `Engineering Notebook — ${displayDate}`;
