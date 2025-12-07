@@ -70,9 +70,15 @@
           })
           .then(md => {
             document.getElementById('notebook-latest').innerHTML = marked.parse(md);
+
+            // Update template title depending on whether an archived entry is being shown
+            const titleEl = document.querySelector('.event-title');
             if (safeRequested) {
+              titleEl.textContent = 'Archived Entry';
               const displayDate = fileToLoad.replace('.md', '');
               document.title = `Engineering Notebook — ${displayDate}`;
+            } else {
+              titleEl.textContent = 'Latest Entry';
             }
           })
           .catch(err => {
