@@ -32,24 +32,57 @@
   </main>
 
   <script>
-    fetch('notebook/notebook-index.json')
-      .then(res => res.json())
-      .then(index => {
-        fetch(`notebook/${index.latest}`)
-          .then(res => res.text())
-          .then(md => {
-            document.getElementById('notebook-latest').innerHTML = marked.parse(md);
-          });
+    // Helper: validate filename is YYYY-MM-DD.md
+    function isSafeNotebookFilename(name) {
+      return /^\d{4}-\d{2}-\d{2}\.md$/.test(name);
+    }
 
+    // Read file param, but only trust it after verifying against notebook-index.json
+    const params = new URLSearchParams(window.location.search);
+    const requestedFile = params.get('file');
+
+    fetch('notebook/notebook-index.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Index fetch failed');
+        return res.json();
+      })
+      .then(index => {
+        // Render archive list: link to this page with a file query param so archives open with the same UI
         const archiveList = index.archive.map(file => {
           const date = file.replace('.md', '');
-          return `<li><a href="notebook/${file}" target="_blank">${date}</a></li>`;
+          // link points to engineering-notebook.html?file=<filename>, opens in a new tab
+          return `<li><a href="engineering-notebook.html?file=${encodeURIComponent(file)}" target="_blank" rel="noopener">${date}</a></li>`;
         }).join('');
-        document.getElementById('notebook-archive').innerHTML = archiveList;
+        document.getElementById('notebook-archive').innerHTML = archiveList || '<li>No archived entries.</li>';
+
+        // Decide which file to fetch: requestedFile if valid and present in index, otherwise latest
+        const safeRequested = requestedFile && isSafeNotebookFilename(requestedFile) &&
+          (requestedFile === index.latest || index.archive.includes(requestedFile));
+
+        const fileToLoad = safeRequested ? requestedFile : index.latest;
+
+        fetch(`notebook/${fileToLoad}`)
+          .then(res => {
+            if (!res.ok) throw new Error('Markdown fetch failed');
+            return res.text();
+          })
+          .then(md => {
+            document.getElementById('notebook-latest').innerHTML = marked.parse(md);
+            // If showing an archived file, update the title to help identify it
+            if (safeRequested) {
+              const displayDate = fileToLoad.replace('.md', '');
+              document.title = `Engineering Notebook — ${displayDate}`;
+            }
+          })
+          .catch(err => {
+            console.warn(err);
+            document.getElementById('notebook-latest').textContent = '⚠️ Failed to load the requested entry.';
+          });
       })
       .catch(err => {
-        document.getElementById('notebook-latest').textContent = '⚠️ Failed to load latest entry.';
+        console.warn(err);
         document.getElementById('notebook-archive').textContent = '⚠️ Archive unavailable.';
+        document.getElementById('notebook-latest').textContent = '⚠️ Failed to load latest entry.';
       });
   </script>
 </body>
