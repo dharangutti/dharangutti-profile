@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Sitemap for dharangutti.in
+  Last updated: 2025-12-30
+  
+  MAINTENANCE NOTE: Update the lastmod dates when content changes.
+  For automated updates, see README.md for build scripts and GitHub Actions examples.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page - Highest Priority -->
   <url>

@@ -156,7 +156,7 @@ jobs:
   update-sitemap:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Generate sitemap
         run: node generate-sitemap.js
       - name: Commit sitemap
