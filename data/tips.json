@@ -70,5 +70,13 @@
   "category": "Maintainability & Stability",
   "explanation": "A stable test framework depends on predictable environments. Flaky tests often arise when leftover state from previous runs contaminates the next. Use setup/teardown hooks to reset databases, caches, or UI state before and after each test. Keep test data deterministic, mock external dependencies, and ensure tests run in isolation so parallel execution doesn’t introduce hidden coupling. This disciplined reset strategy makes your suite easier to maintain, reduces debugging overhead, and ensures stability across CI/CD pipelines.",
   "link": "https://xunit.net/docs/shared-context"
+},
+  {
+  "id": "tip-2026-01-03",
+  "title": "Manually Validate Automation Before Trusting It",
+  "date": "2026-01-03",
+  "category": "Foundations",
+  "explanation": "Automation is software that tests another software. Before relying on it, manually validate the automation framework itself—its locators, waits, data flows, and execution behavior. A trusted automation suite begins with verifying the tester before it tests the product.",
+  "link": "https://martinfowler.com/articles/nonDeterminism.html"
 }
 ]
