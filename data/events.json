@@ -1,14 +1,5 @@
 [
   {
-    "id": "lunar-total-2026mar03",
-    "title": "Total Lunar Eclipse",
-    "start": "2026-03-03T00:00:00.000Z",
-    "end": "2026-03-03T03:00:00.000Z",
-    "location": "See source",
-    "explanation": "During a total lunar eclipse, the Moon passes through Earth's shadow.",
-    "link": "https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html"
-  },
-  {
     "id": "lunar-partial-2026aug28",
     "title": "Partial Lunar Eclipse",
     "start": "2026-08-28T00:00:00.000Z",
