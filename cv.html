@@ -7,35 +7,35 @@
   <title>CV — Anup Dharangutti</title>
 
   <meta name="description"
-        content="Professional CV of Anup Dharangutti, Senior Quality Engineering Specialist with 14+ years of experience in test automation, system architecture, and enterprise QA." />
+        content="Professional CV of Anup Dharangutti, Senior Quality Engineering Specialist with 15+ years of experience in automation, CI/CD, and enterprise testing." />
   <meta name="keywords"
-        content="Anup Dharangutti CV, QA automation specialist, test automation engineer resume, Selenium Appium C#, quality engineering" />
+        content="Anup Dharangutti CV, QA Automation Engineer, Selenium Appium C#, Quality Engineering Resume" />
   <meta name="author" content="Anup Dharangutti" />
 
-  <!-- Canonical stays on HTML (wrapper pattern) -->
-  <link rel="canonical" href="https://dharangutti.in/cv.html" />
+  https://www.dharangutti.in/cv.html
 
   <!-- Open Graph -->
   <meta property="og:type" content="profile" />
-  <meta property="og:url" content="https://dharangutti.in/cv.html" />
+  <meta property="og:url" content="https://www.dharangutti.in/cv.html" />
   <meta property="og:title" content="CV — Anup Dharangutti" />
   <meta property="og:description"
-        content="Senior Quality Engineering Specialist with 14+ years of experience in automation frameworks, CI/CD, and enterprise testing." />
-  <meta property="og:image" content="https://dharangutti.in/avatar.png" />
+        content="Senior Quality Engineering Specialist with 14+ years of enterprise automation experience." />
+  <meta property="og:image" content="https://www.dharangutti.in/avatar.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="CV — Anup Dharangutti" />
   <meta name="twitter:description"
         content="Professional CV of Anup Dharangutti, Senior Quality Engineering Specialist." />
-  <meta name="twitter:image" content="https://dharangutti.in/avatar.png" />
+  <meta name="twitter:image" content="https://www.dharangutti.in/avatar.png" />
 
-  <link rel="stylesheet" href="/styles.css" />
+  /styles.css
 
   <style>
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       margin: 0;
+      background: #fff;
     }
 
     .container {
@@ -62,8 +62,11 @@
       font-size: 1.4rem;
     }
 
-    nav a {
+    nav {
       font-size: 0.9rem;
+    }
+
+    nav a {
       color: #0366d6;
       text-decoration: none;
     }
@@ -72,7 +75,8 @@
       text-decoration: underline;
     }
 
-    .pdf-wrapper {
+    /* PDF container */
+    .pdf-container {
       margin-top: 1rem;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -80,18 +84,21 @@
       height: 85vh;
     }
 
-    .pdf-wrapper iframe {
+    .pdf-container iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
 
-    .fallback {
-      display: none;
+    footer {
+      margin-top: 1rem;
+      text-align: center;
+      color: #666;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
-      .pdf-wrapper {
+      .pdf-container {
         height: 75vh;
       }
     }
@@ -102,48 +109,30 @@
   <main class="container">
 
     <header>
-      <img class="avatar" src="/avatar.png" alt="Anup Dharangutti avatar"
-           onerror="this.style.display='none'" />
+      /avatar.png
       <div>
         <h1>Anup Dharangutti</h1>
         <nav>
-          <a href="/cv.pdf" target="_blank" rel="noopener">Download PDF</a>
+          /cv.pdfDownload PDF</a>
           &nbsp;•&nbsp;
-          <a href="/contact.html">Contact</a>
+          /contact.htmlContact</a>
         </nav>
       </div>
     </header>
 
-    <!-- Embedded CV -->
-    <section class="pdf-wrapper" aria-label="Embedded CV PDF">
-      <iframe
-        src="/cv.pdf"
-        title="CV of Anup Dharangutti">
+    <!-- ✅ THIS IS THE ONLY CONTENT NOW -->
+    <section class="pdf-container" aria-label="Embedded CV PDF">
+      /cv.pdf
       </iframe>
     </section>
 
-    <!-- SEO + accessibility fallback -->
-    <section class="fallback">
-      <h2>Professional Summary</h2>
-      <p>
-        Senior specialist in Quality Engineering with 15+ years of experience across
-        test automation, system administration, and scalable framework design.
-      </p>
-
-      <h2>Core Expertise</h2>
-      <p>
-        Selenium, Appium, C#, Java, CI/CD pipelines, desktop and mobile automation,
-        enterprise QA architecture.
-      </p>
-    </section>
-
-    <footer style="margin-top:1rem;text-align:center;color:#666;font-size:.85rem">
+    <footer>
       Last updated: 2025-10-18
     </footer>
 
   </main>
 
-  <script src="/include-header.js"></script>
-  <script src="/breadcrumb.js"></script>
+  /include-header.js
+  /breadcrumb.js
 </body>
 </html>
