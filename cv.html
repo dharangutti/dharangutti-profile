@@ -12,7 +12,7 @@
         content="Anup Dharangutti CV, QA Automation Engineer, Selenium Appium C#, Quality Engineering Resume" />
   <meta name="author" content="Anup Dharangutti" />
 
-  https://www.dharangutti.in/cv.html
+  <link rel="canonical" href="https://www.dharangutti.in/cv.html" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="profile" />
@@ -29,7 +29,7 @@
         content="Professional CV of Anup Dharangutti, Senior Quality Engineering Specialist." />
   <meta name="twitter:image" content="https://www.dharangutti.in/avatar.png" />
 
-  /styles.css
+  <link rel="stylesheet" href="/styles.css" />
 
   <style>
     body {
@@ -109,20 +109,21 @@
   <main class="container">
 
     <header>
-      /avatar.png
+      <img class="avatar" src="/avatar.png" alt="Anup Dharangutti avatar"
+           onerror="this.style.display='none'" />
       <div>
         <h1>Anup Dharangutti</h1>
         <nav>
-          /cv.pdfDownload PDF</a>
+          <a href="/cv.pdf" target="_blank" rel="noopener">Download PDF</a>
           &nbsp;•&nbsp;
-          /contact.htmlContact</a>
+          <a href="/contact.html">Contact</a>
         </nav>
       </div>
     </header>
 
     <!-- ✅ THIS IS THE ONLY CONTENT NOW -->
     <section class="pdf-container" aria-label="Embedded CV PDF">
-      /cv.pdf
+      <iframe src="/cv.pdf" title="CV of Anup Dharangutti">
       </iframe>
     </section>
 
@@ -132,7 +133,7 @@
 
   </main>
 
-  /include-header.js
-  /breadcrumb.js
+  <script src="/include-header.js"></script>
+  <script src="/breadcrumb.js"></script>
 </body>
 </html>
