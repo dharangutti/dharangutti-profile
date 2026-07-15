@@ -55,17 +55,52 @@
     ];
 
     function renderPapers(papers) {
-      const list = document.getElementById('paper-list');
-      list.innerHTML = '';
-      papers.forEach(paper => {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = `papers/${paper.filename}`;
-        link.textContent = paper.title;
-        link.target = '_blank';
-        li.appendChild(link);
-        list.appendChild(li);
+  const list = document.getElementById('paper-list');
+  list.innerHTML = '';
+
+  papers.forEach(paper => {
+    const li = document.createElement('li');
+    li.className = 'paper-item';
+
+    const link = document.createElement('a');
+    link.href = `/papers/${encodeURIComponent(paper.filename)}`;
+    link.textContent = paper.title;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className = 'paper-title';
+
+    const meta = document.createElement('div');
+    meta.className = 'paper-meta';
+
+    if (paper.date) {
+      const formattedDate = new Date(
+        `${paper.date}T00:00:00`
+      ).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
       });
+
+      meta.textContent = `${formattedDate} · PDF`;
+    }
+
+    const description = document.createElement('p');
+    description.className = 'paper-description';
+    description.textContent = paper.description || '';
+
+    li.appendChild(link);
+
+    if (paper.date) {
+      li.appendChild(meta);
+    }
+
+    if (paper.description) {
+      li.appendChild(description);
+    }
+
+    list.appendChild(li);
+  });
+}
     }
 
     fetch('papers-index.json')
