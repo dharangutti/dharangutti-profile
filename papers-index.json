@@ -2,16 +2,19 @@
   {
     "title": "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
     "filename": "battery innovations paper.pdf",
-    "date": "2025-06-28"
+    "date": "2025-06-28",
+    "description": "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety."
   },
   {
     "title": "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
     "filename": "logic design paper.pdf",
-    "date": "2025-06-27"
+    "date": "2025-06-27",
+    "description": "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems."
   },
   {
     "title": "Seabed-Anchored Adaptive Ocean Energy Network",
     "filename": "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
-    "date": "2026-07-15"
+    "date": "2026-07-15",
+    "description": "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks."
   }
 ]
