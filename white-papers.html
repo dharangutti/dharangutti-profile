@@ -2,36 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>White Papers — Anup Dharangutti</title>
-  <meta name="description" content="Independently authored research papers by Anup Dharangutti on modular clarity, fallback resilience, and civic-grade engineering." />
-  <meta name="keywords" content="white papers, research papers, battery innovations, logic design, modular systems, engineering research, Anup Dharangutti" />
+
+  <meta
+    name="description"
+    content="Independent engineering white papers by Anup Dharangutti covering energy systems, resilient electronics, technology architecture, and exploratory technical research."
+  />
+
+  <meta
+    name="keywords"
+    content="white papers, engineering research, ocean energy, battery systems, logic design, resilient electronics, technology architecture, Anup Dharangutti"
+  />
+
   <meta name="author" content="Anup Dharangutti" />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://dharangutti.in/white-papers.html" />
-  <meta property="og:title" content="White Papers — Anup Dharangutti" />
-  <meta property="og:description" content="Independently authored research papers by Anup Dharangutti on modular clarity, fallback resilience, and civic-grade engineering." />
-  <meta property="og:image" content="https://dharangutti.in/avatar.png" />
-  
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="https://www.dharangutti.in/white-papers.html"
+  />
+  <meta
+    property="og:title"
+    content="White Papers — Anup Dharangutti"
+  />
+  <meta
+    property="og:description"
+    content="Independent engineering white papers exploring energy systems, resilient electronics, and technology architecture."
+  />
+  <meta
+    property="og:image"
+    content="https://www.dharangutti.in/avatar.png"
+  />
+
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content="https://dharangutti.in/white-papers.html" />
-  <meta property="twitter:title" content="White Papers — Anup Dharangutti" />
-  <meta property="twitter:description" content="Independently authored research papers by Anup Dharangutti on modular clarity, fallback resilience, and civic-grade engineering." />
-  <meta property="twitter:image" content="https://dharangutti.in/avatar.png" />
-  
-  <link rel="stylesheet" href="assets/css/white-papers.css" />
-  <link rel="canonical" href="https://dharangutti.in/white-papers.html" />
-  <link rel="stylesheet" href="/styles.css">
+  <meta name="twitter:card" content="summary" />
+  <meta
+    name="twitter:title"
+    content="White Papers — Anup Dharangutti"
+  />
+  <meta
+    name="twitter:description"
+    content="Independent engineering white papers exploring energy systems, resilient electronics, and technology architecture."
+  />
+  <meta
+    name="twitter:image"
+    content="https://www.dharangutti.in/avatar.png"
+  />
+
+  <link
+    rel="canonical"
+    href="https://www.dharangutti.in/white-papers.html"
+  />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <link
+    rel="stylesheet"
+    href="/assets/css/white-papers.css"
+  />
 </head>
+
 <body>
   <main class="container">
+
     <header class="header">
       <h1>White Papers</h1>
+
       <p class="subtitle">
-      These independently authored white papers explore emerging engineering concepts across energy systems, resilient electronics, and technology architecture. They are developed as personal technical research and are not associated with or representative of any employer or client.  
+        These independently authored white papers explore emerging engineering
+        concepts across energy systems, resilient electronics, and technology
+        architecture. They are developed as personal technical research and are
+        not associated with or representative of any employer or client.
       </p>
     </header>
 
@@ -40,80 +83,156 @@
         <li>Loading papers…</li>
       </ul>
     </section>
+
   </main>
 
   <script>
     const fallbackPapers = [
       {
-        title: "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
-        filename: "battery innovations paper.pdf"
+        title:
+          "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
+        filename:
+          "battery innovations paper.pdf",
+        date:
+          "2025-06-28",
+        description:
+          "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety."
       },
       {
-        title: "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
-        filename: "logic design paper.pdf"
+        title:
+          "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
+        filename:
+          "logic design paper.pdf",
+        date:
+          "2025-06-27",
+        description:
+          "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems."
+      },
+      {
+        title:
+          "Seabed-Anchored Adaptive Ocean Energy Network",
+        filename:
+          "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
+        date:
+          "2026-07-15",
+        description:
+          "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks."
       }
     ];
 
     function renderPapers(papers) {
-  const list = document.getElementById('paper-list');
-  list.innerHTML = '';
+      const list =
+        document.getElementById("paper-list");
 
-  papers.forEach(paper => {
-    const li = document.createElement('li');
-    li.className = 'paper-item';
+      list.innerHTML = "";
 
-    const link = document.createElement('a');
-    link.href = `/papers/${encodeURIComponent(paper.filename)}`;
-    link.textContent = paper.title;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.className = 'paper-title';
+      papers.forEach(paper => {
+        const item =
+          document.createElement("li");
 
-    const meta = document.createElement('div');
-    meta.className = 'paper-meta';
+        item.className =
+          "paper-item";
 
-    if (paper.date) {
-      const formattedDate = new Date(
-        `${paper.date}T00:00:00`
-      ).toLocaleDateString('en-IN', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
+        const link =
+          document.createElement("a");
+
+        link.href =
+          `/papers/${encodeURIComponent(
+            paper.filename
+          )}`;
+
+        link.textContent =
+          paper.title;
+
+        link.target =
+          "_blank";
+
+        link.rel =
+          "noopener noreferrer";
+
+        link.className =
+          "paper-title";
+
+        item.appendChild(link);
+
+        if (paper.date) {
+          const meta =
+            document.createElement("div");
+
+          meta.className =
+            "paper-meta";
+
+          const formattedDate =
+            new Date(
+              `${paper.date}T00:00:00`
+            ).toLocaleDateString(
+              "en-IN",
+              {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+              }
+            );
+
+          meta.textContent =
+            `${formattedDate} · PDF`;
+
+          item.appendChild(meta);
+        }
+
+        if (paper.description) {
+          const description =
+            document.createElement("p");
+
+          description.className =
+            "paper-description";
+
+          description.textContent =
+            paper.description;
+
+          item.appendChild(
+            description
+          );
+        }
+
+        list.appendChild(item);
       });
-
-      meta.textContent = `${formattedDate} · PDF`;
     }
 
-    const description = document.createElement('p');
-    description.className = 'paper-description';
-    description.textContent = paper.description || '';
-
-    li.appendChild(link);
-
-    if (paper.date) {
-      li.appendChild(meta);
-    }
-
-    if (paper.description) {
-      li.appendChild(description);
-    }
-
-    list.appendChild(li);
-  });
-}
-    }
-
-    fetch('papers-index.json')
+    fetch(
+      "/papers-index.json?v=20260715"
+    )
       .then(response => {
-        if (!response.ok) throw new Error('Fetch failed');
+        if (!response.ok) {
+          throw new Error(
+            `Unable to load paper index: HTTP ${response.status}`
+          );
+        }
+
         return response.json();
       })
-      .then(renderPapers)
+      .then(data => {
+        if (!Array.isArray(data)) {
+          throw new Error(
+            "papers-index.json must contain a top-level array."
+          );
+        }
+
+        renderPapers(data);
+      })
       .catch(error => {
-        console.warn('⚠️ Falling back to embedded links:', error);
-        renderPapers(fallbackPapers);
+        console.warn(
+          "Using embedded paper list:",
+          error
+        );
+
+        renderPapers(
+          fallbackPapers
+        );
       });
   </script>
-  <script src="/include-header.js"></script> <script src="/breadcrumb.js"></script>
+
+  <script src="/include-header.js"></script>
+  <script src="/breadcrumb.js"></script>
 </body>
 </html>
