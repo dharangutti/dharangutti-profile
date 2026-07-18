@@ -4,26 +4,25 @@ This repository hosts the personal profile site for Anup Dharangutti, Test Autom
 
 ## 🌐 Site URL
 
-The site is hosted at: **https://dharangutti.in** (via GitHub Pages)
+The site is hosted at: **https://www.dharangutti.in** (via GitHub Pages)
 
 ## 📄 Pages
 
-- **[Home](https://dharangutti.in/)** - Main profile page with overview and embedded content
-- **[CV](https://dharangutti.in/cv.html)** - Professional curriculum vitae
-- **[Contact](https://dharangutti.in/contact.html)** - Contact information and social links
-- **[Engineering Notebook](https://dharangutti.in/engineering-notebook.html)** - Modular insights and weekly updates
-- **[Automation Tips](https://dharangutti.in/automation-tips.html)** - Weekly test automation best practices
-- **[White Papers](https://dharangutti.in/white-papers.html)** - Research papers on engineering topics
-- **[Celestial Calendar](https://dharangutti.in/celestial-calendar.html)** - Upcoming celestial events tracker
+- **[Home](https://www.dharangutti.in/)** - Main profile page with overview and embedded content
+- **[CV](https://www.dharangutti.in/cv.html)** - Professional curriculum vitae
+- **[Contact](https://www.dharangutti.in/contact.html)** - Contact information and social links
+- **[Engineering Notebook](https://www.dharangutti.in/engineering-notebook.html)** - Modular insights and weekly updates
+- **[Automation Tips](https://www.dharangutti.in/automation-tips.html)** - Weekly test automation best practices
+- **[White Papers](https://www.dharangutti.in/white-papers.html)** - Research papers on engineering topics
+- **[Celestial Calendar](https://www.dharangutti.in/celestial-calendar.html)** - Upcoming celestial events tracker
 
 ## 🔍 SEO & Discoverability
 
 ### Sitemap (sitemap.xml)
 
-The site includes a comprehensive XML sitemap at `/sitemap.xml` that lists all major pages with:
-- **Priority**: Homepage (1.0), key pages (0.9-0.8), secondary pages (0.7)
-- **Change Frequency**: Weekly for dynamic content, monthly for static pages
-- **Last Modified**: Updated to current date
+The site includes an XML sitemap at `/sitemap.xml` that lists the canonical public pages and directly indexable PDFs with:
+- **Canonical URLs**: `https://www.dharangutti.in` from the repository `CNAME`
+- **Last Modified**: Included only when the date can be determined accurately from Git history
 
 The sitemap follows the [Sitemap Protocol](https://www.sitemaps.org/protocol.html) standard and helps search engines discover and index all site content.
 
@@ -72,16 +71,14 @@ When adding new pages to the site:
 1. Edit `sitemap.xml` and add a new `<url>` entry:
 ```xml
 <url>
-  <loc>https://dharangutti.in/new-page.html</loc>
+  <loc>https://www.dharangutti.in/new-page.html</loc>
   <lastmod>YYYY-MM-DD</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.8</priority>
 </url>
 ```
 
-2. Update the `lastmod` date to the current date
-3. Choose appropriate `changefreq` (always, hourly, daily, weekly, monthly, yearly, never)
-4. Set `priority` (0.0 to 1.0, where 1.0 is highest)
+2. Add `lastmod` only when the date can be determined from Git history or another reliable source
+3. Do not add `/index.html` as a separate sitemap route from `/`
+4. Omit `changefreq` and `priority` unless there is a specific, meaningful reason to include them
 
 ### Updating Page Metadata
 
@@ -98,19 +95,19 @@ When creating new pages, include this metadata template in the `<head>`:
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://dharangutti.in/page.html" />
+  <meta property="og:url" content="https://www.dharangutti.in/page.html" />
   <meta property="og:title" content="Page Title — Anup Dharangutti" />
   <meta property="og:description" content="Social media description" />
-  <meta property="og:image" content="https://dharangutti.in/avatar.png" />
+  <meta property="og:image" content="https://www.dharangutti.in/avatar.png" />
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content="https://dharangutti.in/page.html" />
+  <meta property="twitter:url" content="https://www.dharangutti.in/page.html" />
   <meta property="twitter:title" content="Page Title — Anup Dharangutti" />
   <meta property="twitter:description" content="Social media description" />
-  <meta property="twitter:image" content="https://dharangutti.in/avatar.png" />
+  <meta property="twitter:image" content="https://www.dharangutti.in/avatar.png" />
   
-  <link rel="canonical" href="https://dharangutti.in/page.html" />
+  <link rel="canonical" href="https://www.dharangutti.in/page.html" />
 </head>
 ```
 
@@ -125,19 +122,13 @@ import { writeFileSync } from 'fs';
 import { globSync } from 'glob';
 
 const pages = globSync('*.html').map(file => ({
-  loc: `https://dharangutti.in/${file}`,
-  lastmod: new Date().toISOString().split('T')[0],
-  changefreq: 'weekly',
-  priority: file === 'index.html' ? '1.0' : '0.8'
+  loc: file === 'index.html' ? 'https://www.dharangutti.in/' : `https://www.dharangutti.in/${file}`
 }));
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(page => `  <url>
     <loc>${page.loc}</loc>
-    <lastmod>${page.lastmod}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
   </url>`).join('\n')}
 </urlset>`;
 
@@ -196,7 +187,7 @@ dharangutti-profile/
 
 The site is automatically deployed via **GitHub Pages** when changes are pushed to the main branch.
 
-- Domain: `dharangutti.in` (configured via CNAME)
+- Domain: `www.dharangutti.in` (configured via CNAME)
 - GitHub Pages serves static files directly
 - No build process required for deployment
 

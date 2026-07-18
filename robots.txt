@@ -1,11 +1,8 @@
-# robots.txt for dharangutti.in
+# robots.txt for www.dharangutti.in
 # Allow all search engines to crawl the site
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://dharangutti.in/sitemap.xml
-
-# Optional: Crawl-delay (in seconds) - uncomment if needed
-# Crawl-delay: 10
+Sitemap: https://www.dharangutti.in/sitemap.xml

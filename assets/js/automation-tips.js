@@ -1,4 +1,4 @@
-fetch('data/tips.json')
+fetch('/data/tips.json')
   .then(res => res.json())
   .then(tips => {
     const container = document.getElementById('tips-root');
