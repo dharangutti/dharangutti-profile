@@ -5,7 +5,10 @@
   // --- existing options code unchanged ---
   var opts = (window.BREADCRUMB_OPTIONS && typeof window.BREADCRUMB_OPTIONS === 'object') ? window.BREADCRUMB_OPTIONS : {};
   var rootName = opts.rootName || 'Home';
-  var rootUrl = (opts.rootUrl || 'https://dharangutti.in').replace(/\/$/, '');
+  var detectedOrigin = window.location && window.location.origin && window.location.origin !== 'null'
+    ? window.location.origin
+    : 'https://www.dharangutti.in';
+  var rootUrl = (opts.rootUrl || detectedOrigin).replace(/\/$/, '');
   var selector = opts.selector || '#breadcrumb';
   var nameMap = Object.assign({
     'index': 'Home',
@@ -16,6 +19,15 @@
     'contact': 'Contact',
     'cv': 'CV'
   }, opts.nameMap || {});
+  var routeMap = Object.assign({
+    'index': '/',
+    'engineering-notebook': '/engineering-notebook.html',
+    'white-papers': '/white-papers.html',
+    'automation-tips': '/automation-tips.html',
+    'celestial-calendar': '/celestial-calendar.html',
+    'contact': '/contact.html',
+    'cv': '/cv.html'
+  }, opts.routeMap || {});
 
   function capitalize(s) {
     return String(s).replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
@@ -37,17 +49,13 @@
     crumbs.push({ name: rootName, url: rootUrl + '/' });
 
     if (rawSegments.length) {
-      var accumSegments = [];
-      for (var i = 0; i < rawSegments.length; i++) {
-        var orig = rawSegments[i];
-        var clean = cleanSegment(orig);
-        if (clean.toLowerCase() === 'index') continue;
-        accumSegments.push(orig);
-        var urlPath = '/' + accumSegments.join('/');
-        var url = rootUrl + urlPath;
-        var display = nameMap[clean] || decodeURIComponent(clean).replace(/[-_]/g, ' ');
+      var lastSegment = rawSegments[rawSegments.length - 1];
+      var clean = cleanSegment(lastSegment).toLowerCase();
+      if (clean !== 'index') {
+        var routePath = routeMap[clean] || rawPath;
+        var display = nameMap[clean] || decodeURIComponent(cleanSegment(lastSegment)).replace(/[-_]/g, ' ');
         display = capitalize(display);
-        crumbs.push({ name: display, url: url });
+        crumbs.push({ name: display, url: rootUrl + routePath });
       }
     }
 

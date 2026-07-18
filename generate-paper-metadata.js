@@ -8,13 +8,13 @@ const metadata = {
   "author": {
     "@type": "Person",
     "name": "Anup Dharangutti",
-    "url": "https://dharangutti.in"
+    "url": "https://www.dharangutti.in/"
   },
   "hasPart": papers.map(p => ({
     "@type": "ScholarlyArticle",
     "headline": p.title,
     "datePublished": p.date,
-    "url": `https://dharangutti.in/papers/${p.filename}`
+    "url": `https://www.dharangutti.in/papers/${encodeURIComponent(p.filename)}`
   }))
 };
 
