@@ -101,4 +101,11 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.dharangutti.in/papers/Flux_Logic_Computing_V2.pdf</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
