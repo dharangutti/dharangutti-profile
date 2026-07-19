@@ -1,47 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Sitemap for www.dharangutti.in.
-  Canonical host is confirmed by the repository CNAME file.
-  lastmod is included only where the date can be tied to Git history for files
-  not otherwise modified in this branch.
--->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
   <url>
     <loc>https://www.dharangutti.in/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
+
+  <!-- Explicit index file -->
+  <url>
+    <loc>https://www.dharangutti.in/index.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- CV -->
   <url>
     <loc>https://www.dharangutti.in/cv.html</loc>
     <lastmod>2026-04-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
+
   <url>
     <loc>https://www.dharangutti.in/cv.pdf</loc>
     <lastmod>2026-04-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
+
+  <!-- Contact -->
   <url>
     <loc>https://www.dharangutti.in/contact.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
+
+  <!-- Engineering Notebook -->
   <url>
     <loc>https://www.dharangutti.in/engineering-notebook.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
+
+  <!-- Automation Tips -->
   <url>
     <loc>https://www.dharangutti.in/automation-tips.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
+
+  <!-- White Papers Index -->
   <url>
     <loc>https://www.dharangutti.in/white-papers.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+
+  <!-- Celestial Calendar -->
   <url>
     <loc>https://www.dharangutti.in/celestial-calendar.html</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
+
+  <!-- PDFs -->
   <url>
     <loc>https://www.dharangutti.in/papers/battery%20innovations%20paper.pdf</loc>
     <lastmod>2025-11-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
+
   <url>
     <loc>https://www.dharangutti.in/papers/logic%20design%20paper.pdf</loc>
     <lastmod>2025-11-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
+
   <url>
     <loc>https://www.dharangutti.in/papers/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf</loc>
     <lastmod>2026-07-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
+
+  <url>
+    <loc>https://www.dharangutti.in/papers/Flux_Logic_Computing_Professional_V1.pdf</loc>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
