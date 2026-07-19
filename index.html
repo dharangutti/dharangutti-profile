@@ -216,56 +216,77 @@
           
             <p style="margin-top:0.6rem"><a href="/engineering-notebook.html">Open notebook in its standalone page</a></p>
           </div>
-        <!-- 🧪 Embedded Automation Tips card -->
+       <!-- 📄 Embedded White Papers card -->
         <div class="card" style="margin-top:1rem">
-          <h2>Test Automation Tips</h2>
-          <p style="margin-top:0.25rem;color:#333">One actionable insight per week — curated for clarity, resilience, and civic-grade engineering. Click any card to open an AI-generated explana[...]
-
-          <div class="iframe-wrapper" role="group" aria-label="Automation Tips preview">
-            <iframe src="/automation-tips.html" title="Test Automation Tips" loading="lazy" referrerpolicy="no-referrer"></iframe>
-          </div>
-
-          <p style="margin-top:0.6rem"><a href="/automation-tips.html">Open tips in their standalone page</a></p>
-        </div>
-         <!-- 📄 Embedded White Papers card -->
-          <div class="card" style="margin-top:1rem">
           <h2>White Papers</h2>
+        
           <p style="margin-top:0.25rem;color:#333">
-            Independently authored research papers from my prototyping phase, focused on modular clarity, fallback resilience, and civic-grade engineering. Click any title to open the full docume[...]
+            Independently authored research papers from my prototyping phase, focused on modular clarity,
+            fallback resilience, and civic-grade engineering. Click any title to open the full document.
           </p>
-
+        
           <div role="group" aria-label="White Papers preview">
-            <ul style="margin-top:0.5rem">
-              <li><a href="/papers/battery%20innovations%20paper.pdf" target="_blank">External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems</a></li>
-              <li><a href="/papers/logic%20design%20paper.pdf" target="_blank">Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling</a></li>
-              <li><a href="/papers/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf" target="_blank">Seabed-Anchored Adaptive Ocean Energy Network</a></li>
-            </ul>
+            <ul id="white-papers-list" style="margin-top:0.5rem"></ul>
           </div>
+        
+          <script>
+            document.addEventListener("DOMContentLoaded", async () => {
+              const list = document.getElementById("white-papers-list");
+              if (!list) return;
+        
+              try {
+                const response = await fetch("/papers/papers-index.json");
+                if (!response.ok) throw new Error("Failed to load papers-index.json");
+        
+                const papers = await response.json();
+        
+                // Sort by date descending (newest first)
+                papers.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+                for (const paper of papers) {
+                  const li = document.createElement("li");
+        
+                  const link = document.createElement("a");
+                  link.href = "/papers/" + encodeURIComponent(paper.filename);
+                  link.target = "_blank";
+                  link.rel = "noopener";
+                  link.textContent = paper.title;
+                  link.title = paper.description; // tooltip
+        
+                  li.appendChild(link);
+                  list.appendChild(li);
+                }
+              } catch (err) {
+                console.error("Error loading papers:", err);
+                list.textContent = "Unable to load papers at this time.";
+              }
+            });
+          </script>
         
           <p style="margin-top:0.6rem">
             <a href="/white-papers.html">Open archive in its standalone page</a>
           </p>
-        </div> 
+        </div>
         <!-- 🚀 Featured Project -->
-<div class="card" style="margin-top:1rem; background:#eef8ff; border:1px solid #4a90e2;">
-  <h2>🌌 UniverseGlance</h2>
-  <p style="margin-top:0.35rem;color:#333;">
-    An interactive astronomy platform that blends scientific calculations, celestial visualization, and personalized sky experiences for everyone—from curious beginners to astronomy enthusiasts.
-  </p>
-  <ul style="margin-top:0.8rem;line-height:1.7;">
-    <li>✨ <strong>Cosmic ID</strong> with astronomy-based identity insights</li>
-    <li>🌠 Personalized <strong>Sky Portraits</strong> from your birth date, time & location</li>
-    <li>🔭 Live sky map, constellation navigation & celestial tracking</li>
-    <li>🪐 Telescope Assistant with observation guidance</li>
-    <li>📅 Panchang, Vedic charts & Western astrology visualizations</li>
-    <li>🖼️ Downloadable reports and premium astronomy experiences</li>
-  </ul>
-  <p style="margin-top:1rem;">
-    <a href="https://www.universeglance.com" target="_blank">
-      Explore UniverseGlance →
-    </a>
-  </p>
-</div>
+        <div class="card" style="margin-top:1rem; background:#eef8ff; border:1px solid #4a90e2;">
+          <h2>🌌 UniverseGlance</h2>
+          <p style="margin-top:0.35rem;color:#333;">
+            An interactive astronomy platform that blends scientific calculations, celestial visualization, and personalized sky experiences for everyone—from curious beginners to astronomy enthusiasts.
+          </p>
+          <ul style="margin-top:0.8rem;line-height:1.7;">
+            <li>✨ <strong>Cosmic ID</strong> with astronomy-based identity insights</li>
+            <li>🌠 Personalized <strong>Sky Portraits</strong> from your birth date, time & location</li>
+            <li>🔭 Live sky map, constellation navigation & celestial tracking</li>
+            <li>🪐 Telescope Assistant with observation guidance</li>
+            <li>📅 Panchang, Vedic charts & Western astrology visualizations</li>
+            <li>🖼️ Downloadable reports and premium astronomy experiences</li>
+          </ul>
+          <p style="margin-top:1rem;">
+            <a href="https://www.universeglance.com" target="_blank">
+              Explore UniverseGlance →
+            </a>
+          </p>
+        </div>
         <!-- ⭐ Premium Section -->
         <div class="card" style="margin-top:1rem; background: #e6f7ff; border: 1px solid #3498db;">
           <h2>UniverseGlance.com — Cosmic ID Platform</h2>
