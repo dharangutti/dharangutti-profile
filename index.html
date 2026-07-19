@@ -235,7 +235,7 @@
               if (!list) return;
         
               try {
-                const response = await fetch("/papers/papers-index.json");
+                const response = await fetch("/papers-index.json");
                 if (!response.ok) throw new Error("Failed to load papers-index.json");
         
                 const papers = await response.json();
