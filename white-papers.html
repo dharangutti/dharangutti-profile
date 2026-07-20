@@ -8,60 +8,108 @@
 
   <meta
     name="description"
-    content="Independent engineering white papers by Anup Dharangutti covering energy systems, resilient electronics, technology architecture, and exploratory technical research."
+    content="Independent engineering white papers by Anup Dharangutti covering ocean energy systems, flux-domain logic, battery systems, and resilient electronics. Selected papers archived on Zenodo with DOIs."
   />
 
   <meta
     name="keywords"
-    content="white papers, engineering research, ocean energy, battery systems, logic design, resilient electronics, technology architecture, Anup Dharangutti"
+    content="white papers, engineering research, ocean energy, flux logic computing, battery systems, logic design, resilient electronics, Zenodo, DOI, Anup Dharangutti"
   />
 
   <meta name="author" content="Anup Dharangutti" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="https://www.dharangutti.in/white-papers.html"
-  />
-  <meta
-    property="og:title"
-    content="White Papers — Anup Dharangutti"
-  />
+  <meta property="og:url" content="https://www.dharangutti.in/white-papers.html" />
+  <meta property="og:title" content="White Papers — Anup Dharangutti" />
   <meta
     property="og:description"
-    content="Independent engineering white papers exploring energy systems, resilient electronics, and technology architecture."
+    content="Independent engineering white papers exploring ocean energy, flux-domain logic, battery systems, and resilient electronics. Archived on Zenodo with DOIs."
   />
-  <meta
-    property="og:image"
-    content="https://www.dharangutti.in/avatar.png"
-  />
+  <meta property="og:image" content="https://www.dharangutti.in/avatar.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
-  <meta
-    name="twitter:title"
-    content="White Papers — Anup Dharangutti"
-  />
+  <meta name="twitter:title" content="White Papers — Anup Dharangutti" />
   <meta
     name="twitter:description"
-    content="Independent engineering white papers exploring energy systems, resilient electronics, and technology architecture."
+    content="Independent engineering white papers exploring ocean energy, flux-domain logic, battery systems, and resilient electronics."
   />
-  <meta
-    name="twitter:image"
-    content="https://www.dharangutti.in/avatar.png"
-  />
+  <meta name="twitter:image" content="https://www.dharangutti.in/avatar.png" />
 
-  <link
-    rel="canonical"
-    href="https://www.dharangutti.in/white-papers.html"
-  />
+  <link rel="canonical" href="https://www.dharangutti.in/white-papers.html" />
 
   <link rel="stylesheet" href="/styles.css" />
-  <link
-    rel="stylesheet"
-    href="/white-papers.css"
-  />
+  <link rel="stylesheet" href="/white-papers.css" />
+
+  <!-- Structured data for the two DOI-archived papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ScholarlyArticle",
+        "headline": "Flux Logic Computing",
+        "author": { "@type": "Person", "name": "Anup Jayant Dharangutti" },
+        "datePublished": "2026-07-18",
+        "version": "2.0",
+        "identifier": "https://doi.org/10.5281/zenodo.21446058",
+        "sameAs": "https://zenodo.org/records/21446058",
+        "publisher": { "@type": "Organization", "name": "Zenodo" },
+        "license": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      {
+        "@type": "ScholarlyArticle",
+        "headline": "Seabed-Anchored Adaptive Ocean Energy Network",
+        "author": { "@type": "Person", "name": "Anup Jayant Dharangutti" },
+        "datePublished": "2026-07-15",
+        "version": "1.0",
+        "identifier": "https://doi.org/10.5281/zenodo.21447437",
+        "sameAs": "https://zenodo.org/records/21447437",
+        "publisher": { "@type": "Organization", "name": "Zenodo" },
+        "license": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Small additions scoped to this page; move into white-papers.css if preferred */
+    .paper-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .paper-badges img { height: 20px; display: block; }
+    .paper-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    .paper-actions a { color: #0b66c3; text-decoration: none; }
+    .paper-actions a:hover { text-decoration: underline; }
+    .paper-section-label {
+      margin: 28px 0 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #777;
+    }
+    .copy-bibtex {
+      cursor: pointer;
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 2px 10px;
+      font-size: 0.85rem;
+      color: #444;
+    }
+    .copy-bibtex:hover { border-color: #999; }
+  </style>
 </head>
 
 <body>
@@ -73,498 +121,157 @@
       <p class="subtitle">
         These independently authored white papers explore emerging engineering
         concepts across energy systems, resilient electronics, and technology
-        architecture. They are developed as personal technical research and are
-        not associated with or representative of any employer or client.
+        architecture. Selected papers are archived on
+        <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Dharangutti%2C+Anup+Jayant%22"
+           target="_blank" rel="noopener noreferrer">Zenodo</a>
+        with citable DOIs. They are developed as personal technical research and
+        are not associated with or representative of any employer or client.
       </p>
     </header>
 
     <section class="card">
-      <ul id="paper-list">
+      <h2 class="paper-section-label">Archived on Zenodo (DOI)</h2>
+      <ul id="paper-list-zenodo">
+
         <li class="paper-item">
-          <a class="paper-title" href="/papers/battery%20innovations%20paper.pdf" target="_blank" rel="noopener noreferrer">External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems</a>
+          <a class="paper-title"
+             href="https://doi.org/10.5281/zenodo.21446058"
+             target="_blank" rel="noopener noreferrer">
+            Flux Logic Computing
+          </a>
+          <div class="paper-meta">18 July 2026 · Working paper · v2.0 · CC BY 4.0</div>
+          <div class="paper-badges">
+            <a href="https://doi.org/10.5281/zenodo.21446058"
+               target="_blank" rel="noopener noreferrer"
+               title="DOI: 10.5281/zenodo.21446058">
+              <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21446058.svg"
+                   alt="DOI 10.5281/zenodo.21446058" loading="lazy" />
+            </a>
+          </div>
+          <p class="paper-description">
+            A conceptual digital logic family in which binary information is
+            represented by deterministic magnetic flux patterns rather than
+            voltage ranges. Defines two canonical flux states, a gate abstraction
+            based on pattern recognition and Boolean evaluation, and a
+            propagation model, with explicit axioms and success criteria for
+            future validation.
+          </p>
+          <div class="paper-actions">
+            <a href="https://zenodo.org/records/21446058/files/Flux_Logic_Computing_V2.pdf?download=1"
+               rel="noopener noreferrer">Download PDF (v2)</a>
+            <a href="https://zenodo.org/records/21446058"
+               target="_blank" rel="noopener noreferrer">Zenodo record</a>
+            <button type="button" class="copy-bibtex"
+                    data-bibtex="@misc{dharangutti2026fluxlogic,
+  title        = {Flux Logic Computing},
+  author       = {Dharangutti, Anup Jayant},
+  year         = {2026},
+  month        = jul,
+  publisher    = {Zenodo},
+  version      = {2.0},
+  doi          = {10.5281/zenodo.21446058},
+  url          = {https://doi.org/10.5281/zenodo.21446058}
+}">Copy BibTeX</button>
+          </div>
+        </li>
+
+        <li class="paper-item">
+          <a class="paper-title"
+             href="https://doi.org/10.5281/zenodo.21447437"
+             target="_blank" rel="noopener noreferrer">
+            Seabed-Anchored Adaptive Ocean Energy Network
+          </a>
+          <div class="paper-meta">15 July 2026 · Working paper · v1.0 · CC BY 4.0</div>
+          <div class="paper-badges">
+            <a href="https://doi.org/10.5281/zenodo.21447437"
+               target="_blank" rel="noopener noreferrer"
+               title="DOI: 10.5281/zenodo.21447437">
+              <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21447437.svg"
+                   alt="DOI 10.5281/zenodo.21447437" loading="lazy" />
+            </a>
+          </div>
+          <p class="paper-description">
+            A conceptual marine-energy architecture placing power-take-off,
+            generator, and grid-forming infrastructure on the seabed while
+            lightweight hydrodynamic collectors operate on controlled
+            high-tension tethers. Covers operating modes, PTO options, control
+            architecture, engineering constraints, and a staged validation
+            pathway from analytical modelling to open-sea demonstrators.
+          </p>
+          <div class="paper-actions">
+            <a href="https://zenodo.org/records/21447437/files/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf?download=1"
+               rel="noopener noreferrer">Download PDF</a>
+            <a href="https://zenodo.org/records/21447437"
+               target="_blank" rel="noopener noreferrer">Zenodo record</a>
+            <button type="button" class="copy-bibtex"
+                    data-bibtex="@misc{dharangutti2026seabed,
+  title        = {Seabed-Anchored Adaptive Ocean Energy Network},
+  author       = {Dharangutti, Anup Jayant},
+  year         = {2026},
+  month        = jul,
+  publisher    = {Zenodo},
+  version      = {1.0},
+  doi          = {10.5281/zenodo.21447437},
+  url          = {https://doi.org/10.5281/zenodo.21447437}
+}">Copy BibTeX</button>
+          </div>
+        </li>
+
+      </ul>
+
+      <h2 class="paper-section-label">Earlier papers (site-hosted)</h2>
+      <ul id="paper-list-local">
+
+        <li class="paper-item">
+          <a class="paper-title"
+             href="/papers/battery%20innovations%20paper.pdf"
+             target="_blank" rel="noopener noreferrer">
+            External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems
+          </a>
           <div class="paper-meta">28 June 2025 · PDF</div>
-          <p class="paper-description">A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety.</p>
+          <p class="paper-description">
+            A systems-oriented framework exploring external modulation methods
+            for improving battery predictability, operational stability, and
+            safety.
+          </p>
         </li>
+
         <li class="paper-item">
-          <a class="paper-title" href="/papers/logic%20design%20paper.pdf" target="_blank" rel="noopener noreferrer">Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling</a>
+          <a class="paper-title"
+             href="/papers/logic%20design%20paper.pdf"
+             target="_blank" rel="noopener noreferrer">
+            Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling
+          </a>
           <div class="paper-meta">27 June 2025 · PDF</div>
-          <p class="paper-description">A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems.</p>
+          <p class="paper-description">
+            A proposed signaling approach using passive current signatures to
+            improve authentication and robustness in low-voltage logic systems.
+          </p>
         </li>
-        <li class="paper-item">
-          <a class="paper-title" href="/papers/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf" target="_blank" rel="noopener noreferrer">Seabed-Anchored Adaptive Ocean Energy Network</a>
-          <div class="paper-meta">15 July 2026 · PDF</div>
-          <p class="paper-description">A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks.</p>
-        </li>
+
       </ul>
     </section>
 
   </main>
 
   <script>
-    const fallbackPapers = [
-      {
-        title:
-          "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
-        filename:
-          "battery innovations paper.pdf",
-        date:
-          "2025-06-28",
-        description:
-          "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety."
-      },
-      {
-        title:
-          "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
-        filename:
-          "logic design paper.pdf",
-        date:
-          "2025-06-27",
-        description:
-          "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems."
-      },
-      {
-        title:
-          "Seabed-Anchored Adaptive Ocean Energy Network",
-        filename:
-          "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
-        date:
-          "2026-07-15",
-        description:
-          "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks."
-      }
-    ];
-
-    function renderPapers(papers) {
-      const list =
-        document.getElementById("paper-list");
-
-      list.innerHTML = "";
-
-      papers.forEach(paper => {
-        const item =
-          document.createElement("li");
-
-        item.className =
-          "paper-item";
-
-        const link =
-          document.createElement("a");
-
-        link.href =
-          `/papers/${encodeURIComponent(
-            paper.filename
-          )}`;
-
-        link.textContent =
-          paper.title;
-
-        link.target =
-          "_blank";
-
-        link.rel =
-          "noopener noreferrer";
-
-        link.className =
-          "paper-title";
-
-        item.appendChild(link);
-
-        if (paper.date) {
-          const meta =
-            document.createElement("div");
-
-          meta.className =
-            "paper-meta";
-
-          const formattedDate =
-            new Date(
-              `${paper.date}T00:00:00`
-            ).toLocaleDateString(
-              "en-IN",
-              {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-              }
-            );
-
-          meta.textContent =
-            `${formattedDate} · PDF`;
-
-          item.appendChild(meta);
+    // Copy-BibTeX buttons (only JS on this page; everything else is static).
+    document.querySelectorAll('.copy-bibtex').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var bib = btn.getAttribute('data-bibtex');
+        try {
+          await navigator.clipboard.writeText(bib);
+          var original = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = original; }, 1500);
+        } catch (e) {
+          window.prompt('Copy the BibTeX below:', bib);
         }
-
-        if (paper.description) {
-          const description =
-            document.createElement("p");
-
-          description.className =
-            "paper-description";
-
-          description.textContent =
-            paper.description;
-
-          item.appendChild(
-            description
-          );
-        }
-
-        list.appendChild(item);
       });
-    }
-
-    fetch(
-      "/papers-index.json?v=20260715"
-    )
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(
-            `Unable to load paper index: HTTP ${response.status}`
-          );
-        }
-
-        return response.json();
-      })
-      .then(data => {
-        if (!Array.isArray(data)) {
-          throw new Error(
-            "papers-index.json must contain a top-level array."
-          );
-        }
-
-        renderPapers(data);
-      })
-      .catch(error => {
-        console.warn(
-          "Using embedded paper list:",
-          error
-        );
-
-        renderPapers(
-          fallbackPapers
-        );
-      });
+    });
   </script>
 
   <script src="/include-header.js"></script>
   <script src="/breadcrumb.js"></script>
- <!-- Zenodo integration (cleaned) -->
-<script>
-(async function () {
-  // CONFIG
-  const records = [21447437, 21446058];
-  const maxCacheHours = 24;
-  const showInlineViewer = true;
-
-  const listEl = document.getElementById('paper-list');
-  if (!listEl) return;
-
-  // Single fallback (keep this in sync with your site files)
-  const fallbackPapers = [
-    {
-      title: "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
-      filename: "battery innovations paper.pdf",
-      date: "2025-06-28",
-      description: "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety.",
-      local: true
-    },
-    {
-      title: "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
-      filename: "logic design paper.pdf",
-      date: "2025-06-27",
-      description: "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems.",
-      local: true
-    },
-    {
-      title: "Seabed-Anchored Adaptive Ocean Energy Network",
-      filename: "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
-      date: "2026-07-15",
-      description: "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks.",
-      local: true
-    }
-  ];
-
-  // Helpers
-  function formatDate(dateStr) {
-    try {
-      const d = new Date(dateStr);
-      return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
-    } catch (e) {
-      return dateStr || '';
-    }
-  }
-
-  function cacheKey(id) { return `zenodo_record_${id}`; }
-  function getCached(id) {
-    try {
-      const raw = localStorage.getItem(cacheKey(id));
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      const ageMs = Date.now() - parsed._fetchedAt;
-      if (ageMs > maxCacheHours * 3600 * 1000) {
-        localStorage.removeItem(cacheKey(id));
-        return null;
-      }
-      return parsed.data;
-    } catch (e) {
-      return null;
-    }
-  }
-  function setCached(id, data) {
-    try {
-      localStorage.setItem(cacheKey(id), JSON.stringify({ _fetchedAt: Date.now(), data }));
-    } catch (e) { /* ignore */ }
-  }
-
-  async function fetchRecord(id) {
-    const cached = getCached(id);
-    if (cached) return cached;
-    const url = `https://zenodo.org/api/records/${id}`;
-    const resp = await fetch(url, { method: 'GET' });
-    if (!resp.ok) throw new Error(`Zenodo API ${resp.status}`);
-    const json = await resp.json();
-    setCached(id, json);
-    return json;
-  }
-
-  // Build DOM
-  function buildCard(p) {
-    const li = document.createElement('li');
-    li.className = 'paper-item';
-
-    const titleWrap = document.createElement('div');
-    titleWrap.style.display = 'flex';
-    titleWrap.style.alignItems = 'center';
-    titleWrap.style.gap = '12px';
-
-    const a = document.createElement('a');
-    a.className = 'paper-title';
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.style.fontWeight = '600';
-    a.style.fontSize = '1.02rem';
-
-    if (p.zenodo && p.zenodo.metadata) {
-      const doi = p.zenodo.doi || p.zenodo.metadata.doi;
-      a.href = doi ? `https://doi.org/${doi}` : (p.downloadUrl || '#');
-      a.textContent = p.title || p.zenodo.metadata.title || 'Untitled';
-      if (doi) {
-        const badge = document.createElement('a');
-        badge.href = `https://doi.org/${doi}`;
-        badge.target = '_blank';
-        badge.rel = 'noopener noreferrer';
-        badge.title = `DOI: ${doi}`;
-        const img = document.createElement('img');
-        img.src = `https://zenodo.org/badge/DOI/${encodeURIComponent(doi)}.svg`;
-        img.alt = `DOI ${doi}`;
-        img.style.height = '20px';
-        img.style.display = 'inline-block';
-        badge.appendChild(img);
-        titleWrap.appendChild(badge);
-      }
-    } else if (p.local) {
-      a.href = `/papers/${encodeURIComponent(p.filename)}`;
-      a.textContent = p.title;
-    } else {
-      a.href = p.url || '#';
-      a.textContent = p.title || 'Untitled';
-    }
-
-    titleWrap.appendChild(a);
-    li.appendChild(titleWrap);
-
-    const meta = document.createElement('div');
-    meta.className = 'paper-meta';
-    meta.style.marginTop = '6px';
-    meta.style.color = '#666';
-    meta.style.fontSize = '0.95rem';
-    const parts = [];
-    if (p.zenodo && p.zenodo.metadata && p.zenodo.metadata.publication_date) {
-      parts.push(formatDate(p.zenodo.metadata.publication_date));
-    } else if (p.date) {
-      parts.push(formatDate(p.date));
-    }
-    parts.push('PDF');
-    if (p.zenodo && p.zenodo.metadata && p.zenodo.metadata.license) {
-      parts.push(p.zenodo.metadata.license);
-    }
-    meta.textContent = parts.join(' · ');
-    li.appendChild(meta);
-
-    if (p.description) {
-      const desc = document.createElement('p');
-      desc.className = 'paper-description';
-      desc.innerHTML = p.description;
-      li.appendChild(desc);
-    }
-
-    const actions = document.createElement('div');
-    actions.style.marginTop = '8px';
-    actions.style.display = 'flex';
-    actions.style.gap = '12px';
-    actions.style.flexWrap = 'wrap';
-
-    if (p.zenodo && Array.isArray(p.zenodo.files) && p.zenodo.files.length) {
-      const file = p.zenodo.files[0];
-      const dl = document.createElement('a');
-      dl.href = (file.links && file.links.download) ? file.links.download : (file.links && file.links.self ? file.links.self : '#');
-      dl.target = '_blank';
-      dl.rel = 'noopener noreferrer';
-      dl.className = 'paper-download';
-      dl.textContent = `Download ${file.key || 'PDF'}`;
-      dl.style.color = '#0b66c3';
-      actions.appendChild(dl);
-
-      if (showInlineViewer && file.links && file.links.download) {
-        const viewBtn = document.createElement('button');
-        viewBtn.type = 'button';
-        viewBtn.textContent = 'View inline';
-        viewBtn.style.cursor = 'pointer';
-        viewBtn.setAttribute('aria-pressed', 'false');
-        viewBtn.onclick = () => {
-          const existing = li.querySelector('.paper-iframe-wrap');
-          if (existing) {
-            existing.remove();
-            viewBtn.textContent = 'View inline';
-            viewBtn.setAttribute('aria-pressed', 'false');
-            return;
-          }
-          const wrap = document.createElement('div');
-          wrap.className = 'paper-iframe-wrap';
-          wrap.style.marginTop = '12px';
-          wrap.style.border = '1px solid #ddd';
-          wrap.style.height = '60vh';
-          wrap.style.minHeight = '360px';
-          wrap.style.overflow = 'hidden';
-          const iframe = document.createElement('iframe');
-          iframe.src = file.links.download;
-          iframe.style.width = '100%';
-          iframe.style.height = '100%';
-          iframe.style.border = '0';
-          iframe.title = `${p.title} — PDF viewer`;
-          wrap.appendChild(iframe);
-          li.appendChild(wrap);
-          viewBtn.textContent = 'Hide viewer';
-          viewBtn.setAttribute('aria-pressed', 'true');
-          wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        };
-        actions.appendChild(viewBtn);
-      }
-    } else if (p.local && p.filename) {
-      const dl = document.createElement('a');
-      dl.href = `/papers/${encodeURIComponent(p.filename)}`;
-      dl.target = '_blank';
-      dl.rel = 'noopener noreferrer';
-      dl.className = 'paper-download';
-      dl.textContent = 'Download PDF';
-      dl.style.color = '#0b66c3';
-      actions.appendChild(dl);
-    }
-
-    const citeBtn = document.createElement('button');
-    citeBtn.type = 'button';
-    citeBtn.textContent = 'Copy BibTeX';
-    citeBtn.style.cursor = 'pointer';
-    citeBtn.onclick = async () => {
-      let bib = '';
-      if (p.zenodo && p.zenodo.metadata) {
-        const m = p.zenodo.metadata;
-        const authors = (m.creators || []).map(c => c.name).join(' and ');
-        const year = (m.publication_date || '').slice(0, 4) || new Date().getFullYear();
-        const title = m.title || p.title || 'Untitled';
-        const doi = p.zenodo.doi || m.doi || '';
-        const recId = p.zenodo.id || '';
-        bib = `@misc{zenodo${recId},\n  title = {${title}},\n  author = {${authors}},\n  year = {${year}},\n  howpublished = {\\url{https://doi.org/${doi}}},\n  note = {Zenodo record ${recId}}\n}`;
-      } else {
-        bib = `@misc{local, title = {${p.title}}, note = {Local PDF}}`;
-      }
-      try {
-        await navigator.clipboard.writeText(bib);
-        citeBtn.textContent = 'Copied';
-        setTimeout(() => citeBtn.textContent = 'Copy BibTeX', 1500);
-      } catch (e) {
-        alert('Copy failed. Here is the BibTeX:\\n\\n' + bib);
-      }
-    };
-    actions.appendChild(citeBtn);
-
-    li.appendChild(actions);
-    return li;
-  }
-
-  function renderList(papers) {
-    listEl.innerHTML = '';
-    papers.forEach(p => listEl.appendChild(buildCard(p)));
-  }
-
-  function injectJsonLd(zenodo) {
-    if (!zenodo || !zenodo.metadata) return;
-    const m = zenodo.metadata;
-    const ld = {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "headline": m.title,
-      "author": (m.creators || []).map(c => ({ "@type": "Person", "name": c.name })),
-      "datePublished": m.publication_date,
-      "identifier": zenodo.doi ? `https://doi.org/${zenodo.doi}` : `https://zenodo.org/records/${zenodo.id}`,
-      "publisher": "Zenodo",
-      "license": m.license || undefined
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(ld);
-    document.head.appendChild(script);
-  }
-
-  // Fetch records
-  try {
-    const fetches = records.map(id => fetchRecord(id).catch(err => ({ _error: true, id, err })));
-    const results = await Promise.all(fetches);
-
-    const papers = [];
-    let firstZenodo = null;
-    results.forEach(res => {
-      if (res && res._error) {
-        console.warn('Zenodo fetch failed for', res.id, res.err);
-        return;
-      }
-      if (!res || !res.metadata) return;
-      const m = res.metadata;
-      const paper = {
-        zenodo: {
-          id: res.id,
-          doi: res.doi || (m.doi || null),
-          metadata: {
-            title: m.title,
-            creators: m.creators,
-            publication_date: m.publication_date,
-            description: m.description,
-            license: (m.license && (m.license.id || m.license.title)) || (m.license || '')
-          },
-          files: res.files
-        },
-        title: m.title,
-        description: (m.description || '').replace(/(<([^>]+)>)/gi, '').slice(0, 400),
-        downloadUrl: (res.files && res.files[0] && res.files[0].links && res.files[0].links.download) || null
-      };
-      papers.push(paper);
-      if (!firstZenodo) firstZenodo = res;
-    });
-
-    if (papers.length === 0) {
-      console.warn('No Zenodo records available; using fallback list.');
-      renderList(fallbackPapers);
-    } else {
-      renderList(papers);
-      injectJsonLd(firstZenodo);
-    }
-  } catch (err) {
-    console.warn('Zenodo integration error, using fallback list', err);
-    renderList(fallbackPapers);
-  }
-})();
-</script>
-
-
 </body>
 </html>
