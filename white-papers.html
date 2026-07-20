@@ -248,5 +248,323 @@
 
   <script src="/include-header.js"></script>
   <script src="/breadcrumb.js"></script>
+ <!-- Zenodo integration (cleaned) -->
+<script>
+(async function () {
+  // CONFIG
+  const records = [21447437, 21446058];
+  const maxCacheHours = 24;
+  const showInlineViewer = true;
+
+  const listEl = document.getElementById('paper-list');
+  if (!listEl) return;
+
+  // Single fallback (keep this in sync with your site files)
+  const fallbackPapers = [
+    {
+      title: "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
+      filename: "battery innovations paper.pdf",
+      date: "2025-06-28",
+      description: "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety.",
+      local: true
+    },
+    {
+      title: "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
+      filename: "logic design paper.pdf",
+      date: "2025-06-27",
+      description: "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems.",
+      local: true
+    },
+    {
+      title: "Seabed-Anchored Adaptive Ocean Energy Network",
+      filename: "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
+      date: "2026-07-15",
+      description: "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks.",
+      local: true
+    }
+  ];
+
+  // Helpers
+  function formatDate(dateStr) {
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) {
+      return dateStr || '';
+    }
+  }
+
+  function cacheKey(id) { return `zenodo_record_${id}`; }
+  function getCached(id) {
+    try {
+      const raw = localStorage.getItem(cacheKey(id));
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      const ageMs = Date.now() - parsed._fetchedAt;
+      if (ageMs > maxCacheHours * 3600 * 1000) {
+        localStorage.removeItem(cacheKey(id));
+        return null;
+      }
+      return parsed.data;
+    } catch (e) {
+      return null;
+    }
+  }
+  function setCached(id, data) {
+    try {
+      localStorage.setItem(cacheKey(id), JSON.stringify({ _fetchedAt: Date.now(), data }));
+    } catch (e) { /* ignore */ }
+  }
+
+  async function fetchRecord(id) {
+    const cached = getCached(id);
+    if (cached) return cached;
+    const url = `https://zenodo.org/api/records/${id}`;
+    const resp = await fetch(url, { method: 'GET' });
+    if (!resp.ok) throw new Error(`Zenodo API ${resp.status}`);
+    const json = await resp.json();
+    setCached(id, json);
+    return json;
+  }
+
+  // Build DOM
+  function buildCard(p) {
+    const li = document.createElement('li');
+    li.className = 'paper-item';
+
+    const titleWrap = document.createElement('div');
+    titleWrap.style.display = 'flex';
+    titleWrap.style.alignItems = 'center';
+    titleWrap.style.gap = '12px';
+
+    const a = document.createElement('a');
+    a.className = 'paper-title';
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.style.fontWeight = '600';
+    a.style.fontSize = '1.02rem';
+
+    if (p.zenodo && p.zenodo.metadata) {
+      const doi = p.zenodo.doi || p.zenodo.metadata.doi;
+      a.href = doi ? `https://doi.org/${doi}` : (p.downloadUrl || '#');
+      a.textContent = p.title || p.zenodo.metadata.title || 'Untitled';
+      if (doi) {
+        const badge = document.createElement('a');
+        badge.href = `https://doi.org/${doi}`;
+        badge.target = '_blank';
+        badge.rel = 'noopener noreferrer';
+        badge.title = `DOI: ${doi}`;
+        const img = document.createElement('img');
+        img.src = `https://zenodo.org/badge/DOI/${encodeURIComponent(doi)}.svg`;
+        img.alt = `DOI ${doi}`;
+        img.style.height = '20px';
+        img.style.display = 'inline-block';
+        badge.appendChild(img);
+        titleWrap.appendChild(badge);
+      }
+    } else if (p.local) {
+      a.href = `/papers/${encodeURIComponent(p.filename)}`;
+      a.textContent = p.title;
+    } else {
+      a.href = p.url || '#';
+      a.textContent = p.title || 'Untitled';
+    }
+
+    titleWrap.appendChild(a);
+    li.appendChild(titleWrap);
+
+    const meta = document.createElement('div');
+    meta.className = 'paper-meta';
+    meta.style.marginTop = '6px';
+    meta.style.color = '#666';
+    meta.style.fontSize = '0.95rem';
+    const parts = [];
+    if (p.zenodo && p.zenodo.metadata && p.zenodo.metadata.publication_date) {
+      parts.push(formatDate(p.zenodo.metadata.publication_date));
+    } else if (p.date) {
+      parts.push(formatDate(p.date));
+    }
+    parts.push('PDF');
+    if (p.zenodo && p.zenodo.metadata && p.zenodo.metadata.license) {
+      parts.push(p.zenodo.metadata.license);
+    }
+    meta.textContent = parts.join(' · ');
+    li.appendChild(meta);
+
+    if (p.description) {
+      const desc = document.createElement('p');
+      desc.className = 'paper-description';
+      desc.innerHTML = p.description;
+      li.appendChild(desc);
+    }
+
+    const actions = document.createElement('div');
+    actions.style.marginTop = '8px';
+    actions.style.display = 'flex';
+    actions.style.gap = '12px';
+    actions.style.flexWrap = 'wrap';
+
+    if (p.zenodo && Array.isArray(p.zenodo.files) && p.zenodo.files.length) {
+      const file = p.zenodo.files[0];
+      const dl = document.createElement('a');
+      dl.href = (file.links && file.links.download) ? file.links.download : (file.links && file.links.self ? file.links.self : '#');
+      dl.target = '_blank';
+      dl.rel = 'noopener noreferrer';
+      dl.className = 'paper-download';
+      dl.textContent = `Download ${file.key || 'PDF'}`;
+      dl.style.color = '#0b66c3';
+      actions.appendChild(dl);
+
+      if (showInlineViewer && file.links && file.links.download) {
+        const viewBtn = document.createElement('button');
+        viewBtn.type = 'button';
+        viewBtn.textContent = 'View inline';
+        viewBtn.style.cursor = 'pointer';
+        viewBtn.setAttribute('aria-pressed', 'false');
+        viewBtn.onclick = () => {
+          const existing = li.querySelector('.paper-iframe-wrap');
+          if (existing) {
+            existing.remove();
+            viewBtn.textContent = 'View inline';
+            viewBtn.setAttribute('aria-pressed', 'false');
+            return;
+          }
+          const wrap = document.createElement('div');
+          wrap.className = 'paper-iframe-wrap';
+          wrap.style.marginTop = '12px';
+          wrap.style.border = '1px solid #ddd';
+          wrap.style.height = '60vh';
+          wrap.style.minHeight = '360px';
+          wrap.style.overflow = 'hidden';
+          const iframe = document.createElement('iframe');
+          iframe.src = file.links.download;
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.border = '0';
+          iframe.title = `${p.title} — PDF viewer`;
+          wrap.appendChild(iframe);
+          li.appendChild(wrap);
+          viewBtn.textContent = 'Hide viewer';
+          viewBtn.setAttribute('aria-pressed', 'true');
+          wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+        actions.appendChild(viewBtn);
+      }
+    } else if (p.local && p.filename) {
+      const dl = document.createElement('a');
+      dl.href = `/papers/${encodeURIComponent(p.filename)}`;
+      dl.target = '_blank';
+      dl.rel = 'noopener noreferrer';
+      dl.className = 'paper-download';
+      dl.textContent = 'Download PDF';
+      dl.style.color = '#0b66c3';
+      actions.appendChild(dl);
+    }
+
+    const citeBtn = document.createElement('button');
+    citeBtn.type = 'button';
+    citeBtn.textContent = 'Copy BibTeX';
+    citeBtn.style.cursor = 'pointer';
+    citeBtn.onclick = async () => {
+      let bib = '';
+      if (p.zenodo && p.zenodo.metadata) {
+        const m = p.zenodo.metadata;
+        const authors = (m.creators || []).map(c => c.name).join(' and ');
+        const year = (m.publication_date || '').slice(0, 4) || new Date().getFullYear();
+        const title = m.title || p.title || 'Untitled';
+        const doi = p.zenodo.doi || m.doi || '';
+        const recId = p.zenodo.id || '';
+        bib = `@misc{zenodo${recId},\n  title = {${title}},\n  author = {${authors}},\n  year = {${year}},\n  howpublished = {\\url{https://doi.org/${doi}}},\n  note = {Zenodo record ${recId}}\n}`;
+      } else {
+        bib = `@misc{local, title = {${p.title}}, note = {Local PDF}}`;
+      }
+      try {
+        await navigator.clipboard.writeText(bib);
+        citeBtn.textContent = 'Copied';
+        setTimeout(() => citeBtn.textContent = 'Copy BibTeX', 1500);
+      } catch (e) {
+        alert('Copy failed. Here is the BibTeX:\\n\\n' + bib);
+      }
+    };
+    actions.appendChild(citeBtn);
+
+    li.appendChild(actions);
+    return li;
+  }
+
+  function renderList(papers) {
+    listEl.innerHTML = '';
+    papers.forEach(p => listEl.appendChild(buildCard(p)));
+  }
+
+  function injectJsonLd(zenodo) {
+    if (!zenodo || !zenodo.metadata) return;
+    const m = zenodo.metadata;
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": m.title,
+      "author": (m.creators || []).map(c => ({ "@type": "Person", "name": c.name })),
+      "datePublished": m.publication_date,
+      "identifier": zenodo.doi ? `https://doi.org/${zenodo.doi}` : `https://zenodo.org/records/${zenodo.id}`,
+      "publisher": "Zenodo",
+      "license": m.license || undefined
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(ld);
+    document.head.appendChild(script);
+  }
+
+  // Fetch records
+  try {
+    const fetches = records.map(id => fetchRecord(id).catch(err => ({ _error: true, id, err })));
+    const results = await Promise.all(fetches);
+
+    const papers = [];
+    let firstZenodo = null;
+    results.forEach(res => {
+      if (res && res._error) {
+        console.warn('Zenodo fetch failed for', res.id, res.err);
+        return;
+      }
+      if (!res || !res.metadata) return;
+      const m = res.metadata;
+      const paper = {
+        zenodo: {
+          id: res.id,
+          doi: res.doi || (m.doi || null),
+          metadata: {
+            title: m.title,
+            creators: m.creators,
+            publication_date: m.publication_date,
+            description: m.description,
+            license: (m.license && (m.license.id || m.license.title)) || (m.license || '')
+          },
+          files: res.files
+        },
+        title: m.title,
+        description: (m.description || '').replace(/(<([^>]+)>)/gi, '').slice(0, 400),
+        downloadUrl: (res.files && res.files[0] && res.files[0].links && res.files[0].links.download) || null
+      };
+      papers.push(paper);
+      if (!firstZenodo) firstZenodo = res;
+    });
+
+    if (papers.length === 0) {
+      console.warn('No Zenodo records available; using fallback list.');
+      renderList(fallbackPapers);
+    } else {
+      renderList(papers);
+      injectJsonLd(firstZenodo);
+    }
+  } catch (err) {
+    console.warn('Zenodo integration error, using fallback list', err);
+    renderList(fallbackPapers);
+  }
+})();
+</script>
+
+
 </body>
 </html>
