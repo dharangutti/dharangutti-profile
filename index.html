@@ -4,22 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Anup Dharangutti — Profile</title>
-    <meta name="description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, and engineering insights." />
-    <meta name="keywords" content="test automation, QA engineering, modular systems, accessibility audits, civic-grade engineering, Anup Dharangutti, software testing, automation specialist" />
+    <meta name="description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, white papers, and engineering insights." />
+    <meta name="keywords" content="test automation, QA engineering, modular systems, accessibility audits, civic-grade engineering, white papers, DOI, Anup Dharangutti, software testing, automation specialist" />
     <meta name="author" content="Anup Dharangutti" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.dharangutti.in/" />
     <meta property="og:title" content="Anup Dharangutti — Test Automation Specialist" />
-    <meta property="og:description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, and engineering insights." />
+    <meta property="og:description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, white papers, and engineering insights." />
     <meta property="og:image" content="https://www.dharangutti.in/avatar.png" />
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://www.dharangutti.in/" />
     <meta property="twitter:title" content="Anup Dharangutti — Test Automation Specialist" />
-    <meta property="twitter:description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, and engineering insights." />
+    <meta property="twitter:description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, white papers, and engineering insights." />
     <meta property="twitter:image" content="https://www.dharangutti.in/avatar.png" />
     <script type="application/ld+json">
 {
@@ -29,7 +29,7 @@
   "url": "https://www.dharangutti.in/",
   "image": "https://www.dharangutti.in/avatar.png",
   "jobTitle": "Test Automation Specialist",
-  "description": "Modular systems architect with 14+ years in QA, civic-grade tool design, and ensemble-grade engineering.",
+  "description": "Modular systems architect with 15+ years in QA, civic-grade tool design, and ensemble-grade engineering.",
   "sameAs": [
     "https://github.com/dharangutti",
     "https://www.linkedin.com/in/anup-dharangutti-852a94129/"
@@ -101,6 +101,59 @@
         border: 0;
         display: block;
       }
+
+      /* White Papers featured cards */
+      .wp-featured {
+        list-style: none;
+        margin: 0.9rem 0 0.4rem;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+      .wp-paper {
+        border: 1px solid #e2e2e2;
+        border-radius: 8px;
+        padding: 0.85rem 1rem;
+        background: #ffffff;
+      }
+      .wp-paper-title {
+        display: block;
+        font-weight: 600;
+        font-size: 1.02rem;
+        color: #0366d6;
+        text-decoration: none;
+        margin-bottom: 0.25rem;
+      }
+      .wp-paper-title:hover {
+        text-decoration: underline;
+      }
+      .wp-paper-meta {
+        display: block;
+        color: #666;
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+      }
+      .wp-paper-blurb {
+        margin: 0 0 0.5rem;
+        font-size: 0.93rem;
+        line-height: 1.45;
+        color: #333;
+      }
+      .wp-doi-badge img {
+        height: 20px;
+        display: block;
+      }
+      .wp-cta {
+        margin: 0.75rem 0 0.25rem;
+        font-weight: 500;
+      }
+      .wp-disclaimer {
+        color: #888;
+        font-size: 0.82rem;
+        margin: 0.4rem 0 0;
+      }
+
       @media (max-width: 640px) {
         .iframe-wrapper iframe {
           height: 380px;
@@ -150,7 +203,7 @@
             <li><a href="https://github.com/dharangutti?tab=repositories">My repositories</a></li>
           </ul>
         </div>
-    
+
        <!-- 🎵 Featured Project -->
 <div class="card" style="margin-top:1rem; background:#f4faff; border:1px solid #9b59b6;">
   <h2>🎼 SoundScript</h2>
@@ -190,9 +243,9 @@
       Explore AutomationGlance →
     </a>
   </p>
-</div>  
+</div>
 
-       <!-- ⭐ Premium Section -->          
+       <!-- ⭐ Premium Section -->
           <div class="card" style="margin-top:1rem; background: #e6f7ff; border: 1px solid #3498db;">
             <h2>Quantum Playground at AutomationGlance.com </h2>
             <p style="margin-top:0.25rem; color:#333">
@@ -201,7 +254,7 @@
             <p style="margin-top:0.6rem">
               <a href="https://automationglance.com" target="_blank">Explore Quantum Playground</a>
             </p>
-          </div>       
+          </div>
 
         <!-- 🧠 Embedded Engineering Notebook card -->
           <div class="card" style="margin-top:1rem">
@@ -209,63 +262,78 @@
             <p style="margin-top:0.25rem;color:#333">
               Modular insights from real-world testing, architectural audits, and ensemble-grade strategies. Authored weekly or as inspired — no fluff, just civic-grade engineering.
             </p>
-          
+
             <div class="iframe-wrapper" role="group" aria-label="Engineering Notebook preview">
               <iframe src="/engineering-notebook.html" title="Engineering Notebook" loading="lazy" referrerpolicy="no-referrer"></iframe>
             </div>
-          
+
             <p style="margin-top:0.6rem"><a href="/engineering-notebook.html">Open notebook in its standalone page</a></p>
           </div>
-       <!-- 📄 Embedded White Papers card -->
-        <div class="card" style="margin-top:1rem">
-          <h2>White Papers</h2>
-        
+
+        <!-- 📄 White Papers card (static featured papers) -->
+        <div class="card" style="margin-top:1rem; background:#fdfaf3; border:1px solid #c9a84c;">
+          <h2>📄 White Papers</h2>
+
           <p style="margin-top:0.25rem;color:#333">
-            These independently authored white papers explore emerging engineering concepts across energy systems, resilient electronics, and technology architecture. They are developed as personal technical research and are not associated with or representative of any employer or client.
+            Independent engineering research across energy systems, resilient
+            electronics, and technology architecture — published with citable
+            DOIs on Zenodo.
           </p>
-        
-          <div role="group" aria-label="White Papers preview">
-            <ul id="white-papers-list" style="margin-top:0.5rem"></ul>
-          </div>
-        
-          <script>
-            document.addEventListener("DOMContentLoaded", async () => {
-              const list = document.getElementById("white-papers-list");
-              if (!list) return;
-        
-              try {
-                const response = await fetch("/papers-index.json");
-                if (!response.ok) throw new Error("Failed to load papers-index.json");
-        
-                const papers = await response.json();
-        
-                // Sort by date descending (newest first)
-                papers.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
-                for (const paper of papers) {
-                  const li = document.createElement("li");
-        
-                  const link = document.createElement("a");
-                  link.href = "/papers/" + encodeURIComponent(paper.filename);
-                  link.target = "_blank";
-                  link.rel = "noopener";
-                  link.textContent = paper.title;
-                  link.title = paper.description; // tooltip
-        
-                  li.appendChild(link);
-                  list.appendChild(li);
-                }
-              } catch (err) {
-                console.error("Error loading papers:", err);
-                list.textContent = "Unable to load papers at this time.";
-              }
-            });
-          </script>
-        
-          <p style="margin-top:0.6rem">
-            <a href="/white-papers.html">Open archive in its standalone page</a>
+
+          <ul class="wp-featured">
+            <li class="wp-paper">
+              <a class="wp-paper-title"
+                 href="https://doi.org/10.5281/zenodo.21446058"
+                 target="_blank" rel="noopener noreferrer">
+                Flux Logic Computing
+              </a>
+              <span class="wp-paper-meta">Jul 2026 · Working paper · v2.0</span>
+              <p class="wp-paper-blurb">
+                A conceptual digital logic family representing binary
+                information with deterministic magnetic flux patterns instead
+                of voltage ranges.
+              </p>
+              <a class="wp-doi-badge"
+                 href="https://doi.org/10.5281/zenodo.21446058"
+                 target="_blank" rel="noopener noreferrer"
+                 title="DOI: 10.5281/zenodo.21446058">
+                <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21446058.svg"
+                     alt="DOI 10.5281/zenodo.21446058" loading="lazy" />
+              </a>
+            </li>
+
+            <li class="wp-paper">
+              <a class="wp-paper-title"
+                 href="https://doi.org/10.5281/zenodo.21447437"
+                 target="_blank" rel="noopener noreferrer">
+                Seabed-Anchored Adaptive Ocean Energy Network
+              </a>
+              <span class="wp-paper-meta">Jul 2026 · Working paper · v1.0</span>
+              <p class="wp-paper-blurb">
+                A marine-energy architecture with seabed-anchored
+                power-take-off and tethered hydrodynamic collectors, from
+                operating modes to a staged validation pathway.
+              </p>
+              <a class="wp-doi-badge"
+                 href="https://doi.org/10.5281/zenodo.21447437"
+                 target="_blank" rel="noopener noreferrer"
+                 title="DOI: 10.5281/zenodo.21447437">
+                <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21447437.svg"
+                     alt="DOI 10.5281/zenodo.21447437" loading="lazy" />
+              </a>
+            </li>
+          </ul>
+
+          <p class="wp-cta">
+            <a href="/white-papers.html">View all 4 papers →</a>
+          </p>
+
+          <p class="wp-disclaimer">
+            Personal technical research; not associated with or representative
+            of any employer or client.
           </p>
         </div>
+
         <!-- 🚀 Featured Project -->
         <div class="card" style="margin-top:1rem; background:#eef8ff; border:1px solid #4a90e2;">
           <h2>🌌 UniverseGlance</h2>
