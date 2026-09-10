@@ -58,6 +58,10 @@
         margin-left: auto;
         margin-right: auto;
       }
+      main {
+        flex: 1;
+        min-width: 0;
+      }
       header {
         display: flex;
         gap: 1rem;
@@ -124,6 +128,7 @@
         color: #0366d6;
         text-decoration: none;
         margin-bottom: 0.25rem;
+        overflow-wrap: anywhere;
       }
       .wp-paper-title:hover {
         text-decoration: underline;
@@ -134,6 +139,18 @@
         font-size: 0.85rem;
         margin-bottom: 0.4rem;
       }
+      .wp-doi {
+        margin: 0.45rem 0 0.65rem;
+        color: #444;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+      }
+      .wp-doi a {
+        color: #0366d6;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
       .wp-paper-blurb {
         margin: 0 0 0.5rem;
         font-size: 0.93rem;
@@ -143,6 +160,46 @@
       .wp-doi-badge img {
         height: 20px;
         display: block;
+      }
+      .wp-paper-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem 0.85rem;
+        align-items: center;
+        margin-top: 0.75rem;
+        font-size: 0.9rem;
+      }
+      .wp-paper-links a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        box-sizing: border-box;
+      }
+      .wp-paper-links .wp-direct-link {
+        padding: 0.55rem 0.8rem;
+        border-radius: 6px;
+        background: #0b66c3;
+        color: #fff;
+        font-weight: 600;
+      }
+      .wp-paper-links .wp-direct-link:hover,
+      .wp-paper-links .wp-direct-link:focus-visible {
+        background: #084f98;
+        color: #fff;
+        text-decoration: none;
+      }
+      .wp-stats {
+        margin: 0.55rem 0 0;
+        color: #777;
+        font-size: 0.82rem;
+        line-height: 1.35;
+        overflow-wrap: anywhere;
+      }
+      .wp-paper-links a:focus-visible,
+      .wp-doi a:focus-visible,
+      .wp-doi-badge:focus-visible {
+        outline: 3px solid #f2b705;
+        outline-offset: 2px;
       }
       .wp-cta {
         margin: 0.75rem 0 0.25rem;
@@ -155,12 +212,29 @@
       }
 
       @media (max-width: 640px) {
+        body {
+          padding: 1rem;
+          display: block;
+          max-width: none;
+        }
+        .wp-featured {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .wp-paper-links {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .wp-paper-links a {
+          width: 100%;
+          justify-content: center;
+        }
         .iframe-wrapper iframe {
           height: 380px;
         }
       }
     </style>
     <link rel="canonical" href="https://www.dharangutti.in/" />
+    <script src="/white-papers.js" defer></script>
   </head>
   <body>
     <main>
@@ -291,6 +365,11 @@
               <span class="wp-paper-meta">
                 4 Sep 2026 · Working paper · v2.0 · CC BY 4.0
               </span>
+              <div class="wp-doi">
+                DOI:
+                <a href="https://doi.org/10.5281/zenodo.22289057"
+                   target="_blank" rel="noopener noreferrer">10.5281/zenodo.22289057</a>
+              </div>
               <p class="wp-paper-blurb">
                 Three independently implementable concepts for future smartphones,
                 sharing a common philosophy of treating the physical device itself
@@ -305,6 +384,15 @@
                      alt="DOI 10.5281/zenodo.22289057"
                      loading="lazy" />
               </a>
+              <div class="wp-paper-links" aria-label="Links for Future Smartphone Enhanced Open Innovation Concepts">
+                <a class="wp-direct-link"
+                   href="/papers/Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf"
+                   download="Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf"
+                   type="application/pdf">Direct PDF</a>
+                <a href="https://zenodo.org/records/22289057"
+                   target="_blank" rel="noopener noreferrer">Zenodo record</a>
+              </div>
+              <p class="wp-stats" data-zenodo-record="22289057" aria-live="polite">Zenodo stats loading…</p>
             </li>
         
             <!-- Nuclear waste -->
@@ -317,6 +405,11 @@
               <span class="wp-paper-meta">
                 23 Aug 2026 · Working paper · v1.0 · CC BY 4.0
               </span>
+              <div class="wp-doi">
+                DOI:
+                <a href="https://doi.org/10.5281/zenodo.22066928"
+                   target="_blank" rel="noopener noreferrer">10.5281/zenodo.22066928</a>
+              </div>
               <p class="wp-paper-blurb">
                 A conceptual framework inspired by stellar nuclear transformation,
                 combining radionuclide partitioning, actinide recycling, targeted
@@ -331,6 +424,15 @@
                      alt="DOI 10.5281/zenodo.22066928"
                      loading="lazy" />
               </a>
+              <div class="wp-paper-links" aria-label="Links for A Star-Inspired Framework for Transforming Nuclear Waste at the Source">
+                <a class="wp-direct-link"
+                   href="/papers/Star_Inspired_Nuclear_Waste_White_Paper.pdf"
+                   download="Star_Inspired_Nuclear_Waste_White_Paper.pdf"
+                   type="application/pdf">Direct PDF</a>
+                <a href="https://zenodo.org/records/22066928"
+                   target="_blank" rel="noopener noreferrer">Zenodo record</a>
+              </div>
+              <p class="wp-stats" data-zenodo-record="22066928" aria-live="polite">Zenodo stats loading…</p>
             </li>
         
             <!-- Flux Logic -->
@@ -343,6 +445,11 @@
               <span class="wp-paper-meta">
                 18 Jul 2026 · Working paper · v2.0 · CC BY 4.0
               </span>
+              <div class="wp-doi">
+                DOI:
+                <a href="https://doi.org/10.5281/zenodo.21446058"
+                   target="_blank" rel="noopener noreferrer">10.5281/zenodo.21446058</a>
+              </div>
               <p class="wp-paper-blurb">
                 A conceptual digital logic family in which binary information is
                 represented by deterministic magnetic flux patterns rather than
@@ -357,6 +464,15 @@
                      alt="DOI 10.5281/zenodo.21446058"
                      loading="lazy" />
               </a>
+              <div class="wp-paper-links" aria-label="Links for Flux Logic Computing">
+                <a class="wp-direct-link"
+                   href="/papers/Flux_Logic_Computing_V2.pdf"
+                   download="Flux_Logic_Computing_V2.pdf"
+                   type="application/pdf">Direct PDF (v2)</a>
+                <a href="https://zenodo.org/records/21446058"
+                   target="_blank" rel="noopener noreferrer">Zenodo record</a>
+              </div>
+              <p class="wp-stats" data-zenodo-record="21446058" aria-live="polite">Zenodo stats loading…</p>
             </li>
         
             <!-- Ocean energy -->
@@ -369,6 +485,11 @@
               <span class="wp-paper-meta">
                 15 Jul 2026 · Working paper · v1.0 · CC BY 4.0
               </span>
+              <div class="wp-doi">
+                DOI:
+                <a href="https://doi.org/10.5281/zenodo.21447437"
+                   target="_blank" rel="noopener noreferrer">10.5281/zenodo.21447437</a>
+              </div>
               <p class="wp-paper-blurb">
                 A conceptual marine-energy architecture placing power-take-off,
                 generation, and grid-forming infrastructure on the seabed while
@@ -382,6 +503,15 @@
                 <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21447437.svg"
                      alt="DOI 10.5281/zenodo.21447437" loading="lazy" />
               </a>
+              <div class="wp-paper-links" aria-label="Links for Seabed-Anchored Adaptive Ocean Energy Network">
+                <a class="wp-direct-link"
+                   href="/papers/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf"
+                   download="Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf"
+                   type="application/pdf">Direct PDF</a>
+                <a href="https://zenodo.org/records/21447437"
+                   target="_blank" rel="noopener noreferrer">Zenodo record</a>
+              </div>
+              <p class="wp-stats" data-zenodo-record="21447437" aria-live="polite">Zenodo stats loading…</p>
             </li>
         
           </ul>
