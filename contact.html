@@ -24,6 +24,15 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <section class="contact-section">
+  <div class="contact-portrait">
+    <img
+      src="/assets/images/anup-dharangutti-contact.webp"
+      alt="Anup Dharangutti"
+      width="864"
+      height="648"
+      decoding="async"
+    />
+  </div>
   <h1>Let’s Connect</h1>
   <p>I’m always open to thoughtful conversations, collaborations, or feedback.</p>
 
@@ -57,6 +66,28 @@
     padding: 1rem;
     font-family: system-ui, sans-serif;
     text-align: center;
+  }
+
+  .contact-portrait {
+    position: relative;
+    width: clamp(8rem, 20vw, 10rem);
+    aspect-ratio: 1;
+    margin: 0 auto 1.25rem;
+    overflow: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 50%;
+    background: #f9f9f9;
+  }
+
+  .contact-portrait img {
+    /* Frame the face in the original landscape photo without altering it. */
+    position: absolute;
+    width: 270%;
+    max-width: none;
+    height: auto;
+    top: -48%;
+    left: -16%;
+    display: block;
   }
 
   .contact-grid {
