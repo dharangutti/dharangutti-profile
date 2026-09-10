@@ -38,6 +38,7 @@ body {
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .paper-meta {
@@ -52,4 +53,50 @@ body {
   color: #333;
   font-size: 1rem;
   line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.paper-actions a,
+.paper-actions .copy-bibtex {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.paper-actions .paper-download {
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #0b66c3;
+  color: #fff;
+  font-weight: 600;
+}
+
+.paper-actions .paper-download:hover,
+.paper-actions .paper-download:focus-visible {
+  background: #084f98;
+  color: #fff;
+  text-decoration: none;
+}
+
+.paper-actions a:focus-visible,
+.copy-bibtex:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .paper-actions {
+    gap: 8px;
+  }
+
+  .paper-actions a,
+  .paper-actions .copy-bibtex {
+    width: 100%;
+    justify-content: center;
+  }
 }
