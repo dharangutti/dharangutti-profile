@@ -59,7 +59,7 @@
   <!-- White Papers Index -->
   <url>
     <loc>https://www.dharangutti.in/white-papers.html</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -73,6 +73,20 @@
   </url>
 
   <!-- PDFs -->
+  <url>
+    <loc>https://www.dharangutti.in/papers/Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.dharangutti.in/papers/Star_Inspired_Nuclear_Waste_White_Paper.pdf</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://www.dharangutti.in/papers/battery%20innovations%20paper.pdf</loc>
     <lastmod>2025-11-01</lastmod>
@@ -95,15 +109,8 @@
   </url>
 
   <url>
-    <loc>https://www.dharangutti.in/papers/Flux_Logic_Computing_Professional_V1.pdf</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
     <loc>https://www.dharangutti.in/papers/Flux_Logic_Computing_V2.pdf</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>

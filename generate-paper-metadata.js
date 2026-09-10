@@ -13,8 +13,14 @@ const metadata = {
   "hasPart": papers.map(p => ({
     "@type": "ScholarlyArticle",
     "headline": p.title,
+    "description": p.description,
     "datePublished": p.date,
-    "url": `https://www.dharangutti.in/papers/${encodeURIComponent(p.filename)}`
+    "url": `https://www.dharangutti.in/papers/${encodeURIComponent(p.filename)}`,
+    ...(p.doi ? {
+      "identifier": `https://doi.org/${p.doi}`,
+      "sameAs": p.zenodoUrl,
+      "publisher": { "@type": "Organization", "name": "Zenodo" }
+    } : {})
   }))
 };
 

@@ -1,38 +1,50 @@
 [
   {
-    "title": "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
-    "filename": "battery innovations paper.pdf",
-    "date": "2025-06-28",
-    "description": "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety."
-  },
-  {
-    "title": "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
-    "filename": "logic design paper.pdf",
-    "date": "2025-06-27",
-    "description": "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems."
-  },
-  {
-    "title": "Seabed-Anchored Adaptive Ocean Energy Network",
-    "filename": "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
-    "date": "2026-07-15",
-    "description": "A theoretical ocean-energy architecture using seabed reaction structures, adaptive tethered collectors, mechanical motion rectification, and distributed subsea power networks."
-  },
-  {
-    "title": "Flux Logic Computing V1.0",
-    "filename": "Flux_Logic_Computing_Professional_V1.pdf",
-    "date": "2026-07-18",
-    "description": "Concept Note - Deterministic Magnetic Flux Patterns as a Digital Logic Family"
-  },
-  {
-    "title": "Flux Logic Computing Gate Family Addendum",
-    "filename": "Flux_Logic_Computing_V2.pdf",
-    "date": "2026-07-19",
-    "description": "Concept Note - Deterministic Magnetic Flux Patterns as a Digital Logic Family, Gate Family Addendum — Continuation of V1.0 "
+    "title": "Future Smartphone Enhanced Open Innovation Concepts",
+    "filename": "Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf",
+    "date": "2026-09-04",
+    "description": "Three independently implementable concepts for future smartphones that treat the physical device itself as a programmable computing resource.",
+    "doi": "10.5281/zenodo.22289057",
+    "zenodoUrl": "https://zenodo.org/records/22289057"
   },
   {
     "title": "A Star-Inspired Framework for Transforming Nuclear Waste at the Source",
     "filename": "Star_Inspired_Nuclear_Waste_White_Paper.pdf",
     "date": "2026-08-23",
-    "description": "A Conceptual Direction for Next-Generation Nuclear Waste Neutralization"
-  }  
+    "description": "A conceptual framework inspired by stellar nuclear transformation for reducing the long-term radiotoxicity and stewardship burden of nuclear waste.",
+    "doi": "10.5281/zenodo.22066928",
+    "zenodoUrl": "https://zenodo.org/records/22066928"
+  },
+  {
+    "title": "Flux Logic Computing",
+    "filename": "Flux_Logic_Computing_V2.pdf",
+    "date": "2026-07-18",
+    "description": "A conceptual digital logic family in which binary information is represented by deterministic magnetic flux patterns rather than voltage ranges.",
+    "doi": "10.5281/zenodo.21446058",
+    "zenodoUrl": "https://zenodo.org/records/21446058"
+  },
+  {
+    "title": "Seabed-Anchored Adaptive Ocean Energy Network",
+    "filename": "Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf",
+    "date": "2026-07-15",
+    "description": "A conceptual marine-energy architecture using seabed power infrastructure, tethered hydrodynamic collectors, and a staged path toward open-sea validation.",
+    "doi": "10.5281/zenodo.21447437",
+    "zenodoUrl": "https://zenodo.org/records/21447437"
+  },
+  {
+    "title": "External Modulation Frameworks for Predictable, Stable, and Safer Battery Systems",
+    "filename": "battery innovations paper.pdf",
+    "date": "2025-06-28",
+    "description": "A systems-oriented framework exploring external modulation methods for improving battery predictability, operational stability, and safety.",
+    "doi": null,
+    "zenodoUrl": null
+  },
+  {
+    "title": "Authenticated Logic-Zero Encoding via Passive Current Signature for Robust Low Voltage Signaling",
+    "filename": "logic design paper.pdf",
+    "date": "2025-06-27",
+    "description": "A proposed signaling approach using passive current signatures to improve authentication and robustness in low-voltage logic systems.",
+    "doi": null,
+    "zenodoUrl": null
+  }
 ]
