@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,104 +24,382 @@
   
   <link rel="canonical" href="https://www.dharangutti.in/contact.html" />
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    .contact-page {
+      margin: 0;
+      color: #172b45;
+      background: #fff;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-page *,
+    .contact-page *::before,
+    .contact-page *::after {
+      box-sizing: border-box;
+    }
+
+    .contact-page .site-header {
+      padding: 1rem max(1.25rem, calc((100% - 64rem) / 2));
+      border-bottom-color: #e3e9f0;
+    }
+
+    .contact-page .main-nav {
+      gap: 0.25rem 1.25rem;
+    }
+
+    .contact-page .main-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+    }
+
+    .contact-page .main-nav a[href="/contact.html"] {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 0.4em;
+    }
+
+    .contact-page a:focus-visible {
+      outline: 3px solid #0366d6;
+      outline-offset: 5px;
+      border-radius: 4px;
+    }
+
+    .contact-section {
+      width: min(100%, 64rem);
+      margin: 4.5rem auto;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 5rem);
+    }
+
+    .contact-profile {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .contact-profile > div:last-child {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-portrait {
+      position: relative;
+      flex: 0 0 auto;
+      width: 6.5rem;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid #e3e9f0;
+      border-radius: 50%;
+      background: #f4f7fa;
+    }
+
+    .contact-portrait img {
+      /* Frame the face in the original landscape photo without altering it. */
+      position: absolute;
+      width: 270%;
+      max-width: none;
+      height: auto;
+      top: -48%;
+      left: -16%;
+      display: block;
+    }
+
+    .contact-name {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 650;
+    }
+
+    .contact-role {
+      margin: 0.2rem 0 0;
+      color: #526176;
+      font-size: 0.875rem;
+    }
+
+    .contact-intro h1 {
+      margin: 1.75rem 0 1rem;
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .contact-description {
+      max-width: 36ch;
+      margin: 0;
+      color: #526176;
+      font-size: 1.125rem;
+      line-height: 1.75;
+    }
+
+    .contact-location {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1.75rem 0 0;
+      color: #526176;
+      font-size: 0.9375rem;
+    }
+
+    .contact-location svg {
+      width: 1.125rem;
+      height: 1.125rem;
+      flex-shrink: 0;
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-height: 6rem;
+      padding: 1.25rem;
+      color: #172b45;
+      text-decoration: none;
+      border: 1px solid #e3e9f0;
+      border-radius: 12px;
+      background: #fff;
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+
+    .contact-method:hover {
+      border-color: #9dbde4;
+      background: #f4f8fd;
+    }
+
+    .contact-method:hover .contact-method-label {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .contact-method-icon {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      flex-shrink: 0;
+      color: #0366d6;
+      border-radius: 9px;
+      background: #edf4fc;
+    }
+
+    .contact-method-icon svg {
+      width: 1.375rem;
+      height: 1.375rem;
+    }
+
+    .contact-method-copy {
+      min-width: 0;
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-method-label,
+    .contact-method-value {
+      display: block;
+    }
+
+    .contact-method-label {
+      font-size: 1rem;
+      font-weight: 650;
+    }
+
+    .contact-method-value {
+      margin-top: 0.2rem;
+      color: #526176;
+      font-size: 0.9375rem;
+    }
+
+    .contact-method-arrow {
+      width: 1.125rem;
+      height: 1.125rem;
+      flex-shrink: 0;
+      color: #526176;
+    }
+
+    .contact-method--email {
+      min-height: 8rem;
+      color: #fff;
+      border-color: #075fbd;
+      background: #075fbd;
+    }
+
+    .contact-method--email:hover {
+      border-color: #064e9c;
+      background: #064e9c;
+    }
+
+    .contact-method--email .contact-method-icon {
+      color: #fff;
+      background: #ffffff1f;
+    }
+
+    .contact-method--email .contact-method-value,
+    .contact-method--email .contact-method-arrow {
+      color: #fff;
+    }
+
+    .contact-method--email .contact-method-value {
+      font-size: 1.0625rem;
+    }
+
+    .contact-social h2 {
+      margin: 1.75rem 0 0.75rem;
+      color: #526176;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .contact-social .contact-method + .contact-method {
+      margin-top: 0.75rem;
+    }
+
+    .contact-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 48rem) {
+      .contact-section {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 36rem;
+        margin: 2.5rem auto;
+        gap: 2rem;
+      }
+
+      .contact-portrait {
+        width: 5rem;
+      }
+
+      .contact-description {
+        max-width: none;
+      }
+
+      .contact-location {
+        margin-top: 1.25rem;
+      }
+    }
+
+    @media (max-width: 30rem) {
+      .contact-method {
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+
+      .contact-method-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+
+      .contact-method-arrow {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-method {
+        transition: none;
+      }
+    }
+  </style>
 </head>
-<section class="contact-section">
-  <div class="contact-portrait">
-    <img
-      src="/assets/images/anup-dharangutti-contact.webp"
-      alt="Anup Dharangutti"
-      width="864"
-      height="648"
-      decoding="async"
-    />
-  </div>
-  <h1>Let’s Connect</h1>
-  <p>I’m always open to thoughtful conversations, collaborations, or feedback.</p>
+<body class="contact-page">
+  <main class="contact-section" aria-labelledby="contact-title">
+    <div class="contact-intro">
+      <div class="contact-profile">
+        <div class="contact-portrait">
+          <img
+            src="/assets/images/anup-dharangutti-contact.webp"
+            alt="Anup Dharangutti"
+            width="864"
+            height="648"
+            decoding="async"
+          />
+        </div>
+        <div>
+          <p class="contact-name">Anup Dharangutti</p>
+          <p class="contact-role">Test Automation Specialist</p>
+        </div>
+      </div>
 
-  <div class="contact-grid">
-    <div class="contact-item">
-      <h2>Email</h2>
-      <a href="mailto:info@dharangutti.in">info@dharangutti.in</a>
+      <h1 id="contact-title">Let’s connect.</h1>
+      <p class="contact-description">I’m always open to thoughtful conversations, collaborations, or feedback.</p>
+      <p class="contact-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+        <span>Based in Bangalore, India</span>
+      </p>
     </div>
 
-    <div class="contact-item">
-      <h2>GitHub</h2>
-      <a href="https://github.com/dharangutti" target="_blank">github.com/dharangutti</a>
+    <div class="contact-details">
+      <a class="contact-method contact-method--email" href="mailto:info@dharangutti.in">
+        <span class="contact-method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3 7 9 6 9-6" />
+          </svg>
+        </span>
+        <span class="contact-method-copy">
+          <span class="contact-method-label">Email me</span>
+          <span class="contact-method-value">info@dharangutti.in</span>
+        </span>
+        <svg class="contact-method-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M5 12h14m-6-6 6 6-6 6" />
+        </svg>
+      </a>
+
+      <section class="contact-social" aria-labelledby="contact-social-title">
+        <h2 id="contact-social-title">Elsewhere online</h2>
+        <a class="contact-method" href="https://www.linkedin.com/in/anup-dharangutti-852a94129/" target="_blank" rel="noopener noreferrer">
+          <span class="contact-method-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <rect x="3" y="7" width="18" height="14" rx="2" />
+              <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12a20 20 0 0 0 18 0M12 12v3" />
+            </svg>
+          </span>
+          <span class="contact-method-copy">
+            <span class="contact-method-label">LinkedIn</span>
+            <span class="contact-method-value">Anup Dharangutti</span>
+          </span>
+          <svg class="contact-method-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+          <span class="contact-sr-only">(opens in a new tab)</span>
+        </a>
+        <a class="contact-method" href="https://github.com/dharangutti" target="_blank" rel="noopener noreferrer">
+          <span class="contact-method-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16" />
+            </svg>
+          </span>
+          <span class="contact-method-copy">
+            <span class="contact-method-label">GitHub</span>
+            <span class="contact-method-value">github.com/dharangutti</span>
+          </span>
+          <svg class="contact-method-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+          <span class="contact-sr-only">(opens in a new tab)</span>
+        </a>
+      </section>
     </div>
-
-    <div class="contact-item">
-      <h2>LinkedIn</h2>
-      <a href="https://www.linkedin.com/in/anup-dharangutti-852a94129/" target="_blank">Anup Dharangutti</a>
-    </div>
-
-    <div class="contact-item">
-      <h2>Location</h2>
-      <p>Bangalore, India</p>
-    </div>
-  </div>
-</section>
-
-<style>
-  .contact-section {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 1rem;
-    font-family: system-ui, sans-serif;
-    text-align: center;
-  }
-
-  .contact-portrait {
-    position: relative;
-    width: clamp(8rem, 20vw, 10rem);
-    aspect-ratio: 1;
-    margin: 0 auto 1.25rem;
-    overflow: hidden;
-    border: 1px solid #e6e6e6;
-    border-radius: 50%;
-    background: #f9f9f9;
-  }
-
-  .contact-portrait img {
-    /* Frame the face in the original landscape photo without altering it. */
-    position: absolute;
-    width: 270%;
-    max-width: none;
-    height: auto;
-    top: -48%;
-    left: -16%;
-    display: block;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .contact-item {
-    background: #f9f9f9;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
-
-  .contact-item h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    color: #333;
-  }
-
-  .contact-item a,
-  .contact-item p {
-    color: #0077cc;
-    text-decoration: none;
-    word-break: break-word;
-    margin: 0;
-  }
-
-  .contact-item a:hover {
-    text-decoration: underline;
-  }
-</style>
-<script src="/include-header.js"></script> <script src="/breadcrumb.js"></script>
+  </main>
+  <script src="/include-header.js"></script>
+  <script src="/breadcrumb.js"></script>
+</body>
+</html>
