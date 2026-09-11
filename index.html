@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Anup Dharangutti — Profile</title>
-    <meta name="description" content="Test Automation Specialist with 15+ years in QA, modular system design, and civic-grade engineering. Explore my portfolio, CV, white papers, and engineering insights." />
+    <meta name="description" content="Automation architect with 16+ years across quality engineering, modular system design, and civic-grade engineering. Explore my portfolio, CV, white papers, and engineering insights." />
     <meta name="keywords" content="test automation, QA engineering, modular systems, accessibility audits, civic-grade engineering, white papers, DOI, Anup Dharangutti, software testing, automation specialist" />
     <meta name="author" content="Anup Dharangutti" />
 
@@ -29,7 +29,7 @@
   "url": "https://www.dharangutti.in/",
   "image": "https://www.dharangutti.in/avatar.png",
   "jobTitle": "Test Automation Specialist",
-  "description": "Modular systems architect with 15+ years in QA, civic-grade tool design, and ensemble-grade engineering.",
+  "description": "Automation architect with 16+ years across quality engineering, civic-grade tool design, and ensemble-grade engineering.",
   "sameAs": [
     "https://github.com/dharangutti",
     "https://www.linkedin.com/in/anup-dharangutti-852a94129/"
@@ -90,6 +90,83 @@
         background: #f8f9fb;
         padding: 1rem;
         border-radius: 8px;
+      }
+
+      .about-card {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border: 1px solid #dbe7f3;
+        background: linear-gradient(135deg, #f7fbff 0%, #f8f9fb 72%);
+      }
+
+      .about-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0.3rem;
+        background: #0b66c3;
+      }
+
+      .about-kicker {
+        margin: 0 0 0.45rem;
+        color: #0b66c3;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .about-card h2 {
+        margin: 0;
+        color: #172b45;
+        font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.42fr);
+        gap: clamp(1.25rem, 4vw, 3rem);
+        align-items: start;
+      }
+
+      .about-copy {
+        margin: 0.8rem 0 0;
+        color: #2f4054;
+        font-size: 1.03rem;
+        line-height: 1.7;
+      }
+
+      .about-focus {
+        margin: 0;
+        padding: 1rem 1.1rem;
+        border-left: 1px solid #c8d9eb;
+      }
+
+      .about-focus-title {
+        margin: 0 0 0.6rem;
+        color: #526176;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .about-focus ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .about-focus li {
+        padding: 0.45rem 0;
+        color: #172b45;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+
+      .about-focus li + li {
+        border-top: 1px solid #e1eaf3;
       }
       .iframe-wrapper {
         position: relative;
@@ -217,6 +294,14 @@
           display: block;
           max-width: none;
         }
+        .about-layout {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .about-focus {
+          padding: 1rem 0 0;
+          border-top: 1px solid #c8d9eb;
+          border-left: 0;
+        }
         .wp-featured {
           grid-template-columns: minmax(0, 1fr);
         }
@@ -261,12 +346,29 @@
         </div>
       </header>
 
-      <section style="margin-top:1.25rem">
-        <div class="card">
-          <h2>About me</h2>
-          <p>
-           I design and build web, desktop, and mobile test automation systems across enterprise‑grade technology stacks, blending precision engineering with scalable, maintainable frameworks. With over 15+ years of experience in Quality Engineering and system architecture, I focus on creating automation that is resilient, intention‑driven, and deeply aligned with real‑world delivery workflows. My work emphasizes architectural clarity, long‑term maintainability, and measurable impact across the software lifecycle.
-          </p>
+      <section style="margin-top:1.25rem" aria-labelledby="about-title">
+        <div class="card about-card">
+          <div class="about-layout">
+            <div>
+              <p class="about-kicker">About me</p>
+              <h2 id="about-title">I turn quality engineering into a delivery advantage.</h2>
+              <p class="about-copy">
+                I’m an automation architect with 16+ years across quality engineering, software development, and systems administration in industrial automation, healthcare, logistics, and SaaS. I design modular, distributed, and self-healing test systems for web, desktop, mobile, and APIs, then connect them to the CI/CD workflows teams rely on to ship with confidence.
+              </p>
+              <p class="about-copy">
+                My approach is practical: make the architecture clear, keep the framework maintainable, and measure whether it improves feedback for the people using it. Alongside client work, I build focused tools and write about engineering ideas that deserve a closer look.
+              </p>
+            </div>
+            <aside class="about-focus" aria-label="Areas of focus">
+              <p class="about-focus-title">Areas of focus</p>
+              <ul>
+                <li>Automation architecture</li>
+                <li>Quality engineering strategy</li>
+                <li>CI/CD and reliable feedback</li>
+                <li>Practical engineering tools</li>
+              </ul>
+            </aside>
+          </div>
         </div>
 
         <div class="card" style="margin-top:1rem">
