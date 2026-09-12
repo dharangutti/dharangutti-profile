@@ -18,6 +18,7 @@
     <meta name="twitter:description" content="16+ years in quality engineering. Reliable automation, practical software projects, and independent engineering research." />
     <meta name="twitter:image" content="https://www.dharangutti.in/assets/images/anup-dharangutti-contact.webp" />
     <link rel="stylesheet" href="/assets/css/home.css" />
+    <script src="/assets/js/home-papers.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -172,40 +173,12 @@
             <a class="text-link" href="/white-papers.html">All white papers <span aria-hidden="true">&rarr;</span></a>
           </div>
           <p class="research-intro">Conceptual architectures for computing, energy, and future devices. These working papers set out ideas, assumptions, and paths toward validation.</p>
-          <div class="paper-list">
-            <article class="paper">
-              <div class="paper-copy">
-                <p class="paper-meta"><time datetime="2026-09-04">4 Sep 2026</time> <span aria-hidden="true">&middot;</span> Working paper <span aria-hidden="true">&middot;</span> v2.0</p>
-                <h3><a href="https://doi.org/10.5281/zenodo.22289057" target="_blank" rel="noopener noreferrer">Future Smartphone Enhanced Open Innovation Concepts<span class="sr-only"> (DOI record, opens in a new tab)</span></a></h3>
-                <p>Three concepts that treat the physical smartphone as a programmable computing resource.</p>
-              </div>
-              <a class="paper-download" href="/papers/Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf" download="Future_Smartphone_Enhanced_Open_Innovation_Concepts_v2.0.pdf" type="application/pdf">Download PDF<span class="sr-only">: Future Smartphone Enhanced Open Innovation Concepts</span> <span aria-hidden="true">&darr;</span></a>
-            </article>
-            <article class="paper">
-              <div class="paper-copy">
-                <p class="paper-meta"><time datetime="2026-08-23">23 Aug 2026</time> <span aria-hidden="true">&middot;</span> Working paper <span aria-hidden="true">&middot;</span> v1.0</p>
-                <h3><a href="https://doi.org/10.5281/zenodo.22066928" target="_blank" rel="noopener noreferrer">A Star-Inspired Framework for Transforming Nuclear Waste at the Source<span class="sr-only"> (DOI record, opens in a new tab)</span></a></h3>
-                <p>A layered framework combining partitioning, recycling, transmutation, and durable immobilization.</p>
-              </div>
-              <a class="paper-download" href="/papers/Star_Inspired_Nuclear_Waste_White_Paper.pdf" download="Star_Inspired_Nuclear_Waste_White_Paper.pdf" type="application/pdf">Download PDF<span class="sr-only">: A Star-Inspired Framework for Transforming Nuclear Waste at the Source</span> <span aria-hidden="true">&darr;</span></a>
-            </article>
-            <article class="paper">
-              <div class="paper-copy">
-                <p class="paper-meta"><time datetime="2026-07-18">18 Jul 2026</time> <span aria-hidden="true">&middot;</span> Working paper <span aria-hidden="true">&middot;</span> v2.0</p>
-                <h3><a href="https://doi.org/10.5281/zenodo.21446058" target="_blank" rel="noopener noreferrer">Flux Logic Computing<span class="sr-only"> (DOI record, opens in a new tab)</span></a></h3>
-                <p>A proposed digital logic family that represents binary information through magnetic flux patterns.</p>
-              </div>
-              <a class="paper-download" href="/papers/Flux_Logic_Computing_V2.pdf" download="Flux_Logic_Computing_V2.pdf" type="application/pdf">Download PDF<span class="sr-only">: Flux Logic Computing</span> <span aria-hidden="true">&darr;</span></a>
-            </article>
-            <article class="paper">
-              <div class="paper-copy">
-                <p class="paper-meta"><time datetime="2026-07-15">15 Jul 2026</time> <span aria-hidden="true">&middot;</span> Working paper <span aria-hidden="true">&middot;</span> v1.0</p>
-                <h3><a href="https://doi.org/10.5281/zenodo.21447437" target="_blank" rel="noopener noreferrer">Seabed-Anchored Adaptive Ocean Energy Network<span class="sr-only"> (DOI record, opens in a new tab)</span></a></h3>
-                <p>An ocean-energy architecture pairing seabed power infrastructure with tethered hydrodynamic collectors.</p>
-              </div>
-              <a class="paper-download" href="/papers/Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf" download="Seabed_Anchored_Adaptive_Ocean_Energy_Network_White_Paper.pdf" type="application/pdf">Download PDF<span class="sr-only">: Seabed-Anchored Adaptive Ocean Energy Network</span> <span aria-hidden="true">&darr;</span></a>
-            </article>
+          <div class="paper-list" id="home-paper-list" data-paper-source="/white-papers.html" data-paper-limit="4" aria-live="polite" aria-busy="true">
+            <p class="paper-load-status" data-paper-status>Loading latest white papers&hellip;</p>
           </div>
+          <noscript>
+            <p class="research-note">JavaScript is required to show the latest papers here. <a href="/white-papers.html">Browse all white papers</a>.</p>
+          </noscript>
           <p class="research-note">Selected working papers are published with citable DOIs on Zenodo. Independently authored; not associated with any employer or client.</p>
         </section>
 

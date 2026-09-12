@@ -86,6 +86,7 @@ img { display: block; max-width: 100%; }
 .research-section .eyebrow { color: #806019; }
 .research-intro { color: var(--muted); max-width: 49rem; margin-bottom: 1.4rem; }
 .paper-list { border-top: 2px solid #c9a84c; }
+.paper-load-status { color: var(--muted); margin: 1.5rem 0; }
 .paper { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2rem; padding-block: 1.5rem; border-bottom: 1px solid var(--line); }
 .paper h3 { font-size: 1.05rem; line-height: 1.45; margin-top: 0.3rem; }
 .paper h3 a { color: var(--blue); text-decoration: none; }
