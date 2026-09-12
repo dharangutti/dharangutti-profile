@@ -16,6 +16,17 @@ The site is hosted at: **https://www.dharangutti.in** (via GitHub Pages)
 - **[White Papers](https://www.dharangutti.in/white-papers.html)** - Research papers on engineering topics
 - **[Celestial Calendar](https://www.dharangutti.in/celestial-calendar.html)** - Upcoming celestial events tracker
 
+## Adding a White Paper
+
+`white-papers.html` is the source of truth for the archived-paper list shown on the home page. To publish a new paper:
+
+1. Add the PDF under `papers/`, or use its public Zenodo file URL when the PDF is hosted there.
+2. Add a `.paper-item` under `#paper-list-zenodo` in `white-papers.html` with `.paper-title`, `.paper-meta`, `.paper-description`, and `.paper-actions .paper-download` elements.
+3. Keep the newest archived paper first. The home page reads the first four cards automatically; no `index.html` edit is needed for each new paper.
+4. Add the matching `ScholarlyArticle` entry to the JSON-LD block in `white-papers.html`.
+
+The home page loads `assets/js/home-papers.js`, which fetches the archived list and safely rebuilds the research cards. If the list cannot be loaded, it provides a link to the full white-papers page.
+
 ## 🔍 SEO & Discoverability
 
 ### Sitemap (sitemap.xml)
