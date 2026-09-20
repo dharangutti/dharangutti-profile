@@ -29,12 +29,12 @@
         var stats = record && record.stats ? record.stats : {};
         var parts = [];
 
-        if (Number.isFinite(Number(stats.downloads))) {
-          parts.push(numberFormat.format(Number(stats.downloads)) + ' downloads');
-        }
-        if (Number.isFinite(Number(stats.views))) {
-          parts.push(numberFormat.format(Number(stats.views)) + ' views');
-        }
+        if (Number.isFinite(Number(stats.unique_downloads))) {
+  parts.push(numberFormat.format(Number(stats.unique_downloads)) + ' downloads');
+}
+if (Number.isFinite(Number(stats.unique_views))) {
+  parts.push(numberFormat.format(Number(stats.unique_views)) + ' views');
+}
 
         element.textContent = parts.length
           ? 'Zenodo: ' + parts.join(' · ')
