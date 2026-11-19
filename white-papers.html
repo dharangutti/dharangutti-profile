@@ -186,6 +186,583 @@
       </p>
     </header>
 
+    
+<!-- RESEARCH ANALYTICS: Place immediately after </header> -->
+<section class="card research-analytics" id="research-analytics"
+         aria-labelledby="research-analytics-title">
+
+  <h2 id="research-analytics-title">Research Analytics</h2>
+  <p class="ra-intro">
+    Public engagement statistics for research papers archived on Zenodo.
+    Figures are cumulative and retrieved from Zenodo.
+  </p>
+
+  <div class="ra-summary" aria-live="polite">
+    <div class="ra-metric">
+      <span class="ra-metric-label">Zenodo Papers</span>
+      <strong id="ra-papers">—</strong>
+    </div>
+    <div class="ra-metric">
+      <span class="ra-metric-label">Total Views</span>
+      <strong id="ra-views">—</strong>
+    </div>
+    <div class="ra-metric">
+      <span class="ra-metric-label">Total Downloads</span>
+      <strong id="ra-downloads">—</strong>
+    </div>
+    <div class="ra-metric">
+      <span class="ra-metric-label">Downloads / Views</span>
+      <strong id="ra-ratio">—</strong>
+    </div>
+  </div>
+
+  <div class="ra-chart-section">
+    <h3>Engagement by Publication</h3>
+    <div class="ra-legend">
+      <span><i class="ra-dot ra-views-dot"></i> Views</span>
+      <span><i class="ra-dot ra-downloads-dot"></i> Downloads</span>
+    </div>
+    <div id="ra-chart" class="ra-chart"
+         role="img"
+         aria-label="Views and downloads by research paper">
+      Loading research statistics…
+    </div>
+  </div>
+
+  <div class="ra-table-wrap">
+    <h3>Publication Rankings</h3>
+    <table class="ra-table">
+      <thead>
+        <tr>
+          <th scope="col">Publication</th>
+          <th scope="col">Views</th>
+          <th scope="col">Downloads</th>
+          <th scope="col">Ratio</th>
+        </tr>
+      </thead>
+      <tbody id="ra-table-body">
+        <tr><td colspan="4">Loading statistics…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="ra-footer">
+    <span id="ra-updated">Connecting to Zenodo…</span>
+    <button type="button" id="ra-refresh">Refresh</button>
+  </p>
+  <p class="ra-note">
+    Source: Zenodo public API. Counts are record-level statistics,
+    not unique readers. The download-to-view ratio is not a
+    visitor conversion rate. Site-hosted PDFs are excluded.
+  </p>
+</section>
+
+<style>
+.research-analytics {
+  margin-top: 24px;
+}
+
+.research-analytics h2 {
+  margin-bottom: 8px;
+}
+
+.research-analytics h3 {
+  font-size: 1.05rem;
+  margin: 0 0 16px;
+}
+
+.ra-intro, .ra-note, .ra-footer {
+  color: #64748b;
+  font-size: .88rem;
+  line-height: 1.6;
+}
+
+.ra-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0 32px;
+}
+
+.ra-metric {
+  padding: 20px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ra-metric-label {
+  font-size: .78rem;
+  color: #64748b;
+}
+
+.ra-metric strong {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+}
+
+.ra-chart-section {
+  margin-bottom: 32px;
+}
+
+.ra-legend {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 18px;
+  font-size: .82rem;
+  color: #64748b;
+}
+
+.ra-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ra-dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.ra-views-dot { background: #2563eb; }
+.ra-downloads-dot { background: #0d9488; }
+
+.ra-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ra-chart-item {
+  display: grid;
+  grid-template-columns: minmax(125px, 1fr) 3fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.ra-chart-label {
+  font-size: .83rem;
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+a.ra-chart-label:hover {
+  text-decoration: underline;
+}
+
+.ra-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ra-bar-track {
+  width: 100%;
+  background: #e2e8f0;
+  height: 17px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ra-bar {
+  height: 100%;
+  min-width: 0;
+  border-radius: 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  transition: width .35s ease;
+}
+
+.ra-bar.views { background: #2563eb; }
+.ra-bar.downloads { background: #0d9488; }
+
+.ra-bar-value {
+  font-size: .68rem;
+  color: #fff;
+  padding: 0 6px;
+  font-weight: 600;
+}
+
+.ra-bar-outside {
+  font-size: .75rem;
+  margin-left: 6px;
+  color: #475569;
+}
+
+.ra-bar-line {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ra-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 22px;
+}
+
+.ra-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+
+.ra-table th, .ra-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ra-table th:first-child,
+.ra-table td:first-child {
+  text-align: left;
+}
+
+.ra-table th {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.ra-table a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.ra-table a:hover {
+  text-decoration: underline;
+}
+
+.ra-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+#ra-refresh {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 7px 14px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+#ra-refresh:hover {
+  border-color: #2563eb;
+}
+
+#ra-refresh:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+@media (max-width: 650px) {
+  .ra-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ra-chart-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .ra-metric {
+    padding: 15px 12px;
+  }
+
+  .ra-table {
+    font-size: .78rem;
+  }
+
+  .ra-table th, .ra-table td {
+    padding: 10px 6px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ra-metric {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .ra-metric strong { color: #f1f5f9; }
+  .ra-metric-label, .ra-intro,
+  .ra-note, .ra-footer, .ra-legend,
+  .ra-table th { color: #94a3b8; }
+
+  .ra-bar-track { background: #334155; }
+  .ra-bar-outside { color: #cbd5e1; }
+  .ra-table th, .ra-table td {
+    border-color: #334155;
+  }
+
+  #ra-refresh { border-color: #475569; }
+}
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  const root = document.getElementById("research-analytics");
+  if (!root) return;
+
+  const $ = id => document.getElementById(id);
+  const number = value => Number(value).toLocaleString("en-US");
+  const percentage = (a, b) =>
+    b > 0 ? ((a / b) * 100).toFixed(1) + "%" : "—";
+
+  // Discover records automatically from the existing paper list.
+  const papers = Array.from(
+    document.querySelectorAll(
+      "#paper-list-zenodo .paper-item"
+    )
+  ).map(item => {
+    const stats = item.querySelector("[data-zenodo-record]");
+    const title = item.querySelector(".paper-title");
+    if (!stats || !title) return null;
+
+    const id = stats.dataset.zenodoRecord;
+    if (!/^\d+$/.test(id)) return null;
+
+    return {
+      id,
+      title: title.textContent.trim(),
+      url: "https://zenodo.org/records/" + id
+    };
+  }).filter(Boolean);
+
+  const uniquePapers = Array.from(
+    new Map(papers.map(p => [p.id, p])).values()
+  );
+
+  async function fetchRecord(paper) {
+    const url = "https://zenodo.org/api/records/" +
+      encodeURIComponent(paper.id);
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+
+      const data = await response.json();
+      const s = data.stats || {};
+
+      // Use all_versions to include version history when available.
+      // Fall back to this_version and then the flat stats object.
+      const candidates = [
+        s.all_versions,
+        s.this_version,
+        s
+      ];
+
+      const selected = candidates.find(x =>
+        x &&
+        Number.isFinite(Number(x.views)) &&
+        Number.isFinite(Number(x.downloads))
+      );
+
+      if (!selected) {
+        throw new Error("Statistics unavailable");
+      }
+
+      return {
+        ...paper,
+        views: Number(selected.views),
+        downloads: Number(selected.downloads)
+      };
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function createBar(value, max, type) {
+    const line = document.createElement("div");
+    line.className = "ra-bar-line";
+
+    const track = document.createElement("div");
+    track.className = "ra-bar-track";
+
+    const bar = document.createElement("div");
+    bar.className = "ra-bar " + type;
+    bar.style.width = (max > 0 ? value / max * 100 : 0) + "%";
+
+    const label = document.createElement("span");
+    label.className = "ra-bar-value";
+    label.textContent = number(value);
+
+    if (max > 0 && value / max >= .17) {
+      bar.appendChild(label);
+    } else {
+      const outside = document.createElement("span");
+      outside.className = "ra-bar-outside";
+      outside.textContent = number(value);
+      line.appendChild(track);
+      track.appendChild(bar);
+      line.appendChild(outside);
+      return line;
+    }
+
+    track.appendChild(bar);
+    line.appendChild(track);
+    return line;
+  }
+
+  function render(data, failures) {
+    const totalViews = data.reduce((s, p) => s + p.views, 0);
+    const totalDownloads = data.reduce(
+      (s, p) => s + p.downloads, 0
+    );
+
+    $("ra-papers").textContent = number(data.length);
+    $("ra-views").textContent = number(totalViews);
+    $("ra-downloads").textContent = number(totalDownloads);
+    $("ra-ratio").textContent = percentage(
+      totalDownloads, totalViews
+    );
+
+    const sorted = [...data].sort((a, b) =>
+      b.views - a.views || b.downloads - a.downloads
+    );
+
+    const max = Math.max(
+      1,
+      ...sorted.flatMap(p => [p.views, p.downloads])
+    );
+
+    const chart = $("ra-chart");
+    const tbody = $("ra-table-body");
+
+    chart.replaceChildren();
+    tbody.replaceChildren();
+
+    sorted.forEach(p => {
+      // Comparison chart
+      const item = document.createElement("div");
+      item.className = "ra-chart-item";
+
+      const link = document.createElement("a");
+      link.className = "ra-chart-label";
+      link.href = p.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = p.title;
+
+      const bars = document.createElement("div");
+      bars.className = "ra-bars";
+      bars.appendChild(createBar(p.views, max, "views"));
+      bars.appendChild(createBar(p.downloads, max, "downloads"));
+
+      item.append(link, bars);
+      chart.appendChild(item);
+
+      // Rankings table
+      const tr = document.createElement("tr");
+      const titleCell = document.createElement("td");
+      const titleLink = link.cloneNode(true);
+      titleCell.appendChild(titleLink);
+      tr.appendChild(titleCell);
+
+      [
+        number(p.views),
+        number(p.downloads),
+        percentage(p.downloads, p.views)
+      ].forEach(value => {
+        const td = document.createElement("td");
+        td.textContent = value;
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+    });
+
+    if (failures > 0) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 4;
+      td.textContent =
+        failures + " record(s) could not be retrieved.";
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    }
+
+    if (!data.length) {
+      chart.textContent = "Statistics currently unavailable.";
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 4;
+      td.textContent = "Unable to retrieve Zenodo statistics.";
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    }
+
+    const timestamp = new Date().toLocaleString("en-IN", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+
+    $("ra-updated").textContent =
+      (failures
+        ? "Partial data (" + data.length + "/" +
+          uniquePapers.length + " records). "
+        : "All records loaded. ") +
+      "Retrieved: " + timestamp;
+  }
+
+  async function loadAnalytics() {
+    const button = $("ra-refresh");
+    button.disabled = true;
+    button.textContent = "Loading…";
+
+    try {
+      const results = await Promise.allSettled(
+        uniquePapers.map(fetchRecord)
+      );
+
+      const data = results
+        .filter(r => r.status === "fulfilled")
+        .map(r => r.value);
+
+      const failures = results.length - data.length;
+      render(data, failures);
+    } catch (error) {
+      $("ra-updated").textContent =
+        "Unable to load analytics. Please retry.";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Refresh";
+    }
+  }
+
+  $("ra-refresh").addEventListener("click", loadAnalytics);
+  loadAnalytics();
+})();
+</script>
+<!-- END RESEARCH ANALYTICS -->
+
+
     <section class="card">
       <h2 class="paper-section-label">Archived on Zenodo (DOI)</h2>
       <!--
