@@ -9,31 +9,73 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="assets/css/technology-horizons.css">
   <link rel="stylesheet" href="assets/css/forecast-stats.css">
+  <link rel="stylesheet" href="assets/css/forecast-polls.css">
   <script defer src="/include-header.js"></script>
   <script defer src="/breadcrumb.js"></script>
   <script type="module" src="assets/js/technology-horizons.js"></script>
   <script type="module" src="assets/js/forecast-stats.js"></script>
 </head>
-<body>
+<body class="technology-horizons-page">
   <main class="horizons">
     <header class="horizons-intro">
-      <h1>Technology Horizons 2026–2051</h1>
-      <p>Explore forecasts by target year and follow how they change over time.</p>
+      <div class="horizons-intro-copy">
+        <h1>Technology Horizons <span>2026–2051</span></h1>
+        <p>Explore forecasts about how technology might change, cast your vote, and follow each revision.</p>
+        <div class="horizons-intro-actions">
+          <a class="horizons-primary" href="#forecast-explorer">Browse forecasts</a>
+          <a href="#forecast-insights">Insights</a>
+        </div>
+      </div>
+      <nav class="horizon-nav" aria-label="Jump to a forecast horizon">
+        <p>Jump to a horizon</p>
+        <ul>
+          <li><a href="#forecasts-2031"><strong>2031</strong><span class="horizon-nav-arrow" aria-hidden="true"></span><small data-horizon-count="2031"></small></a></li>
+          <li><a href="#forecasts-2041"><strong>2041</strong><span class="horizon-nav-arrow" aria-hidden="true"></span><small data-horizon-count="2041"></small></a></li>
+          <li><a href="#forecasts-2046"><strong>2046</strong><span class="horizon-nav-arrow" aria-hidden="true"></span><small data-horizon-count="2046"></small></a></li>
+          <li><a href="#forecasts-2051"><strong>2051</strong><span class="horizon-nav-arrow" aria-hidden="true"></span><small data-horizon-count="2051"></small></a></li>
+        </ul>
+      </nav>
     </header>
-    <section aria-labelledby="forecast-stats-title">
-      <h2 id="forecast-stats-title">Forecast statistics</h2>
-      <div data-forecast-stats role="status"></div>
-    </section>
-    <p id="forecast-status" role="status">Loading forecasts…</p>
-    <section id="forecast-controls" class="forecast-controls" aria-label="Forecast filters" hidden>
-      <label>Category <select id="forecast-category"><option value="">All categories</option></select></label>
-      <label>Search <input id="forecast-search" type="search" placeholder="Search forecasts"></label>
-    </section>
-    <noscript><p>Enable JavaScript to explore forecasts and respond to polls.</p></noscript>
-    <section id="forecasts-2031" aria-labelledby="horizon-2031"><h2 id="horizon-2031">2031</h2><div></div></section>
-    <section id="forecasts-2041" aria-labelledby="horizon-2041"><h2 id="horizon-2041">2041</h2><div></div></section>
-    <section id="forecasts-2046" aria-labelledby="horizon-2046"><h2 id="horizon-2046">2046</h2><div></div></section>
-    <section id="forecasts-2051" aria-labelledby="horizon-2051"><h2 id="horizon-2051">2051</h2><div></div></section>
+
+    <div class="horizons-layout">
+      <section id="forecast-explorer" aria-labelledby="forecast-explorer-title">
+        <h2 id="forecast-explorer-title">Explore forecasts</h2>
+        <div id="forecast-controls" class="forecast-controls" role="search" aria-label="Forecasts" hidden>
+          <label>Search forecasts <input id="forecast-search" type="search" placeholder="Title, topic, or keyword"></label>
+          <label>Category <select id="forecast-category"><option value="">All categories</option></select></label>
+        </div>
+        <div class="forecast-results">
+          <p id="forecast-status" role="status">Loading forecasts…</p>
+          <button id="forecast-reset" class="forecast-text-button" type="button" hidden>Clear filters</button>
+        </div>
+        <noscript><p>Enable JavaScript to explore forecasts and respond to polls.</p></noscript>
+        <section class="forecast-horizon" id="forecasts-2031" aria-labelledby="horizon-2031">
+          <header><h3 id="horizon-2031">2031</h3><span class="forecast-horizon-count"></span></header>
+          <div id="forecast-cards-2031" class="forecast-cards"></div>
+          <button class="forecast-more" type="button" aria-controls="forecast-cards-2031" hidden></button>
+        </section>
+        <section class="forecast-horizon" id="forecasts-2041" aria-labelledby="horizon-2041">
+          <header><h3 id="horizon-2041">2041</h3><span class="forecast-horizon-count"></span></header>
+          <div id="forecast-cards-2041" class="forecast-cards"></div>
+          <button class="forecast-more" type="button" aria-controls="forecast-cards-2041" hidden></button>
+        </section>
+        <section class="forecast-horizon" id="forecasts-2046" aria-labelledby="horizon-2046">
+          <header><h3 id="horizon-2046">2046</h3><span class="forecast-horizon-count"></span></header>
+          <div id="forecast-cards-2046" class="forecast-cards"></div>
+          <button class="forecast-more" type="button" aria-controls="forecast-cards-2046" hidden></button>
+        </section>
+        <section class="forecast-horizon" id="forecasts-2051" aria-labelledby="horizon-2051">
+          <header><h3 id="horizon-2051">2051</h3><span class="forecast-horizon-count"></span></header>
+          <div id="forecast-cards-2051" class="forecast-cards"></div>
+          <button class="forecast-more" type="button" aria-controls="forecast-cards-2051" hidden></button>
+        </section>
+      </section>
+
+      <section id="forecast-insights" aria-labelledby="forecast-insights-title">
+        <h2 id="forecast-insights-title">Forecast insights</h2>
+        <div data-forecast-stats="full"><p role="status">Loading forecast insights…</p></div>
+      </section>
+    </div>
   </main>
 </body>
 </html>
