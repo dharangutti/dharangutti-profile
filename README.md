@@ -18,9 +18,10 @@ The site is hosted at: **https://www.dharangutti.in** (via GitHub Pages)
 
 ## Publishing a Technology Horizons forecast
 
-The [Technology Horizons page](https://www.dharangutti.in/technology-horizons.html) and home page statistics read `data/forecasts.json`. The three initial samples are marked as placeholders.
+The [Technology Horizons page](https://www.dharangutti.in/technology-horizons.html) and home page statistics read `data/forecasts.json`.
 
-- To publish a new forecast, append one record with a unique, stable `id`, its original `publishedOn` date, and a `versions` array with its first version. Each version has a `date`, `horizon` (2031, 2041, 2046, or 2051), `category`, `title`, and `text`. Published dates use `YYYY-MM-DD` in UTC. Use the same date for `publishedOn` and the first version.
+- To publish a new forecast, append one record with a unique, stable `id`, its original `publishedOn` date, and a `versions` array with its first version. Each version has a `date`, `horizon` (2031, 2041, 2046, or 2051), `category`, and `title`. Published dates use `YYYY-MM-DD` in UTC. Use the same date for `publishedOn` and the first version.
+- Write a paragraph in `text`, a non-empty array of bullet strings in `points`, or both. When supplied together, the paragraph appears above the bullets.
 - To revise an entry, append a full snapshot to `versions` in date order and keep the original date, ID, and earlier snapshots. To replace a placeholder in place, append the approved wording and omit `placeholder` on that version. The earlier sample remains labeled in the history.
 - The latest effective version determines where the forecast appears. Future publication and revision dates take effect on or after the configured UTC date. Poll responses are saved per forecast version in the reader’s browser.
 

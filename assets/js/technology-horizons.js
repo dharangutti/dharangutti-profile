@@ -29,6 +29,18 @@ function forecastCount(count) {
   return `${count} ${count === 1 ? 'forecast' : 'forecasts'}`;
 }
 
+function forecastCopy({ text, points }) {
+  const copy = element('div', undefined, 'forecast-copy');
+  if (text) copy.append(element('p', text));
+
+  if (points?.length) {
+    const list = element('ul', undefined, 'forecast-points');
+    for (const point of points) list.append(element('li', point));
+    copy.append(list);
+  }
+  return copy;
+}
+
 function versionHistory(versions) {
   const history = element('details', undefined, 'forecast-history');
   const items = element('ol');
@@ -40,7 +52,7 @@ function versionHistory(versions) {
     const metadata = element('p');
     metadata.append(time(version.date), ` · ${version.horizon} · ${version.category}`);
     if (version.placeholder) metadata.append(' · Placeholder');
-    item.append(title, metadata, element('p', version.text));
+    item.append(title, metadata, forecastCopy(version));
     items.append(item);
   }
   history.append(element('summary', `Version history (${versions.length})`), items);
@@ -65,7 +77,7 @@ function forecastCard({ id, publishedOn, versions, current }) {
     tags,
     title,
     metadata,
-    element('p', current.text, 'forecast-card-copy'),
+    forecastCopy(current),
     createForecastPoll(id, versions.length),
     versionHistory(versions)
   );
@@ -114,7 +126,7 @@ function showForecasts(forecasts) {
     const { current } = forecast;
     sections.get(current.horizon).entries.push({
       forecast,
-      searchText: `${current.title} ${current.text} ${current.category}`.toLowerCase()
+      searchText: [current.title, current.category, current.text, ...(current.points ?? [])].join(' ').toLowerCase()
     });
   }
 

@@ -325,8 +325,29 @@
   font-size: .83rem;
 }
 
-.forecast-card-copy {
+.forecast-card > .forecast-copy {
   margin: 0 0 1rem;
+}
+
+.forecast-copy > p,
+.forecast-points {
+  margin: 0;
+}
+
+.forecast-points {
+  padding-inline-start: 1.35rem;
+}
+
+.forecast-copy > p + .forecast-points {
+  margin-top: .55rem;
+}
+
+.forecast-points li + li {
+  margin-top: .35rem;
+}
+
+.forecast-points li::marker {
+  color: var(--horizons-accent);
 }
 
 .forecast-history {
@@ -353,7 +374,7 @@
   font-size: .9rem;
 }
 
-.forecast-history li p {
+.forecast-history li > p {
   margin: .25rem 0;
 }
 
