@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  background: #f5f7fa;
+  color: #182536;
+  font: 1rem/1.6 system-ui, sans-serif;
+}
+
+.horizons {
+  max-width: 62rem;
+  margin: auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.horizons-intro {
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border-radius: 1rem;
+  background: #172b44;
+  color: #fff;
+}
+
+.horizons h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.horizons h2 {
+  margin-top: 2rem;
+  border-bottom: 1px solid #c4cfdb;
+}
+
+.forecast-controls:not([hidden]),
+.forecast-poll div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+.forecast-controls label {
+  display: grid;
+  gap: .25rem;
+}
+
+.horizons input,
+.horizons select,
+.horizons button {
+  padding: .4rem .65rem;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #71839a;
+  border-radius: .35rem;
+  font: inherit;
+}
+
+.horizons button[aria-pressed="true"] {
+  background: #172b44;
+  color: #fff;
+}
+
+.forecast-card {
+  padding: 1rem 1.25rem;
+  margin-bottom: .75rem;
+  border: 1px solid #c4cfdb;
+  border-radius: .7rem;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.forecast-card h3 {
+  margin: .25rem 0;
+}
+
+.forecast-card summary {
+  cursor: pointer;
+}
+
+.forecast-poll {
+  margin-top: 1rem;
+  border: 1px solid #c4cfdb;
+}
+
+.forecast-empty {
+  padding: .75rem 1rem;
+  border-left: .2rem solid #71839a;
+}

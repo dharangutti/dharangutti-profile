@@ -16,6 +16,14 @@ The site is hosted at: **https://www.dharangutti.in** (via GitHub Pages)
 - **[White Papers](https://www.dharangutti.in/white-papers.html)** - Research papers on engineering topics
 - **[Celestial Calendar](https://www.dharangutti.in/celestial-calendar.html)** - Upcoming celestial events tracker
 
+## Publishing a Technology Horizons forecast
+
+The [Technology Horizons page](https://www.dharangutti.in/technology-horizons.html) and home page statistics read `data/forecasts.json`. The three initial samples are marked as placeholders.
+
+- To publish a new forecast, append one record with a unique, stable `id`, its original `publishedOn` date, and a `versions` array with its first version. Each version has a `date`, `horizon` (2031, 2041, 2046, or 2051), `category`, `title`, and `text`. Published dates use `YYYY-MM-DD` in UTC. Use the same date for `publishedOn` and the first version.
+- To revise an entry, append a full snapshot to `versions` in date order and keep the original date, ID, and earlier snapshots. To replace a placeholder in place, append the approved wording and omit `placeholder` on that version. The earlier sample remains labeled in the history.
+- The latest effective version determines where the forecast appears. Future publication and revision dates take effect on or after the configured UTC date. Poll responses are saved per forecast version in the reader’s browser.
+
 ## Adding a White Paper
 
 `white-papers.html` is the source of truth for the archived-paper list shown on the home page. To publish a new paper:

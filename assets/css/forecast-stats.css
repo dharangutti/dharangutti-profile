@@ -1,0 +1,17 @@
+[data-forecast-stats] dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: .75rem;
+  margin: 1rem 0;
+}
+
+[data-forecast-stats] dl > div {
+  padding: .75rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: .5rem;
+}
+
+[data-forecast-stats] dd {
+  margin: .3rem 0 0;
+  font-weight: 700;
+}
