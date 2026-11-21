@@ -144,3 +144,34 @@ img { display: block; max-width: 100%; }
   .contact-band { flex-direction: column; align-items: start; padding: 1.5rem; margin-top: 2.5rem; }
   .home-footer { flex-wrap: wrap; }
 }
+
+.horizons-preview {
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: .9rem;
+  background: #f4f9ff;
+}
+
+.horizons-preview .section-heading p {
+  margin-top: .55rem;
+  color: var(--muted);
+}
+
+.horizons-preview-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: .6rem;
+  padding: .5rem .9rem;
+  border-radius: .45rem;
+  background: var(--blue);
+  color: #fff;
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.horizons-preview-link:hover {
+  background: #084c92;
+  color: #fff;
+}

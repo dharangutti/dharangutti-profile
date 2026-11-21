@@ -10,6 +10,18 @@
         "title": "AI-assisted test planning",
         "text": "By 2031, at least half of the largest public software companies will routinely use AI to draft regression test plans for major releases.",
         "placeholder": true
+      },
+      {
+        "date": "2026-11-21",
+        "horizon": 2031,
+        "category": "Software Engineering",
+        "title": "Software Becomes a Standardized Engineering Discipline",
+        "text": "Software development will mature into an engineering discipline, following a path similar to civil, electrical, and mechanical engineering.",
+        "points": [
+          "Global standards and conventions will guide how software is designed, built, and assessed.",
+          "Safety requirements, established architecture patterns, and quality certifications will gain broad acceptance.",
+          "Software systems will become more reliable, interoperable, and secure."
+        ]
       }
     ]
   },
@@ -24,6 +36,18 @@
         "title": "Sodium-ion storage at grid scale",
         "text": "By 2041, sodium-ion batteries will account for at least 20% of newly installed stationary battery capacity worldwide, measured in gigawatt-hours.",
         "placeholder": true
+      },
+      {
+        "date": "2026-11-21",
+        "horizon": 2041,
+        "category": "Digital Infrastructure",
+        "title": "Technology Becomes a Mandatory Utility",
+        "text": "Digital technology will become as essential to daily life as electricity, transportation, and communication.",
+        "points": [
+          "Education, healthcare, governance, and finance will increasingly rely on digital infrastructure.",
+          "AI-driven quality assurance will dramatically reduce software defects.",
+          "Digital literacy will become a fundamental life skill."
+        ]
       }
     ]
   },
@@ -38,6 +62,17 @@
         "title": "Digital records for building materials",
         "text": "By 2041, at least ten countries will require digital material inventories for newly constructed public buildings.",
         "placeholder": true
+      },
+      {
+        "date": "2026-11-21",
+        "horizon": 2041,
+        "category": "Artificial Intelligence",
+        "title": "AI Triggers an Age of Accelerated Invention",
+        "text": "AI will become a universal innovation partner across science, medicine, engineering, agriculture, and education.",
+        "points": [
+          "Shorter research cycles will bring discoveries faster than ever.",
+          "AI will help people overcome current technological limitations and improve quality of life."
+        ]
       }
     ]
   }
